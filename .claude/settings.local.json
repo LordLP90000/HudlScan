@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(netstat -ano)",
+      "Bash(grep :3002.*LISTENING)",
+      "Read(//c/Users/anton/HudlScan/**)",
+      "Bash(xargs -I {} taskkill //F //PID {})",
+      "Bash(node server.js)",
+      "Bash(curl -s http://localhost:3002)"
+    ]
+  }
+}

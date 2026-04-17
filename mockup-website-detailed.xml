@@ -1,0 +1,664 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Hudl Playbook AI - Full Website Mockup" id="full-mockup">
+    <mxGraphModel dx="1920" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1400" background="#1A1A1A">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ========== PAGE 1: LANDING ========== -->
+        <mxCell id="page1-label" value="PAGE 1: LANDING" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontColor=#FF6600;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Full Background -->
+        <mxCell id="page1-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1A1A1A;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="0" y="50" width="920" height="620" as="geometry" />
+        </mxCell>
+
+        <!-- Navbar -->
+        <mxCell id="p1-navbar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#242424;strokeColor=#3A3A3A;" vertex="1" parent="1">
+          <mxGeometry x="0" y="50" width="920" height="64" as="geometry" />
+        </mxCell>
+
+        <!-- Logo Box -->
+        <mxCell id="p1-logo-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF6600;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="20" y="59" width="36" height="46" as="geometry" />
+        </mxCell>
+
+        <!-- Logo Text -->
+        <mxCell id="p1-logo-text" value="Hudl Playbook AI" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontColor=#FFFFFF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="65" y="66" width="150" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Nav Links -->
+        <mxCell id="p1-nav1" value="Features" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=13;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="600" y="66" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-nav2" value="How it works" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=13;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="690" y="66" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-nav3" value="Pricing" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=13;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="810" y="66" width="60" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- CTA Button -->
+        <mxCell id="p1-cta" value="Start Converting →" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF6600;strokeColor=none;fontColor=#FFFFFF;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="770" y="59" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Hero Badge -->
+        <mxCell id="p1-badge" value="⚡ AI-Powered Playbook Conversion" style="rounded=1;whiteSpace=wrap;html=1;fillColor=rgba(255,102,0,0.2);strokeColor=#FF6600;fontColor=#FF6600;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="290" y="140" width="240" height="26" as="geometry" />
+        </mxCell>
+
+        <!-- Hero Title -->
+        <mxCell id="p1-title1" value="Turn Hudl Playbooks into" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=40;fontColor=#FFFFFF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="80" y="175" width="760" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-title2" value="Excel Sheets" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=40;fontColor=#FF6600;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="80" y="220" width="760" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- Hero Description -->
+        <mxCell id="p1-desc" value="Upload your playbook screenshots or PDFs and let AI extract every play. Server-side processing means it works even when you switch tabs." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="120" y="280" width="680" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Hero Buttons -->
+        <mxCell id="p1-btn1" value="📤 Start Converting Free" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF6600;strokeColor=none;fontColor=#FFFFFF;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="240" y="340" width="180" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-btn2" value="▶ Watch Demo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="440" y="340" width="130" height="44" as="geometry" />
+        </mxCell>
+
+        <!-- Trust Items -->
+        <mxCell id="p1-trust1" value="✓ No registration required" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="200" y="410" width="170" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-trust2" value="✓ Server-side processing" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="390" y="410" width="170" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-trust3" value="✓ 100% Free" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="580" y="410" width="110" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Features Section Preview -->
+        <mxCell id="p1-features-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#242424;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="0" y="500" width="920" height="170" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p1-feat-title" value="Features" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontColor=#FFFFFF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="0" y="515" width="920" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Feature Cards -->
+        <mxCell id="p1-feat1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;" vertex="1" parent="1">
+          <mxGeometry x="30" y="555" width="270" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-feat1-icon" value="⚡" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24" vertex="1" parent="1">
+          <mxGeometry x="45" y="565" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-feat1-title" value="Server-Side Processing" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#FFFFFF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="90" y="565" width="200" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-feat1-desc" value="Processing happens on our servers. Close the tab, switch windows - it keeps running." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="90" y="590" width="200" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p1-feat2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;" vertex="1" parent="1">
+          <mxGeometry x="325" y="555" width="270" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-feat2-icon" value="🛡️" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24" vertex="1" parent="1">
+          <mxGeometry x="340" y="565" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-feat2-title" value="Position-Specific" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#FFFFFF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="385" y="565" width="200" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-feat2-desc" value="Select your position (QB, RB, WR, TE, etc.) and get YOUR specific routes and assignments." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="385" y="590" width="200" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p1-feat3" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;" vertex="1" parent="1">
+          <mxGeometry x="620" y="555" width="270" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-feat3-icon" value="📥" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24" vertex="1" parent="1">
+          <mxGeometry x="635" y="565" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-feat3-title" value="Excel Export" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#FFFFFF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="680" y="565" width="200" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-feat3-desc" value="Get beautifully formatted Excel sheets ready to print or share with your team." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="680" y="590" width="200" height="50" as="geometry" />
+        </mxCell>
+
+
+        <!-- ========== PAGE 2: UPLOAD ========== -->
+        <mxCell id="page2-label" value="PAGE 2: UPLOAD" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontColor=#FF6600;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="980" y="20" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Page 2 Background -->
+        <mxCell id="page2-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1A1A1A;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="940" y="50" width="920" height="620" as="geometry" />
+        </mxCell>
+
+        <!-- Navbar -->
+        <mxCell id="p2-navbar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#242424;strokeColor=#3A3A3A;" vertex="1" parent="1">
+          <mxGeometry x="940" y="50" width="920" height="64" as="geometry" />
+        </mxCell>
+
+        <!-- Logo -->
+        <mxCell id="p2-logo-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF6600;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="960" y="59" width="32" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-logo-text" value="Hudl Playbook AI" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#FFFFFF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1000" y="66" width="150" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- Page Title -->
+        <mxCell id="p2-title1" value="Convert Your" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=32;fontColor=#FFFFFF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1100" y="145" width="580" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-title2" value="Playbook" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=32;fontColor=#FF6600;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1255" y="180" width="320" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p2-subtitle" value="Server-side AI processing - works even when you switch tabs" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="1080" y="220" width="620" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Upload Card -->
+        <mxCell id="p2-card" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="270" width="700" height="370" as="geometry" />
+        </mxCell>
+
+        <!-- Position Label -->
+        <mxCell id="p2-pos-label" value="Select Your Position:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#A0A0A0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1060" y="285" width="140" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Position Buttons (8 in a row) -->
+        <mxCell id="p2-pos-qb" value="QB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#A0A0A0;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1060" y="310" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-pos-rb" value="RB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#A0A0A0;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1138" y="310" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-pos-fb" value="FB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF6600;strokeColor=none;fontColor=#FFFFFF;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1216" y="310" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-pos-x" value="X" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#A0A0A0;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1294" y="310" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-pos-y" value="Y" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#A0A0A0;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1372" y="310" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-pos-z" value="Z" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#A0A0A0;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1450" y="310" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-pos-h" value="H" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#A0A0A0;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1528" y="310" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-pos-te" value="TE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#A0A0A0;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1606" y="310" width="70" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Position Subtitle -->
+        <mxCell id="p2-pos-subtitle" value="AI will extract routes for Fullback / A-back" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="1060" y="355" width="660" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Upload Area -->
+        <mxCell id="p2-upload-area" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;dashed=1;dashPattern=5 5;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="390" width="660" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p2-upload-icon" value="📤" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=32" vertex="1" parent="1">
+          <mxGeometry x="1320" y="405" width="60" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p2-upload-text" value="Click to upload your playbook" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#FF6600;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1120" y="450" width="320" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p2-upload-subtext" value="Supports PNG, JPG, PDF • Multiple files allowed" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="1140" y="475" width="280" height="18" as="geometry" />
+        </mxCell>
+
+        <!-- Extract Button -->
+        <mxCell id="p2-extract-btn" value="⚡ Extract Plays with AI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF6600;strokeColor=none;fontColor=#FFFFFF;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1240" y="520" width="300" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- ========== PAGE 3: EDITOR ========== -->
+        <mxCell id="page3-label" value="PAGE 3: EDITOR" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontColor=#FF6600;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="690" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Page 3 Background -->
+        <mxCell id="page3-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1A1A1A;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="0" y="720" width="920" height="640" as="geometry" />
+        </mxCell>
+
+        <!-- Editor Header -->
+        <mxCell id="p3-header" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#242424;strokeColor=#3A3A3A;" vertex="1" parent="1">
+          <mxGeometry x="0" y="720" width="920" height="64" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p3-logo-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF6600;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="20" y="729" width="32" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-title" value="Playcalling Sheet Editor" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#FFFFFF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="729" width="200" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-subtitle" value="142 plays extracted • Fullback" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="60" y="750" width="200" height="18" as="geometry" />
+        </mxCell>
+
+        <!-- Editor Buttons -->
+        <mxCell id="p3-btn-add" value="+ Add Row" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#10B981;strokeColor=none;fontColor=#FFFFFF;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="550" y="730" width="80" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-btn-new" value="↻ New" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="640" y="730" width="70" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-btn-export" value="↓ Export Excel" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF6600;strokeColor=none;fontColor=#FFFFFF;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="720" y="730" width="100" height="35" as="geometry" />
+        </mxCell>
+
+        <!-- Success Banner -->
+        <mxCell id="p3-success" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=rgba(16,185,129,0.2);strokeColor=#10B981;" vertex="1" parent="1">
+          <mxGeometry x="0" y="795" width="920" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-success-text" value="✓ Plays extracted! Review and edit before exporting." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#10B981" vertex="1" parent="1">
+          <mxGeometry x="20" y="803" width="400" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Table -->
+        <mxCell id="p3-table" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;" vertex="1" parent="1">
+          <mxGeometry x="0" y="845" width="920" height="500" as="geometry" />
+        </mxCell>
+
+        <!-- Table Header Row -->
+        <mxCell id="p3-th-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3A3A3A;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="0" y="845" width="920" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p3-th-num" value="#" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#6B6B6B" vertex="1" parent="1">
+          <mxGeometry x="0" y="850" width="50" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-th-col1" value="Formation/Play 1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#FFFFFF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="850" width="400" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-th-col2" value="Route/Blocking" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#FFFFFF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="470" y="850" width="400" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-th-actions" value="" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#6B6B6B" vertex="1" parent="1">
+          <mxGeometry x="880" y="850" width="40" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Data Row 1 -->
+        <mxCell id="p3-r1-num" value="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#6B6B6B" vertex="1" parent="1">
+          <mxGeometry x="0" y="880" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r1-col1" value="Cross" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="60" y="880" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r1-col2" value="Delayed Out" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3D3D00;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="470" y="880" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r1-actions" value="✕ ✚" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="880" y="880" width="40" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Data Row 2 -->
+        <mxCell id="p3-r2-num" value="2" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#6B6B6B" vertex="1" parent="1">
+          <mxGeometry x="0" y="915" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r2-col1" value="A-Near / Zug Z-Flip" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="60" y="915" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r2-col2" value="Cross" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3D3D00;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="470" y="915" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r2-actions" value="✕ ✚" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="880" y="915" width="40" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Data Row 3 -->
+        <mxCell id="p3-r3-num" value="3" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#6B6B6B" vertex="1" parent="1">
+          <mxGeometry x="0" y="950" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r3-col1" value="Zug A-Bump" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="60" y="950" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r3-col2" value="Go" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3D3D00;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="470" y="950" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r3-actions" value="✕ ✚" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="880" y="950" width="40" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Data Row 4 -->
+        <mxCell id="p3-r4-num" value="4" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#6B6B6B" vertex="1" parent="1">
+          <mxGeometry x="0" y="985" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r4-col1" value="Power / Trey" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="60" y="985" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r4-col2" value="Fill the Pulling Gap" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3D0000;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="470" y="985" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r4-actions" value="✕ ✚" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="880" y="985" width="40" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Data Row 5 -->
+        <mxCell id="p3-r5-num" value="5" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#6B6B6B" vertex="1" parent="1">
+          <mxGeometry x="0" y="1020" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r5-col1" value="Lu I Off A Cross" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1020" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r5-col2" value="Wheel" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3D3D00;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="470" y="1020" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r5-actions" value="✕ ✚" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="880" y="1020" width="40" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Data Row 6 -->
+        <mxCell id="p3-r6-num" value="6" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#6B6B6B" vertex="1" parent="1">
+          <mxGeometry x="0" y="1055" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r6-col1" value="Lu Glance (Arrow)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1055" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r6-col2" value="Corner" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3D3D00;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="470" y="1055" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r6-actions" value="✕ ✚" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="880" y="1055" width="40" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Data Row 7 -->
+        <mxCell id="p3-r7-num" value="7" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#6B6B6B" vertex="1" parent="1">
+          <mxGeometry x="0" y="1090" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r7-col1" value="A Near / Z Flip" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1090" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r7-col2" value="delay Flat" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3D3D00;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="470" y="1090" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r7-actions" value="✕ ✚" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="880" y="1090" width="40" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Data Row 8 -->
+        <mxCell id="p3-r8-num" value="8" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#6B6B6B" vertex="1" parent="1">
+          <mxGeometry x="0" y="1125" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r8-col1" value="Zug A Bump" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1125" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r8-col2" value="Slant" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3D3D00;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="470" y="1125" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r8-actions" value="✕ ✚" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="880" y="1125" width="40" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Data Row 9 -->
+        <mxCell id="p3-r9-num" value="9" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#6B6B6B" vertex="1" parent="1">
+          <mxGeometry x="0" y="1160" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r9-col1" value="Zug" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1160" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r9-col2" value="5 Out" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3D3D00;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="470" y="1160" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r9-actions" value="✕ ✚" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="880" y="1160" width="40" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Data Row 10 -->
+        <mxCell id="p3-r10-num" value="10" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#6B6B6B" vertex="1" parent="1">
+          <mxGeometry x="0" y="1195" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r10-col1" value="ISO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1195" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r10-col2" value="Find PS Hole and Kill" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3D0000;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="470" y="1195" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r10-actions" value="✕ ✚" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="880" y="1195" width="40" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Data Row 11 -->
+        <mxCell id="p3-r11-num" value="11" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#6B6B6B" vertex="1" parent="1">
+          <mxGeometry x="0" y="1230" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r11-col1" value="Inside / Out Zone" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1230" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r11-col2" value="Block BS End" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3D0000;strokeColor=#3A3A3A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="470" y="1230" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-r11-actions" value="✕ ✚" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="880" y="1230" width="40" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Color Legend -->
+        <mxCell id="p3-legend-title" value="Cell Colors:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#A0A0A0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="20" y="1270" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-legend-f" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D2D2D;strokeColor=#3A3A3A;" vertex="1" parent="1">
+          <mxGeometry x="115" y="1270" width="25" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-legend-ft" value="Formation" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="145" y="1270" width="65" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-legend-r" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3D3D00;strokeColor=#3A3A3A;" vertex="1" parent="1">
+          <mxGeometry x="220" y="1270" width="25" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-legend-rt" value="Route" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="250" y="1270" width="45" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-legend-b" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3D0000;strokeColor=#3A3A3A;" vertex="1" parent="1">
+          <mxGeometry x="305" y="1270" width="25" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-legend-bt" value="Blocking" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="335" y="1270" width="60" height="18" as="geometry" />
+        </mxCell>
+
+
+        <!-- ========== PAGE 4: EXPORT (Right Side) ========== -->
+        <mxCell id="page4-label" value="PAGE 4: EXCEL EXPORT" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontColor=#FF6600;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="980" y="690" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Page 4 Background -->
+        <mxCell id="page4-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1A1A1A;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="940" y="720" width="920" height="640" as="geometry" />
+        </mxCell>
+
+        <!-- Excel Preview -->
+        <mxCell id="p4-excel-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CCCCCC;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="800" width="800" height="480" as="geometry" />
+        </mxCell>
+
+        <!-- Excel Title Bar -->
+        <mxCell id="p4-titlebar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#217346;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="760" width="800" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p4-titlebar-text" value="playsheet_2026-03-30.xlsx - Excel" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#FFFFFF" vertex="1" parent="1">
+          <mxGeometry x="1010" y="765" width="300" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Excel Toolbar -->
+        <mxCell id="p4-toolbar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D9D9D9;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="790" width="800" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Excel Row Headers (A, B, C, D) -->
+        <mxCell id="p4-col-a" value="A" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#FFFFFF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1000" y="825" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-col-b" value="B" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#FFFFFF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1040" y="825" width="380" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-col-c" value="C" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#FFFFFF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1420" y="825" width="380" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-col-d" value="D" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#FFFFFF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1800" y="825" width="0" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Excel Column Headers -->
+        <mxCell id="p4-header-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#4472C4;strokeColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="845" width="800" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Excel Sample Data -->
+        <!-- Row 1 -->
+        <mxCell id="p4-r1-a" value="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="1000" y="880" width="40" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r1-b" value="Cross" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF2D2D2D;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="880" width="380" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r1-c" value="Delayed Out" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF3D3D00;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="880" width="380" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Row 2 -->
+        <mxCell id="p4-r2-a" value="2" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="1000" y="910" width="40" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r2-b" value="A-Near / Zug Z-Flip" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF2D2D2D;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="910" width="380" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r2-c" value="Cross" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF3D3D00;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="910" width="380" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Row 3 -->
+        <mxCell id="p4-r3-a" value="3" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="1000" y="940" width="40" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r3-b" value="Zug A-Bump" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF2D2D2D;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="940" width="380" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r3-c" value="Go" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF3D3D00;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="940" width="380" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Row 4 -->
+        <mxCell id="p4-r4-a" value="4" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="1000" y="970" width="40" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r4-b" value="Power / Trey" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF2D2D2D;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="970" width="380" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r4-c" value="Fill the Pulling Gap" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF3D0000;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="970" width="380" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Row 5 -->
+        <mxCell id="p4-r5-a" value="5" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="1000" y="1000" width="40" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r5-b" value="Lu I Off A Cross" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF2D2D2D;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="1000" width="380" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r5-c" value="Wheel" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF3D3D00;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="1000" width="380" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Row 6 -->
+        <mxCell id="p4-r6-a" value="6" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="1000" y="1030" width="40" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r6-b" value="Lu Glance (Arrow)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF2D2D2D;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="1030" width="380" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r6-c" value="Corner" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF3D3D00;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="1030" width="380" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Row 7 -->
+        <mxCell id="p4-r7-a" value="7" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="1000" y="1060" width="40" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r7-b" value="A Near / Z Flip" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF2D2D2D;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="1060" width="380" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r7-c" value="delay Flat" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF3D3D00;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="1060" width="380" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Row 8 -->
+        <mxCell id="p4-r8-a" value="8" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="1000" y="1090" width="40" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r8-b" value="Zug A Bump" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF2D2D2D;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="1090" width="380" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r8-c" value="Slant" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF3D3D00;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="1090" width="380" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Row 9 -->
+        <mxCell id="p4-r9-a" value="9" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="1000" y="1120" width="40" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r9-b" value="Zug" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF2D2D2D;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="1120" width="380" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r9-c" value="5 Out" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF3D3D00;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="1120" width="380" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Row 10 -->
+        <mxCell id="p4-r10-a" value="10" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="1000" y="1150" width="40" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r10-b" value="ISO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF2D2D2D;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="1150" width="380" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-r10-c" value="Find PS Hole and Kill" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF3D0000;strokeColor=#4A4A4A;fontColor=#FFFFFF;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="1150" width="380" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Excel Footer -->
+        <mxCell id="p4-footer" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D9D9D9;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="1180" width="800" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p4-footer-text" value="Ready" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="1010" y="1182" width="40" height="15" as="geometry" />
+        </mxCell>
+
+        <!-- Page 4 Labels -->
+        <mxCell id="p4-title" value="Excel Export Preview" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontColor=#FFFFFF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="940" y="730" width="200" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p4-subtitle" value="Dark theme Excel export with color-coded cells matching the Hudl design" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#A0A0A0" vertex="1" parent="1">
+          <mxGeometry x="940" y="755" width="500" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Export button on preview -->
+        <mxCell id="p4-download-btn" value="⬇ Download File" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#10B981;strokeColor=none;fontColor=#FFFFFF;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1650" y="732" width="110" height="36" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
