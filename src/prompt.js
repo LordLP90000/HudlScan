@@ -21,81 +21,70 @@ export function buildPrompt(position, isPDF = false) {
   // @ts-ignore - positionLabels indexing
   const labels = positionLabels[pos] || [pos];
 
-  return `*** IMPORTANT: YOU ARE ANALYZING VISUAL DIAGRAMS ONLY ***
-*** DO NOT READ ANY TEXT FROM THE PAGE ***
-*** IGNORE ALL WORDS, LABELS, CAPTIONS, EXPLANATIONS ***
+  return `You are analyzing a football playbook page with MULTIPLE play diagrams. Extract plays for position: ${pos}
 
-Your task: Look at the PLAY DIAGRAMS (drawn rectangles with arrows) and extract plays for position: ${pos}
+POSITION LABEL TO FIND: ${labels.join(' or ')}
 
-STEP 1 - IGNORE ALL TEXT
-DO NOT READ:
-- Page headers
-- Diagram labels/captions
-- Explanatory text
-- Formation names written as text
-- Route descriptions written as text
-- Any words anywhere on the page
+*** CRITICAL DISTINCTION - WHAT TO READ vs IGNORE ***
 
-ONLY LOOK AT:
-- The drawn rectangles representing players
-- The ARROWS drawn from each player
-- The visual diagram itself
+READ THIS (short labels, 1-5 words):
+- Play name UNDER each diagram
+- Page header concept
 
-STEP 2 - FIND YOUR POSITION IN EACH DIAGRAM
-Find the player labeled: ${labels.join(' or ')}
-There will be MULTIPLE diagrams on this page. Look at EACH ONE SEPARATELY.
+IGNORE THIS (long descriptions):
+- Explanatory paragraphs
+- Bullet points with notes
+- Route descriptions in text
+- Any text that explains "how to" run the play
 
-STEP 3 - READ THE ARROW SHAPE (NOT TEXT!)
-For the ${pos} player in EACH diagram:
-1. Look at the ARROW drawn from that player
-2. What SHAPE does it make?
-3. Where does it POINT?
+YOUR TASK: For EACH diagram, extract:
+1. col1 = Short play name from diagram label (e.g., "Zug A-Bump", "2x2 Twin")
+2. col2 = Route from visual ARROW only (NEVER from text description)
+3. col3 = Concept from page header (e.g., "Stick", "Glance", "Power")
+4. col4 = Blocking description (if blocking, not route)
 
-STEP 4 - NAME WHAT YOU SEE (col2 = route, col4 = blocking)
+STEP 1 - FIND PLAY NAME (col1)
+Look UNDER/BESIDE each diagram for a short label like:
+"Zug A-Bump" / "2x2 Twin" / "I-Off Tight" / "Power Trey"
+Drop year prefixes like "2026"
+Use this EXACT text for col1
 
-Based ONLY on the ARROW SHAPE:
-- Arrow goes STRAIGHT UP = "Go"
-- Arrow goes UP then angles INSIDE = "Post"
-- Arrow goes UP then angles OUTSIDE = "Corner"
-- Arrow goes OUT to sideline = "Out"
-- Arrow goes IN to middle = "In"
-- Arrow goes SHORT to sideline area = "Flat"
-- Arrow goes DIAGONAL = "Slant"
-- Arrow goes UP then STOPS = "Hitch"
-- Arrow goes 5 yards UP then OUT = "5 Out"
-- Arrow goes 10 yards UP then IN = "10 Dig"
-- Arrow goes ACROSS field = "Cross"
-- Arrow goes toward FLAT then UP sideline = "Wheel"
-- Arrow has NO arrowhead, goes into defender = BLOCKING
-
-If BLOCKING:
-- col2 = "" (empty)
-- col4 = describe the block ("Lead", "Pass protect", "Kick out", "Seal")
-
-If ROUTE:
-- col2 = the route name from arrow shape
-- col4 = "" (empty)
-
-STEP 5 - FIND FORMATION (col1) - FROM DIAGRAM ONLY
-Look at how players are ARRANGED in the diagram:
-- 2 receivers left, 2 right = "2x2"
-- 3 receivers one side = "Trips" or "3x1"
-- Tight end on line = "Tight"
-- Spread wide = "Spread"
-- Describe the VISUAL formation, not text labels
-
-STEP 6 - FIND CONCEPT (col3)
-Look for the play CONCEPT in the page header. Common concepts:
+STEP 2 - FIND PAGE CONCEPT (col3)
+Look at page header for the concept word:
 Stick, Glance, Cross, Mesh, Power, Zone, Trey, ISO, Smash, Sail, Boot, RPO
-Write the EXACT concept word from header.
+This is SAME for every row on the page
 
-OUTPUT - JSON ARRAY ONLY:
+STEP 3 - FIND YOUR POSITION'S ARROW
+Locate player: ${labels.join(' or ')}
+Look at the ARROW drawn from that player
+IGNORE any text describing what they do
+
+STEP 4 - NAME THE ROUTE FROM ARROW SHAPE (col2) or BLOCKING (col4)
+
+Route names - based ONLY on arrow shape:
+- Straight UP = "Go"
+- Up then angles INSIDE = "Post"
+- Up then angles OUTSIDE = "Corner"
+- Breaks OUT = "Out"
+- Breaks IN = "In"
+- Short to sideline = "Flat"
+- DIAGONAL = "Slant"
+- Up then STOP = "Hitch"
+- 5yds up then OUT = "5 Out"
+- 10yds up then IN = "10 Dig"
+- Across field = "Cross"
+- To flat then UP = "Wheel"
+
+Blocking - when arrow goes INTO defender (no arrowhead):
+- col2 = "" (empty)
+- col4 = "Lead block" / "Pass protect" / "Kick out" / "Seal"
+
+OUTPUT FORMAT (one row per diagram, DO NOT combine):
 [
-  {"col1": "formation from diagram layout", "col2": "route from arrow shape", "col3": "concept from header", "col4": "" or "blocking"},
-  {"col1": "...", "col2": "...", "col3": "...", "col4": ""}
+  {"col1": "Zug A-Bump", "col2": "Go", "col3": "Stick", "col4": ""},
+  {"col1": "2x2 Twin", "col2": "5 Out", "col3": "Stick", "col4": ""},
+  {"col1": "Power", "col2": "", "col3": "Power", "col4": "Lead block"}
 ]
 
-ONE ROW PER DIAGRAM. Do NOT combine diagrams.
-
-Return ONLY JSON. No explanations.`;
+Return ONLY the JSON array. No explanations.`;
 }
