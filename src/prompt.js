@@ -48,6 +48,9 @@ export function buildPrompt(position) {
 
   return `You are analyzing a football playbook page with MULTIPLE play diagrams. Extract plays for position: ${pos}
 
+*** MOST CRITICAL: EACH DIAGRAM IS UNIQUE - READ EVERY ONE ***
+If there are 6 diagrams, you need 6 DIFFERENT entries. Do NOT repeat the same formation/play name!
+
 POSITION LABEL TO FIND: ${labels.join(' or ')}
 
 *** CRITICAL FORMATION RULES FOR col1 ***
@@ -117,13 +120,19 @@ OUTPUT FORMAT:
   {"col1": "LUZERN T-WING POWER RIGHT", "col2": "Flat", "col3": "POWER", "col4": ""}
 ]
 
-*** ANTI-LAZY RULES - READ EACH DIAGRAM INDIVIDUALLY ***
+*** ANTI-LAZY RULES - EACH DIAGRAM IS UNIQUE ***
 
-WRONG - Lazy duplicate output:
+CRITICAL: Every single diagram on the page has a DIFFERENT play written on it.
+You MUST read the label for EACH diagram individually. Do NOT repeat the same formation!
+
+WRONG - Lazy duplicate output (DO NOT DO THIS):
 {"col1": "ZUG Bump-over"}, {"col1": "ZUG Bump-over"}, {"col1": "ZUG Bump-over"}, {"col1": "ZUG Bump-over"}
 
 RIGHT - Each diagram has unique play concept:
-{"col1": "ZUG A-BUMP SMASH"}, {"col1": "ZUG A-BUMP GLANCE"}, {"col1": "ZUG A-BUMP SPACING"}, {"col1": "ZUG A-BUMP TREY"}
+{"col1": "ZUG A-BUMP SMASH vs OVER"}, {"col1": "ZUG A-BUMP GLANCE vs OVER"}, {"col1": "ZUG A-BUMP SPACING vs OVER"}, {"col1": "ZUG A-BUMP TREY vs OVER"}
+
+If you see 4 diagrams with ZUG A-BUMP, each one has a DIFFERENT concept (SMASH, GLANCE, SPACING, TREY).
+Find the concept written on EACH diagram and include it!
 
 CRITICAL: If multiple diagrams show the same formation, each ONE has a different play concept written on it. FIND IT and include it!
 
