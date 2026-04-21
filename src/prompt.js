@@ -31,8 +31,9 @@ const FORMATION_MODIFIERS = ['A-BUMP', 'A-NEAR-BUMP', 'T-WING', 'Z-FLIP', 'T-FLI
 
 // Play concepts from the playbook
 const CONCEPTS = [
-  'POWER', 'ISO', 'SMASH', 'GLANCE', 'SPACING', 'TREY',
-  'GLANCE ARROW', 'SPACING vs OVER', 'PASS GAME'
+  'POWER', 'ISO', 'SMASH', 'GLANCE', 'SPACING', 'TREY', 'MOSES',
+  'GLANCE ARROW', 'SPACING vs OVER', 'SHALLOW CROSS', 'PASS GAME',
+  'INSIDE ZONE', 'OUTSIDE ZONE'
 ];
 
 /**
