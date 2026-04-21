@@ -48,37 +48,46 @@ export function buildPrompt(position) {
 
   return `You are analyzing a football playbook page. Extract plays for position labeled: ${labels.join(' or ')}
 
-*** VISUAL OBSERVATION PROCESS - DO THIS FOR EACH DIAGRAM ***
+*** DIAGRAM-BY-DIAGRAM EXTRACTION - NO LAZINESS ***
 
-For EVERY diagram on the page:
-1. Look for the position label (${labels.join(' or ')}) in the diagram
-2. Trace the arrow/line coming from that position
-3. Read what that arrow/line shows (route or blocking)
-4. Read the formation name written UNDER or BESIDE the diagram
-5. Move to the next diagram and repeat
+For EACH diagram individually:
+1. Find position label (${labels.join(' or ')})
+2. Trace the line/arrow from that position
+3. Read the route/blocking that line shows
+4. Read the formation text UNDER the diagram
+5. Write what you see - move to next diagram
 
-*** CRITICAL: EACH DIAGRAM IS DIFFERENT ***
-- Diagram 1 might show "A" running a Hitch route
-- Diagram 2 might show "A" blocking inside
-- Diagram 3 might show "A" running a Flat route
-- Extract EXACTLY what each diagram shows - NO patterns, NO assumptions!
+WARNING: Every diagram shows a DIFFERENT play. Do NOT repeat the same formation.
+- Diagram 1: "ZUG A-BUMP SMASH"
+- Diagram 2: "ZUG A-BUMP GLANCE"
+- Diagram 3: "LUZERN A-NEAR-BUMP SPACING"
+- These are THREE different formations - extract each one!
 
-*** VALID ROUTES (use ONLY these) ***
+*** WHAT TO EXTRACT FOR col1 (Formation/Play) ***
+- Base formation: ZUG or LUZERN
+- Modifiers: A-BUMP, A-NEAR-BUMP, T-WING, I-OFF, Z-FLIP, T-FLIP, A-DIVIDE, A-SHORT-DIVIDE
+- Play concept: SMASH, GLANCE, SPACING, TREY, MOSES, POWER, ISO, GLANCE ARROW, SHALLOW CROSS, INSIDE ZONE, OUTSIDE ZONE
+- Example: "ZUG A-BUMP SMASH" or "LUZERN I-OFF TREY"
+
+*** NEVER EXTRACT THESE AS FORMATIONS ***
+- Receiver distributions: 2x2, 3x1, Trips Side, Single Side, Field, Boundary
+- Protection calls: LOU, RAY, Cup, Full Cup, Full Lou, Full Ray, Big-on-Big, Half-Slide
+- Position labels alone: "A", "2", "X", "Y", "Z", "T"
+- Empty or partial: "Formation", "Bump-over", just "ZUG"
+
+*** ROUTES - col2 (extract EXACTLY what arrow shows) ***
 Flat, Wheel, Angle, Tab, Flank, Stick, Shoot, Hitch, Post, Corner, Seam, Out, In, 10 Dig, Shallow Cross, Go, Flare, Bubble, Swing, Comeback, Deep Cross, Sit, Slant
 
-If the arrow shows something NOT in this list, describe it exactly. DO NOT make up names.
+If not a route, describe the blocking exactly. NO made-up blocking terms.
 
-*** FORMATION NAMES ***
-- Must start with ZUG or LUZERN
-- Include modifiers: A-BUMP, A-NEAR-BUMP, T-WING, I-OFF, Z-FLIP, T-FLIP, A-DIVIDE, A-SHORT-DIVIDE
-- Include the play concept if written on diagram: "ZUG A-BUMP SMASH" not just "ZUG A-BUMP"
-- Remove "2026" prefix
+*** col3 (Concept) ***
+Extract the play concept written on/near the diagram: SMASH, GLANCE, SPACING, TREY, MOSES, POWER, ISO, etc.
 
-OUTPUT FORMAT (one entry per diagram):
+OUTPUT (one JSON entry per diagram - no repeats):
 [
-  {"col1": "formation from diagram 1", "col2": "route/blocking from diagram 1", "col3": "concept from diagram 1"},
-  {"col1": "formation from diagram 2", "col2": "route/blocking from diagram 2", "col3": "concept from diagram 2"},
-  {"col1": "formation from diagram 3", "col2": "route/blocking from diagram 3", "col3": "concept from diagram 3"}
+  {"col1": "ZUG A-BUMP SMASH", "col2": "Hitch", "col3": "SMASH"},
+  {"col1": "ZUG A-BUMP GLANCE", "col2": "Flat", "col3": "GLANCE"},
+  {"col1": "LUZERN A-NEAR-BUMP SPACING", "col2": "Corner", "col3": "SPACING"}
 ]
 
 Return ONLY the JSON array.`;
