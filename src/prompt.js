@@ -25,77 +25,68 @@ export function buildPrompt(position, isPDF = false) {
 
 POSITION LABEL TO FIND: ${labels.join(' or ')}
 
-*** CRITICAL DISTINCTION - WHAT TO READ vs IGNORE ***
+*** CRITICAL: col1 MUST BE A FORMATION/PLAY NAME ***
 
-READ THIS (short labels, 1-5 words):
-- Play name UNDER each diagram
-- Page header concept
+col1 = Formation/Play name ONLY. These are actual formations with players arranged in specific positions:
+Zug, Luzern, I-Off, 2x2, 3x1, Trips, Twins, Trey, Power, Zone, ISO, Gap, Duo, Counter, Draw, Sweep, Trap, Boot
 
-IGNORE THIS (long descriptions):
-- Explanatory paragraphs
-- Bullet points with notes
-- Route descriptions in text
+*** NEVER PUT THESE IN col1 (THESE ARE ROUTES/BLOCKING/PROTECTIONS, NOT FORMATIONS) ***
 
-*** IMPORTANT: MODIFIERS vs FORMATIONS ***
+ROUTES (go in col2, NEVER col1):
+Go, Post, Corner, Out, In, Flat, Slant, Hitch, Stick, Wheel, Comeback, Seam, Cross, Dig, Curl, Arrow, Shoot, Shallow, Fade
 
-Words like "Bump", "Bump Over", "Over", "Under" are MODIFIERS, NOT standalone plays.
-- "Bump" by itself is NOT a play
-- "Bump Over" by itself is NOT a play
-- These words MODIFY a formation: "Zug Bump", "2x2 Bump Over", "I-Off Over"
-- If the label is ONLY "Bump" or "Bump Over", look at the surrounding context or page header to find the base formation
+PROTECTION SCHEMES (go in col2 or col4, NEVER col1):
+Cup, Ray, Lou, Full Cup, Full Lou, Big-on-Big
 
-ALWAYS extract the FULL name including modifiers:
-- "Zug A-Bump" ✓ (correct)
-- "Bump" alone ✗ (wrong - this is a modifier, not a formation)
-- "2x2 Twin Bump Over" ✓ (correct)
+MODIFIERS (must be combined with a formation, never alone):
+Bump, Bump Over, Over, Under, Tight, Spread, Slot
 
-YOUR TASK: For EACH diagram, extract:
-1. col1 = Full play name from diagram label (e.g., "Zug A-Bump", "2x2 Twin")
-2. col2 = Route from visual ARROW only (NEVER from text description)
-3. col3 = Concept from page header (e.g., "Stick", "Glance", "Power")
-4. col4 = Blocking description (if blocking, not route)
+If the label under a diagram is ONLY a route/modifier/protection word from the lists above, look at the PAGE HEADER or surrounding diagrams to find the ACTUAL formation name.
 
-STEP 1 - FIND PLAY NAME (col1)
-Look UNDER/BESIDE each diagram for a short label.
-- Include ALL modifiers: "Zug A-Bump", "2x2 Bump Over", "I-Off Tight"
-- If label is JUST a modifier like "Bump", look at page header or nearby diagrams for the base formation
+EXAMPLES OF CORRECT vs WRONG:
+✓ col1: "Zug Bump", col2: "Go" (correct - formation with modifier)
+✓ col1: "Power Trey", col2: "Lead block" (correct - formation name)
+✓ col1: "I-Off Tight", col2: "Flat" (correct - formation name)
+✗ col1: "Shoot", col2: "Go" (WRONG - Shoot is a route)
+✗ col1: "Wheel", col2: "Flat" (WRONG - Wheel is a route)
+✗ col1: "Cup", col2: "Pass protect" (WRONG - Cup is a protection)
+✗ col1: "Bump", col2: "Go" (WRONG - Bump is a modifier, not a formation)
+
+STEP 1 - FIND THE FORMATION NAME (col1)
+Look UNDER/BESIDE each diagram. Find the ACTUAL formation name.
+- Include modifiers WITH the formation: "Zug Bump", "2x2 Bump Over", "I-Off Over"
+- If label is ONLY a route/protection/modifier, use the page header concept as the formation
 - Drop year prefixes like "2026"
-- Use this EXACT text for col1
 
-STEP 2 - FIND PAGE CONCEPT (col3)
-Look at page header for the concept word:
-Stick, Glance, Cross, Mesh, Power, Zone, Trey, ISO, Smash, Sail, Boot, RPO
-This is SAME for every row on the page
+STEP 2 - FIND THE ROUTE FROM THE ARROW (col2)
+Look at the ARROW drawn from the ${labels.join(' or ')} player.
+- Go = straight up
+- Post = up then angles inside
+- Corner = up then angles outside
+- Out = breaks toward sideline
+- In = breaks toward middle
+- Flat = short to sideline
+- Slant = diagonal
+- Hitch = up then stop
+- Stick = short hitch
+- 5 Out = 5yds up then out
+- 10 Dig = 10yds up then in
+- Cross = across field
+- Wheel = to flat then up
+- Comeback = up then back
+- Seam = vertical seam
+- Shoot = sprint to flat
+- Fade = fade to sideline
 
-STEP 3 - FIND YOUR POSITION'S ARROW
-Locate player: ${labels.join(' or ')}
-Look at the ARROW drawn from that player
-IGNORE any text describing what they do
+STEP 3 - FIND THE CONCEPT (col3)
+Page header concept: Stick, Glance, Cross, Mesh, Power, Zone, Trey, ISO, Smash, Sail, Boot, RPO
 
-STEP 4 - NAME THE ROUTE FROM ARROW SHAPE (col2) or BLOCKING (col4)
+STEP 4 - BLOCKING (col4, if blocking)
+If no arrow and line goes into defender: "Lead block", "Pass protect", "Kick out", "Seal"
 
-Route names - based ONLY on arrow shape:
-- Straight UP = "Go"
-- Up then angles INSIDE = "Post"
-- Up then angles OUTSIDE = "Corner"
-- Breaks OUT = "Out"
-- Breaks IN = "In"
-- Short to sideline = "Flat"
-- DIAGONAL = "Slant"
-- Up then STOP = "Hitch"
-- 5yds up then OUT = "5 Out"
-- 10yds up then IN = "10 Dig"
-- Across field = "Cross"
-- To flat then UP = "Wheel"
-
-Blocking - when arrow goes INTO defender (no arrowhead):
-- col2 = "" (empty)
-- col4 = "Lead block" / "Pass protect" / "Kick out" / "Seal"
-
-OUTPUT FORMAT (one row per diagram, DO NOT combine):
+OUTPUT FORMAT:
 [
-  {"col1": "Zug A-Bump", "col2": "Go", "col3": "Stick", "col4": ""},
-  {"col1": "2x2 Twin", "col2": "5 Out", "col3": "Stick", "col4": ""},
+  {"col1": "Zug Bump", "col2": "Go", "col3": "Stick", "col4": ""},
   {"col1": "Power Trey", "col2": "", "col3": "Power", "col4": "Lead block"}
 ]
 
