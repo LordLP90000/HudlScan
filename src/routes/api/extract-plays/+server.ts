@@ -19,101 +19,86 @@ export async function POST({ request }: { request: Request }) {
 		let textContent = '[]';
 		let success = false;
 
-		const moonshotKey = process.env.MOONSHOT_API_KEY;
-		if (moonshotKey) {
-			console.log('Attempting Moonshot API...');
-			// Try up to 3 times with delays for 429 errors
-			for (let attempt = 1; attempt <= 3; attempt++) {
-				try {
-					const response = await fetch('https://api.moonshot.ai/v1/chat/completions', {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-							'Authorization': `Bearer ${moonshotKey}`
-						},
-						body: JSON.stringify({
-							model: 'moonshot-v1-32k-vision-preview',
-							max_tokens: 4000,
-							temperature: 0,
-							messages: [{
-								role: 'user',
-								content: [
-									{ type: 'image_url', image_url: { url: `data:image/png;base64,${routeTreeBase64}` } },
-									{ type: 'text', text: 'Route tree reference.' },
-									{ type: 'image_url', image_url: { url: `data:image/png;base64,${imageBase64}` } },
-									{ type: 'text', text: prompt }
-								]
-							}]
-						})
-					});
+		// Try Claude first (better quality), fallback to Moonshot
+		const claudeKey = process.env.CLAUDE_API_KEY;
+		if (claudeKey) {
+			console.log('Attempting Claude API (Sonnet 4.6)...');
+			try {
+				const claudeResponse = await fetch('https://api.anthropic.com/v1/messages', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'x-api-key': claudeKey,
+						'anthropic-version': '2023-06-01'
+					},
+					body: JSON.stringify({
+						model: 'claude-sonnet-4-6',
+						max_tokens: 4000,
+						temperature: 0,
+						messages: [{
+							role: 'user',
+							content: [
+								{ type: 'image', source: { type: 'base64', media_type: 'image/png', data: routeTreeBase64 } },
+								{ type: 'text', text: 'Route tree reference.' },
+								{ type: 'image', source: { type: 'base64', media_type: 'image/png', data: imageBase64 } },
+								{ type: 'text', text: prompt }
+							]
+						}]
+					})
+				});
 
-					if (response.ok) {
-						const data = await response.json();
-						textContent = data.choices?.[0]?.message?.content || '[]';
-						success = true;
-						console.log(`Moonshot success for ${fileName}`);
-						break;
-					} else if (response.status === 429) {
-						const waitTime = attempt * 2000; // 2s, 4s, 6s delays
-						console.warn(`Moonshot overloaded (429), attempt ${attempt}/3, waiting ${waitTime}ms...`);
-						if (attempt < 3) {
-							await new Promise(r => setTimeout(r, waitTime));
-							continue;
-						}
-					} else {
-						console.error(`Moonshot error ${response.status}:`, await response.text());
-						break;
-					}
-				} catch (e) {
-					console.warn(`Moonshot exception:`, e);
-					break;
+				if (claudeResponse.ok) {
+					const claudeData = await claudeResponse.json();
+					textContent = claudeData.content?.[0]?.text || '[]';
+					success = true;
+					console.log(`Claude success for ${fileName}`);
+				} else {
+					console.error(`Claude error ${claudeResponse.status}:`, await claudeResponse.text());
 				}
+			} catch (e) {
+				console.warn(`Claude exception:`, e);
 			}
 		} else {
-			console.warn('MOONSHOT_API_KEY not found in environment');
+			console.warn('CLAUDE_API_KEY not found in environment');
 		}
 
+		// Fallback to Moonshot if Claude fails
 		if (!success) {
-			const claudeKey = process.env.CLAUDE_API_KEY;
-			if (claudeKey) {
-				console.log('Attempting Claude API...');
-				try {
-					const claudeResponse = await fetch('https://api.anthropic.com/v1/messages', {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-							'x-api-key': claudeKey,
-							'anthropic-version': '2023-06-01'
-						},
-						body: JSON.stringify({
-							model: 'claude-3-5-sonnet-20241022',
-							max_tokens: 4000,
-							temperature: 0,
-							messages: [{
-								role: 'user',
-								content: [
-									{ type: 'image', source: { type: 'base64', media_type: 'image/png', data: routeTreeBase64 } },
-									{ type: 'text', text: 'Route tree reference.' },
-									{ type: 'image', source: { type: 'base64', media_type: 'image/png', data: imageBase64 } },
-									{ type: 'text', text: prompt }
-								]
-							}]
-						})
-					});
+			const moonshotKey = process.env.MOONSHOT_API_KEY;
+			if (moonshotKey) {
+				console.log('Claude failed, attempting Moonshot API...');
+				const response = await fetch('https://api.moonshot.ai/v1/chat/completions', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${moonshotKey}`
+					},
+					body: JSON.stringify({
+						model: 'moonshot-v1-32k-vision-preview',
+						max_tokens: 4000,
+						temperature: 0,
+						messages: [{
+							role: 'user',
+							content: [
+								{ type: 'image_url', image_url: { url: `data:image/png;base64,${routeTreeBase64}` } },
+								{ type: 'text', text: 'Route tree reference.' },
+								{ type: 'image_url', image_url: { url: `data:image/png;base64,${imageBase64}` } },
+								{ type: 'text', text: prompt }
+							]
+						}]
+					})
+				});
 
-					if (claudeResponse.ok) {
-						const claudeData = await claudeResponse.json();
-						textContent = claudeData.content?.[0]?.text || '[]';
-						success = true;
-						console.log(`Claude success for ${fileName}`);
-					} else {
-						console.error(`Claude error ${claudeResponse.status}:`, await claudeResponse.text());
-					}
-				} catch (e) {
-					console.warn(`Claude exception:`, e);
+				if (response.ok) {
+					const data = await response.json();
+					textContent = data.choices?.[0]?.message?.content || '[]';
+					success = true;
+					console.log(`Moonshot fallback success for ${fileName}`);
+				} else {
+					console.error(`Moonshot error ${response.status}:`, await response.text());
 				}
 			} else {
-				console.warn('CLAUDE_API_KEY not found in environment');
+				console.warn('MOONSHOT_API_KEY not found in environment');
 			}
 		}
 
