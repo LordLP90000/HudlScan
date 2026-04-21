@@ -1,14 +1,31 @@
 // Position labels - how each position is labeled on play diagrams
 const positionLabels = {
   'QB': ['QB', '1'],
-  'RB': ['2', 'RB', 'Running Back', 'Tailback'],
+  'RB': ['2', 'RB', 'Running Back', '2-back'],
   'FB': ['A', 'FB', 'Fullback', 'A-back'],
-  'X': ['X', 'X-receiver', 'Split End', 'SE', 'WR'],
-  'Y': ['Y', 'Y-receiver', 'Slot'],
-  'Z': ['Z', 'Z-receiver', 'Flanker', 'FL'],
-  'H': ['H', 'H-back', 'Wing', 'Sniffer', 'U'],
+  'X': ['X', '#1', '1', 'Wide', 'Split End', 'SE', 'WR'],
+  'Y': ['Y', '#2', '2', 'Slot', 'Inside Slot'],
+  'Z': ['Z', '#1', 'Flanker', 'Boundary'],
   'TE': ['T', 'TE', 'Tight End']
 };
+
+// Real routes from the playbook route tree
+const ROUTES = [
+  'Flat', 'Wheel', 'Angle', 'Tab', 'Flank', 'Stick', 'Shoot', 'Hitch',
+  'Post', 'Corner', 'Seam', 'Out', 'In', '10 Dig', 'Shallow Cross',
+  'delay Flank', 'Cross Flat', 'Go', 'Flare', 'Bubble', 'Swing'
+];
+
+// OLine protections - NOT for skill positions
+const OLINE_PROTECTIONS = ['Cup', 'Ray', 'Lou', 'Full Cup', 'Full Lou', 'Full Ray', 'Big-on-Big', 'Half-Slide'];
+
+// Concepts - go in col3
+const CONCEPTS = [
+  'POWER', 'ISO', 'Counter', 'Zone', 'Gap', 'Duo', 'Draw', 'Sweep', 'Trap', 'Boot',
+  'Moses', 'Cross', 'Smash', 'Stick', 'Glance', 'Spacing', 'Shallow Cross',
+  'Follow Cup', 'Hitches Cup', 'Sail', 'Foot cup', 'Snag', 'Dust Cup', 'A Bluff',
+  'Sail Lou', 'Mesh', 'Drive Lou', 'Pa Cup', 'Zug A Bump Moses'
+];
 
 /**
  * Build the prompt for AI vision API to extract plays from playbook diagrams.
@@ -25,80 +42,52 @@ export function buildPrompt(position, isPDF = false) {
 
 POSITION LABEL TO FIND: ${labels.join(' or ')}
 
-*** CRITICAL: col1 MUST BE A FORMATION/PLAY NAME ***
+*** CRITICAL: col1 MUST BE FORMATION NAME FROM THE DIAGRAM ***
 
-col1 = Formation/Play name ONLY. These are actual formations with players arranged in specific positions:
-Zug, Luzern, I-Off, 2x2, 3x1, Trips, Twins, Trey, Power, Zone, ISO, Gap, Duo, Counter, Draw, Sweep, Trap, Boot
+Look at EACH diagram's label/title. Write EXACTLY what it says.
+- If it says "Zug Bump" → col1: "Zug Bump"
+- If it says "Lu I Off" → col1: "Lu I Off"
+- If it says "POWER" → col1: "POWER"
+- If it says "Moses" → col1: "Moses"
 
-*** NEVER PUT THESE IN col1 (THESE ARE ROUTES/BLOCKING/PROTECTIONS, NOT FORMATIONS) ***
+*** NEVER PUT ROUTES IN col1 - THESE ARE ROUTES ONLY ***
+${ROUTES.join(', ')}
 
-ROUTES (go in col2, NEVER col1):
-Go, Post, Corner, Out, In, Flat, Slant, Hitch, Stick, Wheel, Comeback, Seam, Cross, Dig, Curl, Arrow, Shoot, Shallow, Fade
+*** NEVER PUT OLINE PROTECTIONS IN col1 - THESE ARE FOR OFFENSIVE LINE ONLY ***
+${OLINE_PROTECTIONS.join(', ')}
 
-PROTECTION SCHEMES (OLINE protections, NOT routes or formations):
-Cup, Ray, Lou, Full Cup, Full Lou, Big-on-Big
-These are what the OFFENSIVE LINE does, NOT ${pos}. Ignore these for ${pos} assignments.
+These protections are what the OLINE does, NOT ${pos}. Ignore them for ${pos} assignments.
 
-MODIFIERS (must be combined with a formation, NEVER alone):
-If you see ONLY a modifier word like "Bump", "Over", "Under", "Tight", "Slot" - you MUST find the base formation from the PAGE HEADER or NEARBY DIAGRAMS.
-- Do NOT just write "Bump" alone
-- Do NOT just write "Bump-Over" as a lazy shortcut
-- FIND the actual formation: "Zug Bump", "2x2 Over", "I-Off Tight", etc.
+STEP 1 - FORMATION/PLAY (col1)
+Read the label UNDER or BESIDE each diagram. Use EXACTLY what is written.
+- Include modifiers: "Zug Bump", "Lu I Off", "Side formation"
+- Year prefixes like "2026" should be removed
+- If the label is a protection (Cup, Ray, Lou), look at PAGE HEADER for actual play
 
-If the label under a diagram is ONLY a route/modifier/protection word from the lists above, look at the PAGE HEADER or surrounding diagrams to find the ACTUAL formation name.
-
-EXAMPLES OF CORRECT vs WRONG:
-✓ col1: "Zug Bump", col2: "Go" (correct - formation with modifier)
-✓ col1: "Power Trey", col2: "Lead block" (correct - formation name)
-✓ col1: "I-Off Tight", col2: "Flat" (correct - formation name)
-✗ col1: "Shoot", col2: "Go" (WRONG - Shoot is a route)
-✗ col1: "Wheel", col2: "Flat" (WRONG - Wheel is a route)
-✗ col1: "Cup", col2: "Pass protect" (WRONG - Cup is a protection)
-✗ col1: "Bump", col2: "Go" (WRONG - Bump is a modifier, not a formation)
-
-STEP 1 - FIND THE FORMATION NAME (col1)
-Look UNDER/BESIDE each diagram. Find the ACTUAL formation name.
-- Include modifiers WITH the formation: "Zug Bump", "2x2 Bump Over", "I-Off Over"
-- If label is ONLY a route/protection/modifier, use the page header concept as the formation
-- Drop year prefixes like "2026"
-
-STEP 2 - FIND THE ROUTE FROM THE ARROW (col2)
+STEP 2 - ROUTE (col2)
 Look at the ARROW drawn from the ${labels.join(' or ')} player.
-- Go = straight up
-- Post = up then angles inside
-- Corner = up then angles outside
-- Out = breaks toward sideline
-- In = breaks toward middle
-- Flat = short to sideline
-- Slant = diagonal
-- Hitch = up then stop
-- Stick = short hitch
-- 5 Out = 5yds up then out
-- 10 Dig = 10yds up then in
-- Cross = across field
-- Wheel = to flat then up
-- Comeback = up then back
-- Seam = vertical seam
-- Shoot = sprint to flat
-- Fade = fade to sideline
+${pos === 'FB' || pos === 'RB' ? `If blocking (no arrow): "Lead", "Seal", "Kick out", "Fill gap", "Pass pro"` : ''}
 
-STEP 3 - FIND THE CONCEPT (col3)
-Page header concept: Stick, Glance, Cross, Mesh, Power, Zone, Trey, ISO, Smash, Sail, Boot, RPO
+Common ${pos} routes from the playbook:
+${pos === 'FB' || pos === 'RB' ? 'Flat, Wheel, Angle, Flare, Bubble, Swing, Shoot' :
+  pos === 'TE' ? 'Stick, Flat, Out, In, Corner, Seam' :
+  pos.match(/^(X|Z|Y)$/) ? 'Go, Post, Corner, Out, In, Hitch, Fade, Comeback, Dig' :
+  'Flat, Wheel, Angle, Stick, Shoot'}
 
-STEP 4 - BLOCKING (col4, if ${pos} is blocking)
-${pos} blocking assignments (these are what ${pos} actually does):
-- "Lead block" - leading through a hole
-- "Pass protect" - staying in to block
-- "Kick out" - blocking defender outward
-- "Seal" - sealing the edge
-- "Fill gap" - filling a pulling gap
+STEP 3 - CONCEPT (col3)
+Page header concept: ${CONCEPTS.join(', ')}
 
-IGNORE OLine protections (Cup, Ray, Lou, etc.) - these are NOT ${pos} responsibilities.
+STEP 4 - BLOCKING (col4)
+${pos === 'FB' || pos === 'RB' || pos === 'TE' ?
+  `If ${pos} is blocking: Lead, Seal, Kick out, Fill gap, Pass pro` :
+  `${pos} does not block - leave blank`}
+
+IGNORE OLine protections (${OLINE_PROTECTIONS.join(', ')}) - these are NOT ${pos} responsibilities.
 
 OUTPUT FORMAT:
 [
-  {"col1": "Zug Bump", "col2": "Go", "col3": "Stick", "col4": ""},
-  {"col1": "Power Trey", "col2": "", "col3": "Power", "col4": "Lead block"}
+  {"col1": "Zug Bump", "col2": "Hitch", "col3": "Zug A Bump Moses", "col4": ""},
+  {"col1": "POWER", "col2": "Lead", "col3": "POWER", "col4": "Kick out"}
 ]
 
 Return ONLY the JSON array. No explanations.`;
