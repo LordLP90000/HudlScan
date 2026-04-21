@@ -9,19 +9,19 @@ const positionLabels = {
   'TE': ['T', 'TE', 'Tight End']
 };
 
-// Real routes from the playbook route tree
-const ROUTES = [
+// Real routes from the playbook route tree (exported for reference)
+export const ROUTES = [
   'Flat', 'Wheel', 'Angle', 'Tab', 'Flank', 'Stick', 'Shoot', 'Hitch',
   'Post', 'Corner', 'Seam', 'Out', 'In', '10 Dig', 'Shallow Cross',
   'delay Flank', 'Cross Flat', 'Go', 'Flare', 'Bubble', 'Swing',
   'Comeback', 'Deep Cross', 'Sit', 'Slant', '3-Step Slant', '1-Step Slant'
 ];
 
-// OLine protections - NOT for skill positions
-const OLINE_PROTECTIONS = ['Cup', 'Ray', 'Lou', 'Full Cup', 'Full Lou', 'Full Ray', 'Big-on-Big', 'Half-Slide'];
+// OLine protections - NOT for skill positions (exported for reference)
+export const OLINE_PROTECTIONS = ['Cup', 'Ray', 'Lou', 'Full Cup', 'Full Lou', 'Full Ray', 'Big-on-Big', 'Half-Slide'];
 
-// Receiver distribution labels - NOT formations
-const DISTRIBUTIONS = ['2x2', '3x1', 'Trips Side', 'Single Side', 'Field', 'Boundary', 'Field wide', 'Field slot', 'Boundary inside', 'Boundary outside'];
+// Receiver distribution labels - NOT formations (exported for reference)
+export const DISTRIBUTIONS = ['2x2', '3x1', 'Trips Side', 'Single Side', 'Field', 'Boundary', 'Field wide', 'Field slot', 'Boundary inside', 'Boundary outside'];
 
 // Actual formations from the playbook
 export const BASE_FORMATIONS = ['ZUG', 'LUZERN'];
@@ -29,8 +29,8 @@ export const BASE_FORMATIONS = ['ZUG', 'LUZERN'];
 // Formation modifiers found in the playbook
 export const FORMATION_MODIFIERS = ['A-BUMP', 'A-NEAR-BUMP', 'T-WING', 'Z-FLIP', 'T-FLIP', 'I-OFF', 'A-SHORT-DIVIDE', 'A-DIVIDE'];
 
-// Play concepts from the playbook
-const CONCEPTS = [
+// Play concepts from the playbook (exported for reference)
+export const CONCEPTS = [
   'POWER', 'ISO', 'SMASH', 'GLANCE', 'SPACING', 'TREY', 'MOSES',
   'GLANCE ARROW', 'SPACING vs OVER', 'SHALLOW CROSS', 'PASS GAME',
   'INSIDE ZONE', 'OUTSIDE ZONE'
@@ -46,95 +46,37 @@ export function buildPrompt(position) {
   // @ts-expect-error - positionLabels indexing
   const labels = positionLabels[pos] || [pos];
 
-  return `You are analyzing a football playbook page with MULTIPLE play diagrams. Extract plays for position: ${pos}
+  return `Extract plays for position: ${pos} from this playbook page.
 
-*** MOST CRITICAL: EACH DIAGRAM IS UNIQUE - READ EVERY ONE ***
-If there are 6 diagrams, you need 6 DIFFERENT entries. Do NOT repeat the same formation/play name!
+POSITION LABEL: ${labels.join(' or ')}
 
-POSITION LABEL TO FIND: ${labels.join(' or ')}
+CRITICAL: Each diagram is UNIQUE. Read EVERY diagram separately.
 
-*** CRITICAL FORMATION RULES FOR col1 ***
+For EACH diagram on the page:
+1. Find the formation name written UNDER or BESIDE it
+2. Find the route (arrow) for ${labels.join(' or ')}
+3. Find the play concept (SMASH, GLANCE, POWER, ISO, etc.)
 
-RULE #1: col1 MUST start with "ZUG" or "LUZERN" (the ONLY valid base formations)
-RULE #2: NEVER use partial formations like "bump", "over", "bump-over", "2x2", "field", "boundary"
-RULE #3: ALWAYS write the FULL formation name with base + modifiers
-
-VALID col1 examples:
-- "ZUG A-BUMP"
-- "LUZERN T-WING POWER RIGHT"
-- "ZUG Z-FLIP"
-- "LUZERN I-OFF"
-
-INVALID col1 examples (DO NOT USE):
-- "bump" (missing base formation)
-- "over" (this is a receiver distribution, not a formation)
-- "bump-over" (incomplete - should be "ZUG A-BUMP" or similar)
-- "2x2" (receiver distribution, not a formation)
-- "field" (direction, not a formation)
-- "boundary" (direction, not a formation)
-
-*** NEVER PUT THESE IN col1 - THEY ARE NOT FORMATIONS ***
-
-RECEIVER DISTRIBUTIONS (these describe receiver alignment, NOT the formation):
-${DISTRIBUTIONS.join(', ')}
-
-ROUTES (go in col2, NEVER col1):
-${ROUTES.join(', ')}
-
-OLINE PROTECTIONS (these are for OFFENSIVE LINE only, NOT ${pos}):
-${OLINE_PROTECTIONS.join(', ')}
-
-STEP 1 - FORMATION/PLAY (col1) - CRITICAL RULES
-The formation MUST start with "ZUG" or "LUZERN" - no exceptions!
-
-WRONG → "bump", "over", "bump-over", "2x2", "field", "boundary"
-RIGHT → "ZUG A-BUMP", "LUZERN T-WING", "ZUG Z-FLIP", "LUZERN I-OFF"
-
-Read EXACT label from diagram:
-- MUST include base: ZUG or LUZERN
-- With modifiers: ZUG A-BUMP, LUZERN T-WING, ZUG Z-FLIP, LUZERN I-OFF
-- With play concept: ZUG POWER RIGHT, LUZERN ISO LEFT
-- With divide: LUZERN A-DIVIDE, LUZERN A-SHORT-DIVIDE
+FORMATION RULES:
+- MUST start with ZUG or LUZERN
+- Include modifiers: A-BUMP, T-WING, I-OFF, Z-FLIP, etc.
+- Include play concept if written: "ZUG A-BUMP SMASH" not just "ZUG A-BUMP"
 - Remove "2026" prefix
 
-If you see ONLY "bump" or "over" written - this means the base formation (ZUG/LUZERN) is from the page header. Include it!
+ROUTE RULES - ONLY use these routes from the playbook:
+Flat, Wheel, Angle, Tab, Flank, Stick, Shoot, Hitch, Post, Corner, Seam, Out, In, 10 Dig, Shallow Cross, Go, Flare, Bubble, Swing, Comeback, Deep Cross, Sit, Slant
+DO NOT make up route names like "mesh", "slot fade", etc.
 
-STEP 2 - ROUTE (col2)
-Look at the ARROW from ${labels.join(' or ')}.
-${pos === 'FB' || pos === 'RB' ? `If blocking (no arrow): Read EXACT text from diagram - DO NOT make up blocking terms!` : ''}
-
-STEP 3 - CONCEPT (col3)
-Page header concept: ${CONCEPTS.join(', ')}
-
-STEP 4 - BLOCKING (col4)
-${pos === 'FB' || pos === 'RB' || pos === 'TE' ?
-  `If blocking: Read EXACT text from diagram - DO NOT make up terms!` :
-  `${pos} does not block - leave blank`}
-
-IGNORE OLine protections - these are NOT ${pos} responsibilities.
-
-OUTPUT FORMAT:
+OUTPUT - Each diagram gets one entry:
 [
-  {"col1": "ZUG A-BUMP SMASH", "col2": "Hitch", "col3": "SMASH", "col4": ""},
-  {"col1": "ZUG A-BUMP GLANCE", "col2": "Corner", "col3": "GLANCE", "col4": ""},
-  {"col1": "LUZERN T-WING POWER RIGHT", "col2": "Flat", "col3": "POWER", "col4": ""}
+  {"col1": "ZUG A-BUMP SMASH vs OVER", "col2": "Hitch", "col3": "SMASH"},
+  {"col1": "ZUG A-BUMP GLANCE vs OVER", "col2": "Corner", "col3": "GLANCE"},
+  {"col1": "ZUG A-BUMP SPACING vs OVER", "col2": "Slant", "col3": "SPACING"},
+  {"col1": "LUZERN T-WING POWER RIGHT", "col2": "Flat", "col3": "POWER"}
 ]
 
-*** ANTI-LAZY RULES - EACH DIAGRAM IS UNIQUE ***
+NOTE: If you see 6 diagrams, output 6 DIFFERENT entries with 6 DIFFERENT play concepts.
+Do NOT repeat the same formation name!
 
-CRITICAL: Every single diagram on the page has a DIFFERENT play written on it.
-You MUST read the label for EACH diagram individually. Do NOT repeat the same formation!
-
-WRONG - Lazy duplicate output (DO NOT DO THIS):
-{"col1": "ZUG Bump-over"}, {"col1": "ZUG Bump-over"}, {"col1": "ZUG Bump-over"}, {"col1": "ZUG Bump-over"}
-
-RIGHT - Each diagram has unique play concept:
-{"col1": "ZUG A-BUMP SMASH vs OVER"}, {"col1": "ZUG A-BUMP GLANCE vs OVER"}, {"col1": "ZUG A-BUMP SPACING vs OVER"}, {"col1": "ZUG A-BUMP TREY vs OVER"}
-
-If you see 4 diagrams with ZUG A-BUMP, each one has a DIFFERENT concept (SMASH, GLANCE, SPACING, TREY).
-Find the concept written on EACH diagram and include it!
-
-CRITICAL: If multiple diagrams show the same formation, each ONE has a different play concept written on it. FIND IT and include it!
-
-Return ONLY the JSON array. No explanations.`;
+Return ONLY the JSON array.`;
 }
