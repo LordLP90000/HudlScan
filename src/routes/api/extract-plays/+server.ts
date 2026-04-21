@@ -34,6 +34,7 @@ export async function POST({ request }: { request: Request }) {
 						body: JSON.stringify({
 							model: 'moonshot-v1-32k-vision-preview',
 							max_tokens: 4000,
+							temperature: 0,
 							messages: [{
 								role: 'user',
 								content: [
@@ -87,6 +88,7 @@ export async function POST({ request }: { request: Request }) {
 						body: JSON.stringify({
 							model: 'claude-3-5-sonnet-20241022',
 							max_tokens: 4000,
+							temperature: 0,
 							messages: [{
 								role: 'user',
 								content: [

@@ -35,19 +35,32 @@ IGNORE THIS (long descriptions):
 - Explanatory paragraphs
 - Bullet points with notes
 - Route descriptions in text
-- Any text that explains "how to" run the play
+
+*** IMPORTANT: MODIFIERS vs FORMATIONS ***
+
+Words like "Bump", "Bump Over", "Over", "Under" are MODIFIERS, NOT standalone plays.
+- "Bump" by itself is NOT a play
+- "Bump Over" by itself is NOT a play
+- These words MODIFY a formation: "Zug Bump", "2x2 Bump Over", "I-Off Over"
+- If the label is ONLY "Bump" or "Bump Over", look at the surrounding context or page header to find the base formation
+
+ALWAYS extract the FULL name including modifiers:
+- "Zug A-Bump" ✓ (correct)
+- "Bump" alone ✗ (wrong - this is a modifier, not a formation)
+- "2x2 Twin Bump Over" ✓ (correct)
 
 YOUR TASK: For EACH diagram, extract:
-1. col1 = Short play name from diagram label (e.g., "Zug A-Bump", "2x2 Twin")
+1. col1 = Full play name from diagram label (e.g., "Zug A-Bump", "2x2 Twin")
 2. col2 = Route from visual ARROW only (NEVER from text description)
 3. col3 = Concept from page header (e.g., "Stick", "Glance", "Power")
 4. col4 = Blocking description (if blocking, not route)
 
 STEP 1 - FIND PLAY NAME (col1)
-Look UNDER/BESIDE each diagram for a short label like:
-"Zug A-Bump" / "2x2 Twin" / "I-Off Tight" / "Power Trey"
-Drop year prefixes like "2026"
-Use this EXACT text for col1
+Look UNDER/BESIDE each diagram for a short label.
+- Include ALL modifiers: "Zug A-Bump", "2x2 Bump Over", "I-Off Tight"
+- If label is JUST a modifier like "Bump", look at page header or nearby diagrams for the base formation
+- Drop year prefixes like "2026"
+- Use this EXACT text for col1
 
 STEP 2 - FIND PAGE CONCEPT (col3)
 Look at page header for the concept word:
@@ -83,7 +96,7 @@ OUTPUT FORMAT (one row per diagram, DO NOT combine):
 [
   {"col1": "Zug A-Bump", "col2": "Go", "col3": "Stick", "col4": ""},
   {"col1": "2x2 Twin", "col2": "5 Out", "col3": "Stick", "col4": ""},
-  {"col1": "Power", "col2": "", "col3": "Power", "col4": "Lead block"}
+  {"col1": "Power Trey", "col2": "", "col3": "Power", "col4": "Lead block"}
 ]
 
 Return ONLY the JSON array. No explanations.`;
