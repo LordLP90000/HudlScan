@@ -46,37 +46,40 @@ export function buildPrompt(position) {
   // @ts-expect-error - positionLabels indexing
   const labels = positionLabels[pos] || [pos];
 
-  return `Extract plays for position: ${pos} from this playbook page.
+  return `You are analyzing a football playbook page. Extract plays for position labeled: ${labels.join(' or ')}
 
-POSITION LABEL: ${labels.join(' or ')}
+*** VISUAL OBSERVATION PROCESS - DO THIS FOR EACH DIAGRAM ***
 
-CRITICAL: Each diagram is UNIQUE. Read EVERY diagram separately.
+For EVERY diagram on the page:
+1. Look for the position label (${labels.join(' or ')}) in the diagram
+2. Trace the arrow/line coming from that position
+3. Read what that arrow/line shows (route or blocking)
+4. Read the formation name written UNDER or BESIDE the diagram
+5. Move to the next diagram and repeat
 
-For EACH diagram on the page:
-1. Find the formation name written UNDER or BESIDE it
-2. Find the route (arrow) for ${labels.join(' or ')}
-3. Find the play concept (SMASH, GLANCE, POWER, ISO, etc.)
+*** CRITICAL: EACH DIAGRAM IS DIFFERENT ***
+- Diagram 1 might show "A" running a Hitch route
+- Diagram 2 might show "A" blocking inside
+- Diagram 3 might show "A" running a Flat route
+- Extract EXACTLY what each diagram shows - NO patterns, NO assumptions!
 
-FORMATION RULES:
-- MUST start with ZUG or LUZERN
-- Include modifiers: A-BUMP, T-WING, I-OFF, Z-FLIP, etc.
-- Include play concept if written: "ZUG A-BUMP SMASH" not just "ZUG A-BUMP"
+*** VALID ROUTES (use ONLY these) ***
+Flat, Wheel, Angle, Tab, Flank, Stick, Shoot, Hitch, Post, Corner, Seam, Out, In, 10 Dig, Shallow Cross, Go, Flare, Bubble, Swing, Comeback, Deep Cross, Sit, Slant
+
+If the arrow shows something NOT in this list, describe it exactly. DO NOT make up names.
+
+*** FORMATION NAMES ***
+- Must start with ZUG or LUZERN
+- Include modifiers: A-BUMP, A-NEAR-BUMP, T-WING, I-OFF, Z-FLIP, T-FLIP, A-DIVIDE, A-SHORT-DIVIDE
+- Include the play concept if written on diagram: "ZUG A-BUMP SMASH" not just "ZUG A-BUMP"
 - Remove "2026" prefix
 
-ROUTE RULES - ONLY use these routes from the playbook:
-Flat, Wheel, Angle, Tab, Flank, Stick, Shoot, Hitch, Post, Corner, Seam, Out, In, 10 Dig, Shallow Cross, Go, Flare, Bubble, Swing, Comeback, Deep Cross, Sit, Slant
-DO NOT make up route names like "mesh", "slot fade", etc.
-
-OUTPUT - Each diagram gets one entry:
+OUTPUT FORMAT (one entry per diagram):
 [
-  {"col1": "ZUG A-BUMP SMASH vs OVER", "col2": "Hitch", "col3": "SMASH"},
-  {"col1": "ZUG A-BUMP GLANCE vs OVER", "col2": "Corner", "col3": "GLANCE"},
-  {"col1": "ZUG A-BUMP SPACING vs OVER", "col2": "Slant", "col3": "SPACING"},
-  {"col1": "LUZERN T-WING POWER RIGHT", "col2": "Flat", "col3": "POWER"}
+  {"col1": "formation from diagram 1", "col2": "route/blocking from diagram 1", "col3": "concept from diagram 1"},
+  {"col1": "formation from diagram 2", "col2": "route/blocking from diagram 2", "col3": "concept from diagram 2"},
+  {"col1": "formation from diagram 3", "col2": "route/blocking from diagram 3", "col3": "concept from diagram 3"}
 ]
-
-NOTE: If you see 6 diagrams, output 6 DIFFERENT entries with 6 DIFFERENT play concepts.
-Do NOT repeat the same formation name!
 
 Return ONLY the JSON array.`;
 }
