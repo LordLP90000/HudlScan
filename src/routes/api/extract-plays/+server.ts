@@ -22,7 +22,7 @@ export async function POST({ request }: { request: Request }) {
 		// Use Moonshot Kimi API
 		const moonshotKey = process.env.MOONSHOT_API_KEY;
 		if (moonshotKey) {
-			console.log('Attempting Moonshot API (moonshot-v1-128k)...');
+			console.log('Attempting Moonshot API (kimi-2.6)...');
 			const response = await fetch('https://api.moonshot.ai/v1/chat/completions', {
 					method: 'POST',
 					headers: {
@@ -30,7 +30,7 @@ export async function POST({ request }: { request: Request }) {
 						'Authorization': `Bearer ${moonshotKey}`
 					},
 					body: JSON.stringify({
-						model: 'moonshot-v1-128k',
+						model: 'kimi-2.6',
 						max_tokens: 4000,
 						temperature: 0,
 						messages: [{
