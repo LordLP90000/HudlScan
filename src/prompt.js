@@ -82,6 +82,7 @@ Do NOT assign the same route to every diagram on the page. Read each formation i
  */
 export function buildPrompt(position, isPDF = false) {
   const pos = position || 'QB';
+  // @ts-ignore - positionAliases indexing
   const aliases = positionAliases[pos] || pos;
   const routeReference = (pos === 'FB') ? fbRouteMap : '';
 
