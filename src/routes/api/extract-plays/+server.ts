@@ -32,7 +32,7 @@ export async function POST({ request }: { request: Request }) {
 					body: JSON.stringify({
 						model: 'kimi-k2.5',
 						max_tokens: 4000,
-						temperature: 0,
+						temperature: 1,
 						messages: [{
 							role: 'user',
 							content: [
