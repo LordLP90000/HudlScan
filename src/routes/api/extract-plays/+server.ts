@@ -14,15 +14,14 @@ export async function POST({ request }: { request: Request }) {
 
 		console.log(`Processing ${fileName} for ${position}...`);
 
-		// Use the centralized prompt from prompt.js
 		const prompt = buildPrompt(position, true);
 
 		let textContent = '[]';
 		let success = false;
 
-		// Try Moonshot first
 		const moonshotKey = process.env.MOONSHOT_API_KEY;
 		if (moonshotKey) {
+			console.log('Attempting Moonshot API...');
 			try {
 				const response = await fetch('https://api.moonshot.ai/v1/chat/completions', {
 					method: 'POST',
@@ -50,16 +49,20 @@ export async function POST({ request }: { request: Request }) {
 					textContent = data.choices?.[0]?.message?.content || '[]';
 					success = true;
 					console.log(`Moonshot success for ${fileName}`);
+				} else {
+					console.error(`Moonshot error ${response.status}:`, await response.text());
 				}
 			} catch (e) {
-				console.warn(`Moonshot failed for ${fileName}:`, e);
+				console.warn(`Moonshot exception:`, e);
 			}
+		} else {
+			console.warn('MOONSHOT_API_KEY not found in environment');
 		}
 
-		// Fallback to Claude
 		if (!success) {
 			const claudeKey = process.env.CLAUDE_API_KEY;
 			if (claudeKey) {
+				console.log('Attempting Claude API...');
 				try {
 					const claudeResponse = await fetch('https://api.anthropic.com/v1/messages', {
 						method: 'POST',
@@ -88,17 +91,26 @@ export async function POST({ request }: { request: Request }) {
 						textContent = claudeData.content?.[0]?.text || '[]';
 						success = true;
 						console.log(`Claude success for ${fileName}`);
+					} else {
+						console.error(`Claude error ${claudeResponse.status}:`, await claudeResponse.text());
 					}
 				} catch (e) {
-					console.warn(`Claude failed for ${fileName}:`, e);
+					console.warn(`Claude exception:`, e);
 				}
+			} else {
+				console.warn('CLAUDE_API_KEY not found in environment');
 			}
 		}
 
-		// Clean up response
+		if (!success) {
+			return new Response(
+				JSON.stringify({ error: 'AI APIs failed. Check environment variables.' }),
+				{ status: 500, headers: { 'Content-Type': 'application/json' } }
+			);
+		}
+
 		textContent = textContent.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
 
-		// Parse JSON array
 		const jsonMatch = textContent.match(/\[[\s\S]*\]/);
 		let plays = [];
 
@@ -106,7 +118,7 @@ export async function POST({ request }: { request: Request }) {
 			try {
 				plays = JSON.parse(jsonMatch[0]);
 			} catch (e) {
-				console.error('Failed to parse AI response as JSON');
+				console.error('JSON parse error:', e);
 			}
 		}
 
@@ -116,7 +128,7 @@ export async function POST({ request }: { request: Request }) {
 		);
 
 	} catch (error) {
-		console.error('API error:', error);
+		console.error('Server error:', error);
 		return new Response(
 			JSON.stringify({ error: error instanceof Error ? error.message : 'Unknown error' }),
 			{ status: 500, headers: { 'Content-Type': 'application/json' } }
@@ -124,7 +136,6 @@ export async function POST({ request }: { request: Request }) {
 	}
 }
 
-// Handle OPTIONS for CORS
 export async function OPTIONS() {
 	return new Response(null, {
 		status: 204,
