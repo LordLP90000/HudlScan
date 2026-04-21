@@ -98,23 +98,34 @@ If you see ONLY "bump" or "over" written - this means the base formation (ZUG/LU
 
 STEP 2 - ROUTE (col2)
 Look at the ARROW from ${labels.join(' or ')}.
-${pos === 'FB' || pos === 'RB' ? `If blocking (no arrow): "Lead", "Seal", "Kick out", "Fill gap", "Pass pro", "2nd lead"` : ''}
+${pos === 'FB' || pos === 'RB' ? `If blocking (no arrow): Read EXACT text from diagram - DO NOT make up blocking terms!` : ''}
 
 STEP 3 - CONCEPT (col3)
 Page header concept: ${CONCEPTS.join(', ')}
 
 STEP 4 - BLOCKING (col4)
 ${pos === 'FB' || pos === 'RB' || pos === 'TE' ?
-  `If blocking: Lead, Seal, Kick out, Fill gap, 2nd lead, Pass pro` :
+  `If blocking: Read EXACT text from diagram - DO NOT make up terms!` :
   `${pos} does not block - leave blank`}
 
 IGNORE OLine protections - these are NOT ${pos} responsibilities.
 
 OUTPUT FORMAT:
 [
-  {"col1": "ZUG A-BUMP", "col2": "Hitch", "col3": "SMASH", "col4": ""},
-  {"col1": "LUZERN T-WING POWER RIGHT", "col2": "Lead", "col3": "POWER", "col4": "Kick out"}
+  {"col1": "ZUG A-BUMP SMASH", "col2": "Hitch", "col3": "SMASH", "col4": ""},
+  {"col1": "ZUG A-BUMP GLANCE", "col2": "Corner", "col3": "GLANCE", "col4": ""},
+  {"col1": "LUZERN T-WING POWER RIGHT", "col2": "Flat", "col3": "POWER", "col4": ""}
 ]
+
+*** ANTI-LAZY RULES - READ EACH DIAGRAM INDIVIDUALLY ***
+
+WRONG - Lazy duplicate output:
+{"col1": "ZUG Bump-over"}, {"col1": "ZUG Bump-over"}, {"col1": "ZUG Bump-over"}, {"col1": "ZUG Bump-over"}
+
+RIGHT - Each diagram has unique play concept:
+{"col1": "ZUG A-BUMP SMASH"}, {"col1": "ZUG A-BUMP GLANCE"}, {"col1": "ZUG A-BUMP SPACING"}, {"col1": "ZUG A-BUMP TREY"}
+
+CRITICAL: If multiple diagrams show the same formation, each ONE has a different play concept written on it. FIND IT and include it!
 
 Return ONLY the JSON array. No explanations.`;
 }
