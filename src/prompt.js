@@ -39,8 +39,11 @@ PROTECTION SCHEMES (OLINE protections, NOT routes or formations):
 Cup, Ray, Lou, Full Cup, Full Lou, Big-on-Big
 These are what the OFFENSIVE LINE does, NOT ${pos}. Ignore these for ${pos} assignments.
 
-MODIFIERS (must be combined with a formation, never alone):
-Bump, Bump Over, Over, Under, Tight, Spread, Slot
+MODIFIERS (must be combined with a formation, NEVER alone):
+If you see ONLY a modifier word like "Bump", "Over", "Under", "Tight", "Slot" - you MUST find the base formation from the PAGE HEADER or NEARBY DIAGRAMS.
+- Do NOT just write "Bump" alone
+- Do NOT just write "Bump-Over" as a lazy shortcut
+- FIND the actual formation: "Zug Bump", "2x2 Over", "I-Off Tight", etc.
 
 If the label under a diagram is ONLY a route/modifier/protection word from the lists above, look at the PAGE HEADER or surrounding diagrams to find the ACTUAL formation name.
 
