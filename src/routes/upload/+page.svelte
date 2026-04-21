@@ -7,12 +7,17 @@
 	import Button from '$lib/components/Button.svelte';
 	import ProcessingSpinner from '$lib/components/ProcessingSpinner.svelte';
 	import Banner from '$lib/components/Banner.svelte';
+	import * as pdfjsLib from 'pdfjs-dist';
+
+	// Set up PDF.js worker
+	pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
 	interface FileItem {
 		name: string;
 		size: string;
 		type: 'pdf' | 'image';
 		file: File;
+		pageCount?: number;
 	}
 
 	interface Play {
@@ -34,9 +39,27 @@
 	const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3002';
 
 	async function convertPdfToImages(file: File): Promise<string[]> {
-		// For PDFs, we'd use pdf.js to convert each page to base64
-		// For now, return empty - user should upload images directly
-		throw new Error('PDF support coming soon. Please upload images directly.');
+		const arrayBuffer = await file.arrayBuffer();
+		const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+		const images: string[] = [];
+
+		for (let i = 1; i <= pdf.numPages; i++) {
+			const page = await pdf.getPage(i);
+			const scale = 2.0; // Higher scale for better quality
+			const viewport = page.getViewport({ scale });
+
+			const canvas = document.createElement('canvas');
+			const context = canvas.getContext('2d');
+			canvas.height = viewport.height;
+			canvas.width = viewport.width;
+
+			if (context) {
+				await page.render({ canvasContext: context, viewport }).promise;
+				images.push(canvas.toDataURL('image/png'));
+			}
+		}
+
+		return images;
 	}
 
 	async function extractPlaysFromImage(imageBase64: string, fileName: string): Promise<Play[]> {
@@ -44,7 +67,7 @@
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
-				imageBase64: imageBase64.split(',')[1], // Remove data:image/...;base64, prefix
+				imageBase64: imageBase64.split(',')[1],
 				fileName,
 				position: selectedPosition
 			})
@@ -103,20 +126,41 @@
 		uploadState = 'processing';
 		extractedPlays = [];
 
+		let totalImages = 0;
+		let processedImages = 0;
+
+		// First, count total images for progress tracking
+		for (const fileItem of selectedFiles) {
+			if (fileItem.type === 'pdf') {
+				// We'll count pages as we go
+			} else {
+				totalImages++;
+			}
+		}
+
 		for (let i = 0; i < selectedFiles.length; i++) {
 			const fileItem = selectedFiles[i];
-			processingDetails = `Processing ${fileItem.name} (${i + 1}/${selectedFiles.length})...`;
 
 			try {
+				let images: string[] = [];
+
 				if (fileItem.type === 'pdf') {
-					errorMessage = 'PDF support coming soon. Please upload images directly.';
-					uploadState = 'error';
-					return;
+					processingDetails = `Converting ${fileItem.name} to images...`;
+					images = await convertPdfToImages(fileItem.file);
+					totalImages += images.length;
+				} else {
+					images = [await fileToBase64(fileItem.file)];
 				}
 
-				const base64 = await fileToBase64(fileItem.file);
-				const plays = await extractPlaysFromImage(base64, fileItem.name);
-				extractedPlays = [...extractedPlays, ...plays];
+				// Process each image
+				for (let j = 0; j < images.length; j++) {
+					processedImages++;
+					const pageNum = fileItem.type === 'pdf' ? ` (page ${j + 1}/${images.length})` : '';
+					processingDetails = `Processing ${fileItem.name}${pageNum} (${processedImages}/${totalImages})...`;
+
+					const plays = await extractPlaysFromImage(images[j], fileItem.name);
+					extractedPlays = [...extractedPlays, ...plays];
+				}
 			} catch (e) {
 				errorMessage = `Failed to process ${fileItem.name}: ${e.message}`;
 				uploadState = 'error';
@@ -157,7 +201,7 @@
 			<h2 class="text-3xl font-bold">
 				Convert Your <span class="text-orange-500">Playbook</span>
 			</h2>
-			<p class="text-zinc-400 text-sm mt-1.5">AI extracts plays from playbook images</p>
+			<p class="text-zinc-400 text-sm mt-1.5">AI extracts plays from playbook PDFs or images</p>
 		</div>
 
 		<!-- Error Banner -->
@@ -193,7 +237,7 @@
 		<!-- Hint Text -->
 		{#if uploadState === 'processing'}
 			<p class="text-zinc-600 text-xs text-center mt-3">
-				Analyzing play diagrams with vision AI...
+				Analyzing play diagrams with vision AI... This may take a minute for PDFs.
 			</p>
 		{/if}
 	</main>
