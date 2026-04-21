@@ -37,7 +37,8 @@
 	let processingDetails = $state('');
 	let extractedPlays = $state<Play[]>([]);
 
-	const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3002';
+	// Use relative path - works on both localhost and Vercel
+	const API_BASE = '';
 
 	async function convertPdfToImages(file: File): Promise<string[]> {
 		const arrayBuffer = await file.arrayBuffer();
