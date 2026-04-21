@@ -24,10 +24,10 @@ const OLINE_PROTECTIONS = ['Cup', 'Ray', 'Lou', 'Full Cup', 'Full Lou', 'Full Ra
 const DISTRIBUTIONS = ['2x2', '3x1', 'Trips Side', 'Single Side', 'Field', 'Boundary', 'Field wide', 'Field slot', 'Boundary inside', 'Boundary outside'];
 
 // Actual formations from the playbook
-const BASE_FORMATIONS = ['ZUG', 'LUZERN'];
+export const BASE_FORMATIONS = ['ZUG', 'LUZERN'];
 
 // Formation modifiers found in the playbook
-const FORMATION_MODIFIERS = ['A-BUMP', 'A-NEAR-BUMP', 'T-WING', 'Z-FLIP', 'T-FLIP', 'I-OFF', 'A-SHORT-DIVIDE', 'A-DIVIDE'];
+export const FORMATION_MODIFIERS = ['A-BUMP', 'A-NEAR-BUMP', 'T-WING', 'Z-FLIP', 'T-FLIP', 'I-OFF', 'A-SHORT-DIVIDE', 'A-DIVIDE'];
 
 // Play concepts from the playbook
 const CONCEPTS = [
@@ -39,12 +39,11 @@ const CONCEPTS = [
 /**
  * Build the prompt for AI vision API to extract plays from playbook diagrams.
  * @param {string} position - e.g. 'QB', 'FB', 'X', etc.
- * @param {boolean} isPDF - whether the source was a PDF
  * @returns {string} The prompt text
  */
-export function buildPrompt(position, isPDF = false) {
+export function buildPrompt(position) {
   const pos = position || 'QB';
-  // @ts-ignore - positionLabels indexing
+  // @ts-expect-error - positionLabels indexing
   const labels = positionLabels[pos] || [pos];
 
   return `You are analyzing a football playbook page with MULTIPLE play diagrams. Extract plays for position: ${pos}
