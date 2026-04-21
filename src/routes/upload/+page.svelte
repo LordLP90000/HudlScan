@@ -8,9 +8,10 @@
 	import ProcessingSpinner from '$lib/components/ProcessingSpinner.svelte';
 	import Banner from '$lib/components/Banner.svelte';
 	import * as pdfjsLib from 'pdfjs-dist';
+	import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 
-	// Set up PDF.js worker
-	pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+	// Set up PDF.js worker with local import
+	pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 	interface FileItem {
 		name: string;
