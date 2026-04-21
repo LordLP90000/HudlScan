@@ -35,8 +35,9 @@ Zug, Luzern, I-Off, 2x2, 3x1, Trips, Twins, Trey, Power, Zone, ISO, Gap, Duo, Co
 ROUTES (go in col2, NEVER col1):
 Go, Post, Corner, Out, In, Flat, Slant, Hitch, Stick, Wheel, Comeback, Seam, Cross, Dig, Curl, Arrow, Shoot, Shallow, Fade
 
-PROTECTION SCHEMES (go in col2 or col4, NEVER col1):
+PROTECTION SCHEMES (OLINE protections, NOT routes or formations):
 Cup, Ray, Lou, Full Cup, Full Lou, Big-on-Big
+These are what the OFFENSIVE LINE does, NOT ${pos}. Ignore these for ${pos} assignments.
 
 MODIFIERS (must be combined with a formation, never alone):
 Bump, Bump Over, Over, Under, Tight, Spread, Slot
@@ -81,8 +82,15 @@ Look at the ARROW drawn from the ${labels.join(' or ')} player.
 STEP 3 - FIND THE CONCEPT (col3)
 Page header concept: Stick, Glance, Cross, Mesh, Power, Zone, Trey, ISO, Smash, Sail, Boot, RPO
 
-STEP 4 - BLOCKING (col4, if blocking)
-If no arrow and line goes into defender: "Lead block", "Pass protect", "Kick out", "Seal"
+STEP 4 - BLOCKING (col4, if ${pos} is blocking)
+${pos} blocking assignments (these are what ${pos} actually does):
+- "Lead block" - leading through a hole
+- "Pass protect" - staying in to block
+- "Kick out" - blocking defender outward
+- "Seal" - sealing the edge
+- "Fill gap" - filling a pulling gap
+
+IGNORE OLine protections (Cup, Ray, Lou, etc.) - these are NOT ${pos} responsibilities.
 
 OUTPUT FORMAT:
 [
