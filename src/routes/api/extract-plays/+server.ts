@@ -66,7 +66,7 @@ export async function POST({ request }: { request: Request }) {
 		if (!success) {
 			const moonshotKey = process.env.MOONSHOT_API_KEY;
 			if (moonshotKey) {
-				console.log('Claude failed, attempting Moonshot API...');
+				console.log('Claude failed, attempting Moonshot API (moonshot-v1-128k)...');
 				const response = await fetch('https://api.moonshot.ai/v1/chat/completions', {
 					method: 'POST',
 					headers: {
@@ -74,7 +74,7 @@ export async function POST({ request }: { request: Request }) {
 						'Authorization': `Bearer ${moonshotKey}`
 					},
 					body: JSON.stringify({
-						model: 'moonshot-v1-32k-vision-preview',
+						model: 'moonshot-v1-128k',
 						max_tokens: 4000,
 						temperature: 0,
 						messages: [{
