@@ -7,6 +7,7 @@
 	import PlaysTable from '$lib/components/PlaysTable.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import type { Play } from '$lib/components/PlaysTable.svelte';
+	import * as XLSX from 'xlsx';
 
 	// Get position from URL query param
 	const positionParam = $page.url.searchParams.get('position') || 'FB';
@@ -21,6 +22,8 @@
 	let plays = $state<Play[]>([]);
 	let showSuccessBanner = $state(true);
 	let showAddRow = $state(false);
+	let newFormation = $state('');
+	let newRoute = $state('');
 
 	const positionNames: Record<string, string> = {
 		QB: 'Quarterback',
@@ -76,12 +79,23 @@
 	}
 
 	function handleAddRow() {
-		const newPlay: Play = {
-			id: plays.length + 1,
-			formation: '',
-			route: ''
-		};
-		plays = [...plays, newPlay];
+		newFormation = '';
+		newRoute = '';
+		showAddRow = true;
+	}
+
+	function handleAddRowSubmit() {
+		if (newFormation.trim() || newRoute.trim()) {
+			const newPlay: Play = {
+				id: plays.length + 1,
+				formation: newFormation,
+				route: newRoute
+			};
+			plays = [...plays, newPlay];
+		}
+		showAddRow = false;
+		newFormation = '';
+		newRoute = '';
 	}
 
 	function handleNew() {
@@ -104,8 +118,34 @@
 	}
 
 	function handleExportExcel() {
-		// In a real app, this would generate and download an Excel file
-		alert('Exporting Excel file with ' + plays.length + ' plays...');
+		if (plays.length === 0) {
+			alert('No plays to export!');
+			return;
+		}
+
+		// Create worksheet data with headers
+		const worksheetData = [
+			['Formation/Play', 'Route/Blocking'],
+			...plays.map(play => [play.formation, play.route])
+		];
+
+		// Create worksheet and workbook
+		const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+		const workbook = XLSX.utils.book_new();
+		XLSX.utils.book_append_sheet(workbook, worksheet, 'Plays');
+
+		// Set column widths
+		worksheet['!cols'] = [
+			{ wch: 30 }, // Formation/Play column width
+			{ wch: 25 }  // Route/Blocking column width
+		];
+
+		// Generate filename with position and date
+		const date = new Date().toISOString().split('T')[0];
+		const filename = `${positionName.replace(/\s+/g, '_')}_Plays_${date}.xlsx`;
+
+		// Download the file
+		XLSX.writeFile(workbook, filename);
 	}
 </script>
 
@@ -152,6 +192,7 @@
 					<input
 						id="formation"
 						type="text"
+						bind:value={newFormation}
 						placeholder="e.g., 2x2 Twin"
 						class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-orange-500"
 					/>
@@ -161,13 +202,14 @@
 					<input
 						id="route"
 						type="text"
+						bind:value={newRoute}
 						placeholder="e.g., Flat"
 						class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-orange-500"
 					/>
 				</div>
 				<div class="flex gap-2">
 					<Button onclick={() => (showAddRow = false)} variant="secondary" fullWidth>Cancel</Button>
-					<Button onclick={() => (showAddRow = false)} fullWidth>Add Play</Button>
+					<Button onclick={handleAddRowSubmit} fullWidth>Add Play</Button>
 				</div>
 			</div>
 		</div>
