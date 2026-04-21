@@ -1,223 +1,65 @@
-# Hudl Playbook AI Converter
+# Svelte library
 
-Transform your Hudl playbook screenshots or PDFs into formatted Excel playcalling sheets using AI.
+Everything you need to build a Svelte library, powered by [`sv`](https://npmjs.com/package/sv).
 
-## 🏈 What It Does
+Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
 
-Players can upload:
-- **PNG/JPG screenshots** of Hudl playbook pages
-- **PDF exports** from Hudl
-- **Multiple files** at once
+## Creating a project
 
-The AI will:
-1. Extract play information (formations, routes, blocking, notes)
-2. Organize it into a 4-column playcalling sheet format
-3. Apply professional formatting (colors, borders, fonts)
-4. Generate a downloadable Excel file matching your template
+If you're seeing this, you've probably already done this step. Congrats!
 
-## 🚀 Features
+```sh
+# create a new project in the current directory
+npx sv create
 
-- ✅ AI-powered OCR and text extraction
-- ✅ Processes images (PNG, JPG, WEBP) and PDFs
-- ✅ Multi-file upload support
-- ✅ Interactive editor to review/modify extracted plays
-- ✅ Add, edit, duplicate, and delete plays
-- ✅ Export to formatted Excel (.xlsx)
-- ✅ Matches your exact template formatting
-
-## 📋 How to Use
-
-### Option 1: Deploy on Vercel (Recommended - Free)
-
-1. Create a free account at [Vercel](https://vercel.com)
-
-2. Install Vercel CLI:
-```bash
-npm install -g vercel
+# create a new project in my-app
+npx sv create my-app
 ```
 
-3. Create a new project folder:
-```bash
-mkdir hudl-converter
-cd hudl-converter
+To recreate this project with the same configuration:
+
+```sh
+# recreate this project
+npx sv@0.15.1 create --template library --types ts --add prettier eslint vitest="usages:unit,component" playwright tailwindcss="plugins:typography,forms" sveltekit-adapter="adapter:vercel" mcp="ide:claude-code,vscode+setup:local" --install npm HudlScanner
 ```
 
-4. Copy the `hudl-playbook-ai-converter.jsx` file into this folder
+## Developing
 
-5. Create a `package.json`:
-```json
-{
-  "name": "hudl-playbook-converter",
-  "version": "1.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build"
-  },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "lucide-react": "^0.263.1"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^4.0.0",
-    "vite": "^4.3.9"
-  }
-}
-```
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-6. Create `index.html`:
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hudl Playbook AI Converter</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
-</html>
-```
-
-7. Create `src/main.jsx`:
-```jsx
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from '../hudl-playbook-ai-converter.jsx'
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
-```
-
-8. Create `vite.config.js`:
-```js
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-
-export default defineConfig({
-  plugins: [react()],
-})
-```
-
-9. Deploy:
-```bash
-npm install
-vercel
-```
-
-### Option 2: Run Locally
-
-1. Install dependencies:
-```bash
-npm install
-```
-
-2. Run development server:
-```bash
+```sh
 npm run dev
+
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
 ```
 
-3. Open `http://localhost:5173` in your browser
+Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
 
-### Option 3: Deploy to Netlify
+## Building
 
-1. Create account at [Netlify](https://netlify.com)
-2. Drag and drop your project folder
-3. Netlify will auto-detect and deploy
+To build your library:
 
-## 🎨 Customization
-
-### Change Column Colors
-
-Edit the `columns` array in the code:
-
-```jsx
-const columns = [
-  { id: 'col1', name: 'Formation/Play', bgColor: 'white', textBold: true },
-  { id: 'col2', name: 'Route/Action', bgColor: '#FFFF00', textBold: true },
-  { id: 'col3', name: 'Blocking', bgColor: 'white', textBold: false },
-  { id: 'col4', name: 'Notes', bgColor: '#FF7C80', textBold: true }
-];
+```sh
+npm pack
 ```
 
-### Change Column Names
+To create a production version of your showcase app:
 
-Update the `name` property for each column above.
-
-### Adjust AI Extraction
-
-Modify the prompt in `processImage()` and `processPDF()` functions to change what information the AI extracts.
-
-## 💡 Tips for Best Results
-
-1. **Clear Screenshots**: Ensure playbook screenshots are clear and high-resolution
-2. **One Page Per File**: For best results, upload one playbook page per image
-3. **Review Before Export**: Always review and edit the AI-extracted plays before exporting
-4. **Multiple Uploads**: You can upload multiple files at once for batch processing
-
-## 🔧 Technical Details
-
-- **Frontend**: React with Tailwind CSS
-- **AI**: Claude Sonnet 4 (via Anthropic API)
-- **Excel Export**: ExcelJS library
-- **File Formats**: PNG, JPG, WEBP, PDF
-
-## 📝 File Structure
-
-```
-hudl-converter/
-├── hudl-playbook-ai-converter.jsx  # Main React component
-├── package.json                     # Dependencies
-├── vite.config.js                   # Build configuration
-├── index.html                       # HTML template
-└── src/
-    └── main.jsx                     # React entry point
+```sh
+npm run build
 ```
 
-## ❓ Troubleshooting
+You can preview the production build with `npm run preview`.
 
-### AI Not Extracting Plays Correctly?
-- Ensure images are high quality and text is readable
-- Try uploading individual pages instead of multi-page PDFs
-- Manually edit any incorrectly extracted plays
+> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
 
-### Export Not Working?
-- Check browser console for errors
-- Ensure you have plays in the sheet before exporting
-- Try a different browser (Chrome/Edge recommended)
+## Publishing
 
-### Upload Fails?
-- Check file format (must be PNG, JPG, or PDF)
-- Ensure file size is under 10MB per file
-- Try uploading fewer files at once
+Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
 
-## 🆘 Support
+To publish your library to [npm](https://www.npmjs.com):
 
-If you encounter issues:
-1. Check the console (F12 in browser) for error messages
-2. Verify your files are in supported formats
-3. Try refreshing the page and re-uploading
-
-## 📄 License
-
-Free to use for personal and team purposes.
-
-## 🎯 Roadmap
-
-Potential future features:
-- [ ] Batch export multiple playsheets
-- [ ] Save/load projects
-- [ ] Custom column configurations
-- [ ] Print-optimized layouts
-- [ ] Formation diagram extraction
-- [ ] Cloud storage integration
-
----
-
-**Made for coaches and players** 🏈
+```sh
+npm publish
+```
