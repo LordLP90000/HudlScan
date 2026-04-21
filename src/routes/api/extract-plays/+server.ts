@@ -19,55 +19,11 @@ export async function POST({ request }: { request: Request }) {
 		let textContent = '[]';
 		let success = false;
 
-		// Try Claude first (better quality), fallback to Moonshot
-		const claudeKey = process.env.ANTHROPIC_API_KEY;
-		if (claudeKey) {
-			console.log('Attempting Claude API (Sonnet 4.6)...');
-			try {
-				const claudeResponse = await fetch('https://api.anthropic.com/v1/messages', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-						'x-api-key': claudeKey,
-						'anthropic-version': '2023-06-01'
-					},
-					body: JSON.stringify({
-						model: 'claude-sonnet-4-6',
-						max_tokens: 4000,
-						temperature: 0,
-						messages: [{
-							role: 'user',
-							content: [
-								{ type: 'image', source: { type: 'base64', media_type: 'image/png', data: routeTreeBase64 } },
-								{ type: 'text', text: 'Route tree reference.' },
-								{ type: 'image', source: { type: 'base64', media_type: 'image/png', data: imageBase64 } },
-								{ type: 'text', text: prompt }
-							]
-						}]
-					})
-				});
-
-				if (claudeResponse.ok) {
-					const claudeData = await claudeResponse.json();
-					textContent = claudeData.content?.[0]?.text || '[]';
-					success = true;
-					console.log(`Claude success for ${fileName}`);
-				} else {
-					console.error(`Claude error ${claudeResponse.status}:`, await claudeResponse.text());
-				}
-			} catch (e) {
-				console.warn(`Claude exception:`, e);
-			}
-		} else {
-			console.warn('ANTHROPIC_API_KEY not found in environment');
-		}
-
-		// Fallback to Moonshot if Claude fails
-		if (!success) {
-			const moonshotKey = process.env.MOONSHOT_API_KEY;
-			if (moonshotKey) {
-				console.log('Claude failed, attempting Moonshot API (Kimi 2.6)...');
-				const response = await fetch('https://api.moonshot.ai/v1/chat/completions', {
+		// Use Moonshot Kimi API
+		const moonshotKey = process.env.MOONSHOT_API_KEY;
+		if (moonshotKey) {
+			console.log('Attempting Moonshot API (Kimi 2.6)...');
+			const response = await fetch('https://api.moonshot.ai/v1/chat/completions', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -89,22 +45,21 @@ export async function POST({ request }: { request: Request }) {
 					})
 				});
 
-				if (response.ok) {
-					const data = await response.json();
-					textContent = data.choices?.[0]?.message?.content || '[]';
-					success = true;
-					console.log(`Moonshot fallback success for ${fileName}`);
-				} else {
-					console.error(`Moonshot error ${response.status}:`, await response.text());
-				}
+			if (response.ok) {
+				const data = await response.json();
+				textContent = data.choices?.[0]?.message?.content || '[]';
+				success = true;
+				console.log(`Moonshot success for ${fileName}`);
 			} else {
-				console.warn('MOONSHOT_API_KEY not found in environment');
+				console.error(`Moonshot error ${response.status}:`, await response.text());
 			}
+		} else {
+			console.warn('MOONSHOT_API_KEY not found in environment');
 		}
 
 		if (!success) {
 			return new Response(
-				JSON.stringify({ error: 'AI APIs failed. Check environment variables.' }),
+				JSON.stringify({ error: 'Moonshot API failed. Check MOONSHOT_API_KEY environment variable.' }),
 				{ status: 500, headers: { 'Content-Type': 'application/json' } }
 			);
 		}
