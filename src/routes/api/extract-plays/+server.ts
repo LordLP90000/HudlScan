@@ -20,7 +20,7 @@ export async function POST({ request }: { request: Request }) {
 		let success = false;
 
 		// Try Claude first (better quality), fallback to Moonshot
-		const claudeKey = process.env.CLAUDE_API_KEY;
+		const claudeKey = process.env.ANTHROPIC_API_KEY;
 		if (claudeKey) {
 			console.log('Attempting Claude API (Sonnet 4.6)...');
 			try {
@@ -59,7 +59,7 @@ export async function POST({ request }: { request: Request }) {
 				console.warn(`Claude exception:`, e);
 			}
 		} else {
-			console.warn('CLAUDE_API_KEY not found in environment');
+			console.warn('ANTHROPIC_API_KEY not found in environment');
 		}
 
 		// Fallback to Moonshot if Claude fails
