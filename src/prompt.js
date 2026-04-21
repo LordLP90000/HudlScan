@@ -51,13 +51,25 @@ export function buildPrompt(position, isPDF = false) {
 
 POSITION LABEL TO FIND: ${labels.join(' or ')}
 
-*** CRITICAL: col1 MUST BE THE EXACT FORMATION/PLAY NAME FROM THE DIAGRAM ***
+*** CRITICAL FORMATION RULES FOR col1 ***
 
-Read the label UNDER or BESIDE each diagram. Write EXACTLY what is written.
-- Remove year prefix "2026"
-- Keep formation modifiers: "ZUG A-BUMP", "LUZERN T-WING", "ZUG I-OFF"
-- Include directional modifiers: "POWER RIGHT", "ISO LEFT"
-- Keep concept modifiers: "GLANCE ARROW vs OVER", "SPACING vs OVER"
+RULE #1: col1 MUST start with "ZUG" or "LUZERN" (the ONLY valid base formations)
+RULE #2: NEVER use partial formations like "bump", "over", "bump-over", "2x2", "field", "boundary"
+RULE #3: ALWAYS write the FULL formation name with base + modifiers
+
+VALID col1 examples:
+- "ZUG A-BUMP"
+- "LUZERN T-WING POWER RIGHT"
+- "ZUG Z-FLIP"
+- "LUZERN I-OFF"
+
+INVALID col1 examples (DO NOT USE):
+- "bump" (missing base formation)
+- "over" (this is a receiver distribution, not a formation)
+- "bump-over" (incomplete - should be "ZUG A-BUMP" or similar)
+- "2x2" (receiver distribution, not a formation)
+- "field" (direction, not a formation)
+- "boundary" (direction, not a formation)
 
 *** NEVER PUT THESE IN col1 - THEY ARE NOT FORMATIONS ***
 
@@ -70,12 +82,20 @@ ${ROUTES.join(', ')}
 OLINE PROTECTIONS (these are for OFFENSIVE LINE only, NOT ${pos}):
 ${OLINE_PROTECTIONS.join(', ')}
 
-STEP 1 - FORMATION/PLAY (col1)
+STEP 1 - FORMATION/PLAY (col1) - CRITICAL RULES
+The formation MUST start with "ZUG" or "LUZERN" - no exceptions!
+
+WRONG → "bump", "over", "bump-over", "2x2", "field", "boundary"
+RIGHT → "ZUG A-BUMP", "LUZERN T-WING", "ZUG Z-FLIP", "LUZERN I-OFF"
+
 Read EXACT label from diagram:
-- Base formations: ZUG, LUZERN
-- With modifiers: ZUG A-BUMP, LUZERN T-WING, ZUG Z-FLIP, LUZERN I-OFF, etc.
+- MUST include base: ZUG or LUZERN
+- With modifiers: ZUG A-BUMP, LUZERN T-WING, ZUG Z-FLIP, LUZERN I-OFF
+- With play concept: ZUG POWER RIGHT, LUZERN ISO LEFT
 - With divide: LUZERN A-DIVIDE, LUZERN A-SHORT-DIVIDE
 - Remove "2026" prefix
+
+If you see ONLY "bump" or "over" written - this means the base formation (ZUG/LUZERN) is from the page header. Include it!
 
 STEP 2 - ROUTE (col2)
 Look at the ARROW from ${labels.join(' or ')}.
