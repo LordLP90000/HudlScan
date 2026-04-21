@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 	import Nav from '$lib/components/Nav.svelte';
 	import Chip from '$lib/components/Chip.svelte';
 	import Banner from '$lib/components/Banner.svelte';
@@ -10,23 +11,14 @@
 	// Get position from URL query param
 	const positionParam = $page.url.searchParams.get('position') || 'FB';
 
-	let plays = $state<Play[]>([
-		{ id: 1, formation: '2x2 Twin', route: 'Flat' },
-		{ id: 2, formation: 'Zug A-Bump', route: 'Go' },
-		{ id: 3, formation: 'Power / Trey', route: 'Fill the Pulling Gap' },
-		{ id: 4, formation: 'Duo Spread', route: 'Kickout' },
-		{ id: 5, formation: 'Counter Trey', route: 'Lead' },
-		{ id: 6, formation: 'Zone Read', route: 'Track' },
-		{ id: 7, formation: 'Inside Zone', route: 'Vertical' },
-		{ id: 8, formation: 'Outside Zone', route: 'Reach' },
-		{ id: 9, formation: 'Gap', route: 'Down block' },
-		{ id: 10, formation: 'Power Read', route: 'Pull' },
-		{ id: 11, formation: 'Draw', route: 'Replace' },
-		{ id: 12, formation: 'Play Action', route: 'Sell fake' },
-		{ id: 13, formation: 'RPO', route: 'Give/Keep' },
-		{ id: 14, formation: 'Sprint Out', route: 'Roll' }
-	]);
+	interface AIPlay {
+		col1: string; // formation/play name
+		col2: string; // route
+		col3: string; // concept
+		col4: string; // blocking description
+	}
 
+	let plays = $state<Play[]>([]);
 	let showSuccessBanner = $state(true);
 	let showAddRow = $state(false);
 
@@ -42,6 +34,46 @@
 	};
 
 	const positionName = positionNames[positionParam] || positionParam;
+
+	onMount(() => {
+		// Try to load extracted plays from sessionStorage
+		const stored = sessionStorage.getItem('extractedPlays');
+		if (stored) {
+			try {
+				const aiPlays: AIPlay[] = JSON.parse(stored);
+				// Convert AI format to Play format
+				plays = aiPlays.map((p, i) => ({
+					id: i + 1,
+					formation: p.col1,
+					route: p.col2 || p.col4 // prefer route, fallback to blocking
+				}));
+			} catch (e) {
+				console.error('Failed to parse stored plays:', e);
+				loadExamplePlays();
+			}
+		} else {
+			loadExamplePlays();
+		}
+	});
+
+	function loadExamplePlays() {
+		plays = [
+			{ id: 1, formation: '2x2 Twin', route: 'Flat' },
+			{ id: 2, formation: 'Zug A-Bump', route: 'Go' },
+			{ id: 3, formation: 'Power / Trey', route: 'Fill the Pulling Gap' },
+			{ id: 4, formation: 'Duo Spread', route: 'Kickout' },
+			{ id: 5, formation: 'Counter Trey', route: 'Lead' },
+			{ id: 6, formation: 'Zone Read', route: 'Track' },
+			{ id: 7, formation: 'Inside Zone', route: 'Vertical' },
+			{ id: 8, formation: 'Outside Zone', route: 'Reach' },
+			{ id: 9, formation: 'Gap', route: 'Down block' },
+			{ id: 10, formation: 'Power Read', route: 'Pull' },
+			{ id: 11, formation: 'Draw', route: 'Replace' },
+			{ id: 12, formation: 'Play Action', route: 'Sell fake' },
+			{ id: 13, formation: 'RPO', route: 'Give/Keep' },
+			{ id: 14, formation: 'Sprint Out', route: 'Roll' }
+		];
+	}
 
 	function handleAddRow() {
 		const newPlay: Play = {

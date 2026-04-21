@@ -12,15 +12,60 @@
 		name: string;
 		size: string;
 		type: 'pdf' | 'image';
+		file: File;
 	}
 
-	type UploadState = 'empty' | 'ready' | 'processing' | 'error';
+	interface Play {
+		col1: string;
+		col2: string;
+		col3: string;
+		col4: string;
+	}
+
+	type UploadState = 'empty' | 'ready' | 'processing' | 'error' | 'complete';
 
 	let selectedPosition = $state('FB');
 	let uploadState = $state<UploadState>('empty');
 	let selectedFiles = $state<FileItem[]>([]);
 	let errorMessage = $state('');
 	let processingDetails = $state('');
+	let extractedPlays = $state<Play[]>([]);
+
+	const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3002';
+
+	async function convertPdfToImages(file: File): Promise<string[]> {
+		// For PDFs, we'd use pdf.js to convert each page to base64
+		// For now, return empty - user should upload images directly
+		throw new Error('PDF support coming soon. Please upload images directly.');
+	}
+
+	async function extractPlaysFromImage(imageBase64: string, fileName: string): Promise<Play[]> {
+		const response = await fetch(`${API_BASE}/api/extract-plays`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				imageBase64: imageBase64.split(',')[1], // Remove data:image/...;base64, prefix
+				fileName,
+				position: selectedPosition
+			})
+		});
+
+		if (!response.ok) {
+			throw new Error(`API error: ${response.statusText}`);
+		}
+
+		const data = await response.json();
+		return data.plays || [];
+	}
+
+	function fileToBase64(file: File): Promise<string> {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onload = () => resolve(reader.result as string);
+			reader.onerror = reject;
+			reader.readAsDataURL(file);
+		});
+	}
 
 	function handleFilesSelected(files: globalThis.FileList) {
 		const fileItems: FileItem[] = [];
@@ -31,7 +76,8 @@
 			fileItems.push({
 				name: file.name,
 				size: formatFileSize(file.size),
-				type: extension === 'pdf' ? 'pdf' : 'image'
+				type: extension === 'pdf' ? 'pdf' : 'image',
+				file
 			});
 		}
 
@@ -53,20 +99,43 @@
 		}
 	}
 
-	function handleExtract() {
+	async function handleExtract() {
 		uploadState = 'processing';
-		processingDetails = 'Processing playbook_week8-page-3 (3/8) - 52s elapsed, ~88s remaining...';
+		extractedPlays = [];
 
-		// Simulate processing - in real app, this would call an API
-		setTimeout(() => {
-			// Navigate to editor after "processing"
-			goto('/editor?position=' + selectedPosition);
-		}, 3000);
+		for (let i = 0; i < selectedFiles.length; i++) {
+			const fileItem = selectedFiles[i];
+			processingDetails = `Processing ${fileItem.name} (${i + 1}/${selectedFiles.length})...`;
+
+			try {
+				if (fileItem.type === 'pdf') {
+					errorMessage = 'PDF support coming soon. Please upload images directly.';
+					uploadState = 'error';
+					return;
+				}
+
+				const base64 = await fileToBase64(fileItem.file);
+				const plays = await extractPlaysFromImage(base64, fileItem.name);
+				extractedPlays = [...extractedPlays, ...plays];
+			} catch (e) {
+				errorMessage = `Failed to process ${fileItem.name}: ${e.message}`;
+				uploadState = 'error';
+				return;
+			}
+		}
+
+		// Store plays in sessionStorage for the editor page
+		sessionStorage.setItem('extractedPlays', JSON.stringify(extractedPlays));
+		sessionStorage.setItem('position', selectedPosition);
+
+		// Navigate to editor
+		goto('/editor?position=' + selectedPosition);
 	}
 
 	function handleChooseDifferent() {
 		selectedFiles = [];
 		uploadState = 'empty';
+		extractedPlays = [];
 	}
 
 	function handleDismissError() {
@@ -88,7 +157,7 @@
 			<h2 class="text-3xl font-bold">
 				Convert Your <span class="text-orange-500">Playbook</span>
 			</h2>
-			<p class="text-zinc-400 text-sm mt-1.5">Server-side AI processing - works even when you switch tabs</p>
+			<p class="text-zinc-400 text-sm mt-1.5">AI extracts plays from playbook images</p>
 		</div>
 
 		<!-- Error Banner -->
@@ -102,11 +171,9 @@
 			<PositionSelector selectedPosition={selectedPosition} onSelect={(pos: string) => (selectedPosition = pos)} />
 
 			{#if uploadState === 'empty'}
-				<!-- Empty State - Dropzone -->
 				<FileDropzone onFilesSelected={handleFilesSelected} />
 
 			{:else if uploadState === 'ready'}
-				<!-- Files Selected State -->
 				<div class="text-sm font-bold mb-3">Ready to process ({selectedFiles.length} file{selectedFiles.length === 1 ? '' : 's'})</div>
 
 				<FileList files={selectedFiles} onRemove={removeFile} />
@@ -119,15 +186,14 @@
 				</div>
 
 			{:else if uploadState === 'processing'}
-				<!-- Processing State -->
-				<ProcessingSpinner message="Processing on server..." details={processingDetails} />
+				<ProcessingSpinner message="Processing with AI..." details={processingDetails} />
 			{/if}
 		</div>
 
 		<!-- Hint Text -->
 		{#if uploadState === 'processing'}
 			<p class="text-zinc-600 text-xs text-center mt-3">
-				You can switch tabs - processing continues on our servers
+				Analyzing play diagrams with vision AI...
 			</p>
 		{/if}
 	</main>
