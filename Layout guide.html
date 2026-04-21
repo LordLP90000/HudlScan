@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HudlScan Design Guide - Fidelity Pack</title>
+  <style>
+    :root {
+      --bg: #1A1A1A;
+      --bgSecondary: #242424;
+      --bgCard: #2D2D2D;
+      --border: #3A3A3A;
+      --primary: #FF6600;
+      --primaryHover: #E55C00;
+      --text: #FFFFFF;
+      --textSecondary: #A0A0A0;
+      --textMuted: #6B6B6B;
+      --success: #10B981;
+      --error: #EF4444;
+      --warning: #F59E0B;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .guide-wrap { max-width: 1320px; margin: 0 auto; padding: 24px; }
+    .lead {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--bgSecondary);
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+    .lead h1 { margin: 0 0 8px; font-size: 24px; }
+    .lead p { margin: 0; color: var(--textSecondary); }
+    .guardrails {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 10px;
+    }
+    .guardrail {
+      border: 1px solid var(--border);
+      background: var(--bgCard);
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 12px;
+      color: var(--textSecondary);
+    }
+    .section-title {
+      margin: 28px 0 10px;
+      font-size: 16px;
+      color: var(--textSecondary);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .state {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      margin: 20px 0 40px;
+      overflow: hidden;
+      background: var(--bgCard);
+    }
+    .state-title {
+      margin: 0;
+      padding: 14px 18px;
+      background: var(--bgSecondary);
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--textSecondary);
+    }
+    .state-body { padding: 18px; }
+    .block {
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+      background: rgba(255,255,255,0.02);
+    }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .chip {
+      display: inline-block;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bgSecondary);
+      font-size: 12px;
+      color: var(--textSecondary);
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .btn-secondary {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      color: var(--textSecondary);
+      font-size: 13px;
+    }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .table th, .table td {
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      font-size: 12px;
+      text-align: left;
+    }
+    .hint { font-size: 12px; color: var(--textMuted); margin-top: 6px; }
+
+    .actual-page {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--bg);
+      margin: 16px 0 28px;
+    }
+    .actual-header {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bgSecondary);
+      color: var(--textSecondary);
+      font-size: 12px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .page-shell {
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .nav {
+      height: 64px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bgSecondary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+    .brand-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--primary);
+    }
+    .nav-links { display: flex; gap: 18px; color: var(--textSecondary); font-size: 13px; }
+    .mini-cta {
+      background: var(--primary);
+      color: #fff;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .canvas {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .hero {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,102,0,0.15), rgba(255,102,0,0.02));
+      padding: 24px;
+      margin-bottom: 14px;
+    }
+    .hero h3 { margin: 0 0 8px; font-size: 28px; }
+    .hero p { margin: 0; color: var(--textSecondary); }
+    .hero-actions { display: flex; gap: 8px; margin-top: 14px; }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--bgCard);
+      padding: 12px;
+      min-height: 92px;
+    }
+    .card h4 { margin: 0 0 6px; font-size: 13px; }
+    .card p { margin: 0; color: var(--textSecondary); font-size: 12px; }
+
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--bgCard);
+      padding: 16px;
+    }
+    .page-title { text-align: center; margin-bottom: 14px; }
+    .page-title h3 { margin: 0; font-size: 30px; }
+    .page-title p { margin: 6px 0 0; color: var(--textSecondary); font-size: 13px; }
+    .position-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .pos {
+      text-align: center;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--bgSecondary);
+      color: var(--textSecondary);
+      padding: 8px 0;
+      font-size: 12px;
+    }
+    .pos.active { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: 700; }
+    .dropzone {
+      margin-top: 12px;
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      text-align: center;
+      color: var(--textSecondary);
+      padding: 24px;
+      font-size: 13px;
+    }
+    .files { margin-top: 12px; display: grid; gap: 8px; }
+    .file-row {
+      display: grid;
+      grid-template-columns: 20px 1fr 80px 24px;
+      align-items: center;
+      gap: 8px;
+      border-radius: 10px;
+      background: var(--bgSecondary);
+      padding: 8px;
+      font-size: 12px;
+    }
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(255,102,0,0.2);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      margin: 0 auto 10px;
+    }
+    .processing { text-align: center; padding: 16px; }
+    .processing h4 { margin: 0 0 4px; }
+    .processing p { margin: 0; color: var(--textSecondary); font-size: 12px; }
+
+    .editor-top {
+      border-bottom: 1px solid var(--border);
+      background: var(--bgSecondary);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .editor-cta { display: flex; gap: 6px; }
+    .editor-cta .chip { font-size: 11px; }
+    .ok-banner {
+      margin: 12px 16px;
+      border: 1px solid rgba(16,185,129,0.45);
+      background: rgba(16,185,129,0.15);
+      color: var(--success);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+    .error-banner {
+      margin: 12px 0;
+      border: 1px solid rgba(239,68,68,0.45);
+      background: rgba(239,68,68,0.15);
+      color: var(--error);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 980px) {
+      .grid-3 { grid-template-columns: 1fr; }
+      .position-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="guide-wrap">
+    <div class="lead">
+      <h1>HudlScan UI Design Guide (Fidelity Pack)</h1>
+      <p>This guide combines state specs and concrete page replicas so migration agents cannot invent alternate layouts.</p>
+      <div class="guardrails">
+        <div class="guardrail">Do not redesign structure during JS to TS migration.</div>
+        <div class="guardrail">Preserve exact flow: Landing -> Upload -> Processing -> Editor.</div>
+        <div class="guardrail">Keep endpoint contract unchanged while converting backend to TypeScript.</div>
+        <div class="guardrail">Use this file as canonical visual and layout source-of-truth.</div>
+      </div>
+    </div>
+
+    <h2 class="section-title">A. State Map (Spec)</h2>
+
+    <section class="state" id="landing">
+      <h2 class="state-title">State 1: Landing</h2>
+      <div class="state-body">
+        <div class="block">Top Nav: logo, links (Features, How it works, Pricing), CTA Start Converting</div>
+        <div class="block">Hero: badge, headline, description, two CTAs</div>
+        <div class="block">Feature cards (3)</div>
+        <div class="block">How it works steps (3)</div>
+        <div class="block">Pricing section</div>
+        <div class="block">Bottom CTA + Footer columns</div>
+      </div>
+    </section>
+
+    <section class="state" id="upload-empty">
+      <h2 class="state-title">State 2: Upload View - Empty</h2>
+      <div class="state-body">
+        <div class="block">Simple top nav with back-to-landing logo button</div>
+        <div class="block">Page header: Convert Your Playbook + server-side message</div>
+        <div class="block">
+          Position selector grid:
+          <div class="row" style="margin-top:8px">
+            <span class="chip">QB</span><span class="chip">RB</span><span class="chip">FB</span><span class="chip">X</span>
+            <span class="chip">Y</span><span class="chip">Z</span><span class="chip">H</span><span class="chip">TE</span>
+          </div>
+        </div>
+        <div class="block">Upload dropzone: accepts PNG, JPG, PDF, WEBP, multiple files</div>
+      </div>
+    </section>
+
+    <section class="state" id="upload-ready">
+      <h2 class="state-title">State 3: Upload View - Files Selected</h2>
+      <div class="state-body">
+        <div class="block">File list rows: icon, filename, file size, remove button</div>
+        <div class="row">
+          <span class="btn-primary">Extract Plays with AI</span>
+          <span class="btn-secondary">Choose different files</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="state" id="upload-processing">
+      <h2 class="state-title">State 4: Upload View - Processing</h2>
+      <div class="state-body">
+        <div class="block">Spinner</div>
+        <div class="block">Heading: Processing on server</div>
+        <div class="block">Dynamic status text with elapsed/remaining info</div>
+        <div class="block">Hint text: tab can be switched while processing</div>
+      </div>
+    </section>
+
+    <section class="state" id="editor-with-data">
+      <h2 class="state-title">State 5: Editor - With Data</h2>
+      <div class="state-body">
+        <div class="block">Sticky header: title, extracted play count, selected position</div>
+        <div class="row" style="margin-bottom:12px">
+          <span class="chip">Add Row</span>
+          <span class="chip">New</span>
+          <span class="chip">Export Excel</span>
+        </div>
+        <div class="block">Success banner: Plays extracted, review before export</div>
+        <table class="table">
+          <thead>
+            <tr><th>#</th><th>Formation/Play</th><th>Route/Blocking</th><th>Actions</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>2x2 Twin</td><td>Flat</td><td>Duplicate / Delete</td></tr>
+            <tr><td>2</td><td>3x1 Stack</td><td>Seal inside</td><td>Duplicate / Delete</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="state" id="editor-empty">
+      <h2 class="state-title">State 6: Editor - Empty Table</h2>
+      <div class="state-body">
+        <div class="block">Empty state icon + text: No plays yet</div>
+      </div>
+    </section>
+
+    <section class="state" id="error-state">
+      <h2 class="state-title">State 7: Error Alert</h2>
+      <div class="state-body">
+        <div class="block" style="border-color: var(--error);">Error banner with dismiss button</div>
+      </div>
+    </section>
+
+    <h2 class="section-title">B. Actual Page Replicas (High Fidelity)</h2>
+
+    <section class="actual-page" id="page-landing-actual">
+      <div class="actual-header">Actual Page Replica 1: Landing</div>
+      <div class="page-shell">
+        <div class="nav">
+          <div class="brand"><span class="brand-badge"></span><span>Hudl Playbook AI</span></div>
+          <div class="nav-links"><span>Features</span><span>How it works</span><span>Pricing</span></div>
+          <div class="mini-cta">Start Converting</div>
+        </div>
+        <div class="canvas">
+          <div class="hero">
+            <h3>Turn Hudl Playbooks into Excel Sheets</h3>
+            <p>Upload your playbook screenshots or PDFs and let AI extract every play.</p>
+            <div class="hero-actions">
+              <span class="btn-primary">Start Converting Free</span>
+              <span class="btn-secondary">Watch Demo</span>
+            </div>
+          </div>
+          <div class="grid-3">
+            <div class="card"><h4>Server-Side Processing</h4><p>Processing continues in background.</p></div>
+            <div class="card"><h4>Position-Specific</h4><p>Extract routes for selected role.</p></div>
+            <div class="card"><h4>Excel Export</h4><p>Download formatted sheet.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="actual-page" id="page-upload-empty-actual">
+      <div class="actual-header">Actual Page Replica 2: Upload (No Files)</div>
+      <div class="page-shell">
+        <div class="nav">
+          <div class="brand"><span class="brand-badge"></span><span>Hudl Playbook AI</span></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div class="canvas" style="max-width:900px">
+          <div class="page-title">
+            <h3>Convert Your <span style="color:var(--primary)">Playbook</span></h3>
+            <p>Server-side AI processing - works even when you switch tabs</p>
+          </div>
+          <div class="panel">
+            <div style="font-size:13px; font-weight:700">Select Your Position</div>
+            <div class="position-grid">
+              <div class="pos">QB</div><div class="pos">RB</div><div class="pos active">FB</div><div class="pos">X</div>
+              <div class="pos">Y</div><div class="pos">Z</div><div class="pos">H</div><div class="pos">TE</div>
+            </div>
+            <div class="dropzone">Click to upload your playbook<br><span class="hint">Supports PNG, JPG, PDF, WEBP - Multiple files allowed</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="actual-page" id="page-upload-ready-actual">
+      <div class="actual-header">Actual Page Replica 3: Upload (Files Selected)</div>
+      <div class="page-shell">
+        <div class="canvas" style="max-width:900px; padding-top:14px">
+          <div class="panel">
+            <div style="font-size:13px; font-weight:700">Ready to process (2 files)</div>
+            <div class="files">
+              <div class="file-row"><span>P</span><span>playbook_week8.pdf</span><span>3.2 MB</span><span>X</span></div>
+              <div class="file-row"><span>I</span><span>formations_2x2.png</span><span>1.1 MB</span><span>X</span></div>
+            </div>
+            <div style="margin-top:10px"><span class="btn-primary" style="display:block; text-align:center">Extract Plays with AI</span></div>
+            <div style="margin-top:8px"><span class="btn-secondary" style="display:block; text-align:center">Choose different files</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="actual-page" id="page-upload-processing-actual">
+      <div class="actual-header">Actual Page Replica 4: Upload (Processing)</div>
+      <div class="page-shell">
+        <div class="canvas" style="max-width:900px; padding-top:14px">
+          <div class="panel processing">
+            <div class="spinner"></div>
+            <h4>Processing on server...</h4>
+            <p>Processing playbook_week8-page-3 (3/8) - 52s elapsed, ~88s remaining...</p>
+            <p class="hint" style="margin-top:8px">You can switch tabs - processing continues on our servers</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="actual-page" id="page-editor-actual">
+      <div class="actual-header">Actual Page Replica 5: Editor (With Data)</div>
+      <div class="page-shell">
+        <div class="editor-top">
+          <div>
+            <div style="font-weight:700">Playcalling Sheet Editor</div>
+            <div class="hint">14 plays extracted - Fullback / A-Back</div>
+          </div>
+          <div class="editor-cta">
+            <span class="chip" style="background:var(--success); color:#fff; border-color:var(--success)">Add Row</span>
+            <span class="chip">New</span>
+            <span class="chip" style="background:var(--primary); color:#fff; border-color:var(--primary)">Export Excel</span>
+          </div>
+        </div>
+        <div class="ok-banner">Plays extracted! Review and edit before exporting.</div>
+        <div style="padding:0 16px 16px">
+          <table class="table">
+            <thead>
+              <tr><th>#</th><th>Formation/Play</th><th>Route/Blocking</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>2x2 Twin</td><td>Flat</td><td>+ / Del</td></tr>
+              <tr><td>2</td><td>Zug A-Bump</td><td>Go</td><td>+ / Del</td></tr>
+              <tr><td>3</td><td>Power / Trey</td><td>Fill the Pulling Gap</td><td>+ / Del</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="actual-page" id="page-editor-empty-actual">
+      <div class="actual-header">Actual Page Replica 6: Editor Empty State</div>
+      <div class="page-shell" style="padding:16px">
+        <div class="panel" style="text-align:center; color:var(--textSecondary)">No plays yet. Add rows manually or upload a new playbook.</div>
+      </div>
+    </section>
+
+    <section class="actual-page" id="page-error-actual">
+      <div class="actual-header">Actual Page Replica 7: Error Banner State</div>
+      <div class="page-shell" style="padding:16px">
+        <div class="error-banner">Error: No plays could be extracted. Check that your playbook pages show clear play diagrams.</div>
+      </div>
+    </section>
+
+    <h2 class="section-title">C. Migration Guard (Copy Exactly)</h2>
+    <section class="state" id="copy-guard">
+      <h2 class="state-title">Copy Rules For Any AI Migration Agent</h2>
+      <div class="state-body">
+        <div class="block">Rule 1: Keep page flow and conditional states exactly as shown in section B.</div>
+        <div class="block">Rule 2: Do not rename visible button labels unless explicitly requested.</div>
+        <div class="block">Rule 3: Do not change endpoint path or payload contract during TS migration.</div>
+        <div class="block">Rule 4: Convert implementation language and tooling only, preserve UX behavior.</div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
