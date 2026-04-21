@@ -127,9 +127,8 @@
 				<div>
 					<h4 class="font-bold mb-3">Company</h4>
 					<ul class="space-y-2 text-zinc-400">
-						<li><button class="hover:text-white cursor-pointer">About</button></li>
-						<li><button class="hover:text-white cursor-pointer">Blog</button></li>
-						<li><button class="hover:text-white cursor-pointer">Contact</button></li>
+						<li><a href="/contact" class="hover:text-white">Contact</a></li>
+						<li><a href="/feedback" class="hover:text-white">Feedback</a></li>
 					</ul>
 				</div>
 				<div>

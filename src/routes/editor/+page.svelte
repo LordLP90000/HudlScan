@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import Nav from '$lib/components/Nav.svelte';
 	import Chip from '$lib/components/Chip.svelte';
 	import Banner from '$lib/components/Banner.svelte';
 	import PlaysTable from '$lib/components/PlaysTable.svelte';
@@ -81,11 +82,16 @@
 </svelte:head>
 
 <div class="min-h-screen bg-zinc-950 text-white">
+	<Nav links={false} cta={false} backButton />
+
 	<!-- Sticky Header -->
 	<div class="sticky top-0 z-10 border-b border-zinc-800 bg-zinc-900/95 backdrop-blur px-4 py-3 flex justify-between items-center gap-2 flex-wrap">
-		<div>
-			<div class="font-bold text-sm">Playcalling Sheet Editor</div>
-			<div class="text-xs text-zinc-500">{plays.length} plays extracted - {positionName}</div>
+		<div class="flex items-center gap-4">
+			<a href="/" class="text-zinc-400 hover:text-white text-sm transition-colors">← Home</a>
+			<div>
+				<div class="font-bold text-sm">Playcalling Sheet Editor</div>
+				<div class="text-xs text-zinc-500">{plays.length} plays extracted - {positionName}</div>
+			</div>
 		</div>
 		<div class="flex gap-1.5">
 			<Chip variant="success" onclick={handleAddRow}>Add Row</Chip>

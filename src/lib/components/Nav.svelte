@@ -40,6 +40,8 @@
 			<a href="/#features" class="text-zinc-400 hover:text-white transition-colors">Features</a>
 			<a href="/#how-it-works" class="text-zinc-400 hover:text-white transition-colors">How it works</a>
 			<a href="/#pricing" class="text-zinc-400 hover:text-white transition-colors">Pricing</a>
+			<a href="/contact" class="text-zinc-400 hover:text-white transition-colors">Contact</a>
+			<a href="/feedback" class="text-zinc-400 hover:text-white transition-colors">Feedback</a>
 		</div>
 	{/if}
 
