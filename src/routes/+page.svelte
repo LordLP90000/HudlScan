@@ -26,14 +26,14 @@
 		</section>
 
 		<!-- Feature Cards -->
-		<section class="grid grid-cols-3 gap-2.5 mb-10">
+		<section id="features" class="grid grid-cols-3 gap-2.5 mb-10">
 			<Card title="Server-Side Processing" description="Processing continues in background." />
 			<Card title="Position-Specific" description="Extract routes for selected role." />
 			<Card title="Excel Export" description="Download formatted sheet." />
 		</section>
 
 		<!-- How It Works -->
-		<section class="mb-10">
+		<section id="how-it-works" class="mb-10">
 			<h3 class="text-zinc-400 text-sm font-bold uppercase tracking-wider mb-4">How It Works</h3>
 			<div class="grid grid-cols-3 gap-5">
 				<div class="border border-zinc-800 rounded-xl bg-zinc-900 p-4">
@@ -55,7 +55,7 @@
 		</section>
 
 		<!-- Pricing Section -->
-		<section class="mb-10">
+		<section id="pricing" class="mb-10">
 			<h3 class="text-zinc-400 text-sm font-bold uppercase tracking-wider mb-4">Pricing</h3>
 			<div class="grid grid-cols-3 gap-5">
 				<div class="border border-zinc-800 rounded-xl bg-zinc-900 p-5">
