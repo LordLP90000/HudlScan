@@ -28,6 +28,14 @@
 		col4: string;
 	}
 
+	type DebugLevel = 'info' | 'success' | 'error';
+
+	interface DebugEntry {
+		time: string;
+		level: DebugLevel;
+		message: string;
+	}
+
 	type UploadState = 'empty' | 'ready' | 'processing' | 'error' | 'complete';
 
 	let selectedPosition = $state('FB');
@@ -37,9 +45,156 @@
 	let processingDetails = $state('');
 	let extractedPlays = $state<Play[]>([]);
 	let isProcessing = $state(false);
+	let debugEntries = $state<DebugEntry[]>([]);
+	let showDebugPanel = $state(true);
 
 	// Use relative path - works on both localhost and Vercel
 	const API_BASE = '';
+
+	function addDebug(level: DebugLevel, message: string) {
+		const entry: DebugEntry = {
+			time: new Date().toLocaleTimeString(),
+			level,
+			message
+		};
+		debugEntries = [...debugEntries, entry].slice(-150);
+	}
+
+	function resetDebug() {
+		debugEntries = [];
+	}
+
+	function findWhitespaceGaps(
+		densities: number[],
+		length: number,
+		isHorizontal: boolean
+	): Array<[number, number]> {
+		const gapThreshold = isHorizontal ? 0.01 : 0.006;
+		const minGapSize = Math.max(8, Math.floor(length * 0.015));
+		const minBandSize = Math.max(60, Math.floor(length * 0.08));
+
+		const boundaries = [0];
+		let gapStart = -1;
+
+		for (let i = 0; i < densities.length; i++) {
+			if (densities[i] <= gapThreshold) {
+				if (gapStart === -1) gapStart = i;
+			} else if (gapStart !== -1) {
+				if (i - gapStart >= minGapSize) boundaries.push(Math.floor((gapStart + i) / 2));
+				gapStart = -1;
+			}
+		}
+
+		if (gapStart !== -1 && densities.length - gapStart >= minGapSize) {
+			boundaries.push(Math.floor((gapStart + densities.length) / 2));
+		}
+
+		boundaries.push(length);
+		boundaries.sort((a, b) => a - b);
+
+		const bands: Array<[number, number]> = [];
+		for (let i = 0; i < boundaries.length - 1; i++) {
+			const start = boundaries[i];
+			const end = boundaries[i + 1];
+			if (end - start >= minBandSize) {
+				bands.push([start, end]);
+			}
+		}
+
+		if (bands.length === 0) return [[0, length]];
+		return bands;
+	}
+
+	async function splitImageIntoPanels(dataUrl: string): Promise<string[]> {
+		const image = new Image();
+		image.src = dataUrl;
+
+		await new Promise<void>((resolve, reject) => {
+			image.onload = () => resolve();
+			image.onerror = () => reject(new Error('Failed to load image for panel splitting'));
+		});
+
+		const width = image.naturalWidth;
+		const height = image.naturalHeight;
+
+		if (width < 300 || height < 300) {
+			return [dataUrl];
+		}
+
+		const sourceCanvas = document.createElement('canvas');
+		sourceCanvas.width = width;
+		sourceCanvas.height = height;
+		const ctx = sourceCanvas.getContext('2d', { willReadFrequently: true });
+		if (!ctx) return [dataUrl];
+
+		ctx.drawImage(image, 0, 0, width, height);
+		const imageData = ctx.getImageData(0, 0, width, height);
+		const { data } = imageData;
+
+		const rowDensity = new Array(height).fill(0);
+		const colDensity = new Array(width).fill(0);
+
+		for (let y = 0; y < height; y++) {
+			for (let x = 0; x < width; x++) {
+				const idx = (y * width + x) * 4;
+				const r = data[idx];
+				const g = data[idx + 1];
+				const b = data[idx + 2];
+				const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+				if (luminance < 0.95) {
+					rowDensity[y]++;
+					colDensity[x]++;
+				}
+			}
+		}
+
+		const normalizedRowDensity = rowDensity.map((v) => v / width);
+		const normalizedColDensity = colDensity.map((v) => v / height);
+
+		const rowBands = findWhitespaceGaps(normalizedRowDensity, height, true);
+		const colBands = findWhitespaceGaps(normalizedColDensity, width, false);
+
+		const panelCanvas = document.createElement('canvas');
+		const panels: string[] = [];
+
+		for (const [y1, y2] of rowBands) {
+			for (const [x1, x2] of colBands) {
+				const w = x2 - x1;
+				const h = y2 - y1;
+				if (w < 100 || h < 100) continue;
+
+				let darkPixels = 0;
+				for (let y = y1; y < y2; y++) {
+					for (let x = x1; x < x2; x++) {
+						const idx = (y * width + x) * 4;
+						const r = data[idx];
+						const g = data[idx + 1];
+						const b = data[idx + 2];
+						const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+						if (luminance < 0.95) darkPixels++;
+					}
+				}
+
+				const density = darkPixels / (w * h);
+				if (density < 0.01) continue;
+
+				panelCanvas.width = w;
+				panelCanvas.height = h;
+				const panelCtx = panelCanvas.getContext('2d');
+				if (!panelCtx) continue;
+
+				panelCtx.clearRect(0, 0, w, h);
+				panelCtx.drawImage(sourceCanvas, x1, y1, w, h, 0, 0, w, h);
+				panels.push(panelCanvas.toDataURL('image/png'));
+			}
+		}
+
+		if (panels.length <= 1 || panels.length > 24) {
+			return [dataUrl];
+		}
+
+		return panels;
+	}
 
 	async function convertPdfToImages(file: File): Promise<string[]> {
 		const arrayBuffer = await file.arrayBuffer();
@@ -65,14 +220,21 @@
 		return images;
 	}
 
-	async function extractPlaysFromImage(imageBase64: string, fileName: string): Promise<Play[]> {
+	async function extractPlaysFromImage(
+		imageBase64: string,
+		fileName: string,
+		imageIndex: number,
+		imageTotal: number
+	): Promise<Play[]> {
 		const response = await fetch(`${API_BASE}/api/extract-plays`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
 				imageBase64: imageBase64.split(',')[1],
 				fileName,
-				position: selectedPosition
+				position: selectedPosition,
+				imageIndex,
+				imageTotal
 			})
 		});
 
@@ -94,6 +256,7 @@
 	}
 
 	function handleFilesSelected(files: globalThis.FileList) {
+		resetDebug();
 		const fileItems: FileItem[] = [];
 
 		for (let i = 0; i < files.length; i++) {
@@ -112,6 +275,7 @@
 
 		selectedFiles = fileItems;
 		uploadState = 'ready';
+		addDebug('info', `Selected ${fileItems.length} file${fileItems.length === 1 ? '' : 's'} for processing.`);
 	}
 
 	function formatFileSize(bytes: number): string {
@@ -134,9 +298,11 @@
 			return;
 		}
 		isProcessing = true;
+		resetDebug();
 
 		uploadState = 'processing';
 		extractedPlays = [];
+		addDebug('info', `Starting extraction for ${selectedFiles.length} file${selectedFiles.length === 1 ? '' : 's'}.`);
 
 		let totalImages = 0;
 		let processedImages = 0;
@@ -145,8 +311,10 @@
 		for (const fileItem of selectedFiles) {
 			if (fileItem.type === 'pdf') {
 				// We'll count pages as we go
+				addDebug('info', `${fileItem.name}: queued as PDF.`);
 			} else {
 				totalImages++;
+				addDebug('info', `${fileItem.name}: queued as image.`);
 			}
 		}
 
@@ -158,11 +326,18 @@
 
 				if (fileItem.type === 'pdf') {
 					processingDetails = `Converting ${fileItem.name} to images...`;
+					addDebug('info', `${fileItem.name}: converting PDF pages to images.`);
 					images = await convertPdfToImages(fileItem.file);
 					totalImages += images.length;
+					addDebug('info', `${fileItem.name}: detected ${images.length} page image${images.length === 1 ? '' : 's'}.`);
 				} else {
-					// PNG, JPG - send directly as base64
-					images = [await fileToBase64(fileItem.file)];
+					// PNG/JPG can contain multiple drawings. Split into visual panels and process each panel independently.
+					processingDetails = `Preparing ${fileItem.name} panels...`;
+					addDebug('info', `${fileItem.name}: detecting drawing panels.`);
+					const base64Image = await fileToBase64(fileItem.file);
+					images = await splitImageIntoPanels(base64Image);
+					totalImages += Math.max(images.length - 1, 0);
+					addDebug('info', `${fileItem.name}: detected ${images.length} panel${images.length === 1 ? '' : 's'}.`);
 				}
 
 				// Process each image
@@ -170,14 +345,21 @@
 					processedImages++;
 					const pageNum = fileItem.type === 'pdf' ? ` (page ${j + 1}/${images.length})` : '';
 					processingDetails = `Processing ${fileItem.name}${pageNum} (${processedImages}/${totalImages})...`;
+					const imageName =
+						fileItem.type === 'pdf'
+							? `${fileItem.name}#page-${j + 1}`
+							: `${fileItem.name}#segment-${j + 1}`;
+					addDebug('info', `Scanning ${imageName} (${processedImages}/${totalImages}).`);
 
-					const plays = await extractPlaysFromImage(images[j], fileItem.name);
+					const plays = await extractPlaysFromImage(images[j], imageName, processedImages, totalImages);
 					extractedPlays = [...extractedPlays, ...plays];
+					addDebug('success', `${imageName}: extracted ${plays.length} row${plays.length === 1 ? '' : 's'}.`);
 				}
 			} catch (e) {
 				isProcessing = false;
 				const error = e instanceof Error ? e : new Error(String(e));
 				errorMessage = `Failed to process ${fileItem.name}: ${error.message}`;
+				addDebug('error', `${fileItem.name}: ${error.message}`);
 				uploadState = 'error';
 				return;
 			}
@@ -188,6 +370,7 @@
 		sessionStorage.setItem('position', selectedPosition);
 
 		isProcessing = false;
+		addDebug('success', `Extraction complete. Total rows extracted: ${extractedPlays.length}.`);
 
 		// Navigate to editor
 		goto('/editor?position=' + selectedPosition);
@@ -197,6 +380,7 @@
 		selectedFiles = [];
 		uploadState = 'empty';
 		extractedPlays = [];
+		resetDebug();
 	}
 
 	function handleDismissError() {
@@ -250,6 +434,35 @@
 				<ProcessingSpinner message="Processing with AI..." details={processingDetails} />
 			{/if}
 		</div>
+
+		{#if uploadState !== 'empty'}
+			<div class="mt-3 border border-zinc-800 rounded-xl bg-zinc-900/80 overflow-hidden">
+				<div class="flex items-center justify-between px-3 py-2 border-b border-zinc-800">
+					<h3 class="text-xs font-semibold tracking-wide text-zinc-300">Debug panel</h3>
+					<button
+						type="button"
+						onclick={() => (showDebugPanel = !showDebugPanel)}
+						class="text-[11px] text-zinc-400 hover:text-white transition-colors"
+					>
+						{showDebugPanel ? 'Hide' : 'Show'}
+					</button>
+				</div>
+
+				{#if showDebugPanel}
+					<div class="max-h-48 overflow-y-auto px-3 py-2 space-y-1.5 text-[11px]">
+						{#if debugEntries.length === 0}
+							<p class="text-zinc-500">No debug events yet.</p>
+						{:else}
+							{#each debugEntries as entry}
+								<p class={entry.level === 'error' ? 'text-red-400' : entry.level === 'success' ? 'text-emerald-400' : 'text-zinc-300'}>
+									[{entry.time}] {entry.message}
+								</p>
+							{/each}
+						{/if}
+					</div>
+				{/if}
+			</div>
+		{/if}
 
 		<!-- Hint Text -->
 		{#if uploadState === 'processing'}
