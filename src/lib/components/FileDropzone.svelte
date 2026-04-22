@@ -46,9 +46,9 @@
 	role="button"
 	tabindex="0"
 >
-	<input type="file" accept=".png,.jpg,.jpeg,.pdf,.webp,.svg" {multiple} onchange={handleFileInput} class="hidden" id="file-input" />
+	<input type="file" accept=".png,.jpg,.jpeg,.pdf,.webp" {multiple} onchange={handleFileInput} class="hidden" id="file-input" />
 	<label for="file-input" class="cursor-pointer">
 		Click to upload your playbook<br />
-		<span class="text-xs text-zinc-600">Supports PNG, JPG, PDF, WEBP, SVG - Multiple files allowed</span>
+		<span class="text-xs text-zinc-600">Supports PNG, JPG, PDF, WEBP - Multiple files allowed</span>
 	</label>
 </div>
