@@ -237,13 +237,16 @@ REFERENCE: First image is a route tree legend for understanding only. Do NOT ext
 			if (parsed.error) {
 				lastError = parsed.error;
 				console.warn(`Parse failure on attempt ${attempt} for ${imageLabel}: ${parsed.error}`);
+				console.warn(`Raw model output (${textContent.length} chars):`, textContent.slice(0, 500));
 				continue;
 			}
+
+			console.log(`Parsed ${parsed.plays.length} plays from attempt ${attempt} for ${imageLabel}:`, JSON.stringify(parsed.plays, null, 2));
 
 			const normalized = normalizePlays(parsed.plays);
 			if (normalized.length === 0) {
 				lastError = 'Model returned empty extraction.';
-				console.warn(`Empty extraction on attempt ${attempt} for ${imageLabel}`);
+				console.warn(`Empty extraction on attempt ${attempt} for ${imageLabel}. After normalization, 0 plays remained from ${parsed.plays.length} parsed.`);
 				continue;
 			}
 
