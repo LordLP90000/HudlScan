@@ -34,6 +34,13 @@
 		warning?: string;
 	}
 
+	interface ImageUnit {
+		dataUrl: string;
+		isSegmented: boolean;
+		segmentIndex?: number;
+		segmentTotal?: number;
+	}
+
 	type DebugLevel = 'info' | 'success' | 'error';
 
 	interface DebugEntry {
@@ -111,7 +118,7 @@
 		return bands;
 	}
 
-	async function splitImageIntoPanels(dataUrl: string): Promise<string[]> {
+	async function splitImageIntoPanels(dataUrl: string): Promise<ImageUnit[]> {
 		const image = new Image();
 		image.src = dataUrl;
 
@@ -124,14 +131,14 @@
 		const height = image.naturalHeight;
 
 		if (width < 300 || height < 300) {
-			return [dataUrl];
+			return [{ dataUrl, isSegmented: false }];
 		}
 
 		const sourceCanvas = document.createElement('canvas');
 		sourceCanvas.width = width;
 		sourceCanvas.height = height;
 		const ctx = sourceCanvas.getContext('2d', { willReadFrequently: true });
-		if (!ctx) return [dataUrl];
+		if (!ctx) return [{ dataUrl, isSegmented: false }];
 
 		ctx.drawImage(image, 0, 0, width, height);
 		const imageData = ctx.getImageData(0, 0, width, height);
@@ -184,22 +191,37 @@
 				const density = darkPixels / (w * h);
 				if (density < 0.02 || darkPixels < 2200) continue;
 
-				panelCanvas.width = w;
-				panelCanvas.height = h;
+				const padX = Math.floor(w * 0.08);
+				const padTop = Math.floor(h * 0.1);
+				const padBottom = Math.floor(h * 0.2);
+				const sx = Math.max(0, x1 - padX);
+				const sy = Math.max(0, y1 - padTop);
+				const ex = Math.min(width, x2 + padX);
+				const ey = Math.min(height, y2 + padBottom);
+				const paddedW = ex - sx;
+				const paddedH = ey - sy;
+
+				panelCanvas.width = paddedW;
+				panelCanvas.height = paddedH;
 				const panelCtx = panelCanvas.getContext('2d');
 				if (!panelCtx) continue;
 
-				panelCtx.clearRect(0, 0, w, h);
-				panelCtx.drawImage(sourceCanvas, x1, y1, w, h, 0, 0, w, h);
+				panelCtx.clearRect(0, 0, paddedW, paddedH);
+				panelCtx.drawImage(sourceCanvas, sx, sy, paddedW, paddedH, 0, 0, paddedW, paddedH);
 				panels.push(panelCanvas.toDataURL('image/png'));
 			}
 		}
 
 		if (panels.length <= 1 || panels.length > 24) {
-			return [dataUrl];
+			return [{ dataUrl, isSegmented: false }];
 		}
 
-		return panels;
+		return panels.map((panel, idx) => ({
+			dataUrl: panel,
+			isSegmented: true,
+			segmentIndex: idx + 1,
+			segmentTotal: panels.length
+		}));
 	}
 
 	async function convertPdfToImages(file: File): Promise<string[]> {
@@ -230,7 +252,8 @@
 		imageBase64: string,
 		fileName: string,
 		imageIndex: number,
-		imageTotal: number
+		imageTotal: number,
+		unit?: ImageUnit
 	): Promise<ExtractionResult> {
 		const response = await fetch(`${API_BASE}/api/extract-plays`, {
 			method: 'POST',
@@ -240,7 +263,10 @@
 				fileName,
 				position: selectedPosition,
 				imageIndex,
-				imageTotal
+				imageTotal,
+				isSegmented: unit?.isSegmented || false,
+				segmentIndex: unit?.segmentIndex,
+				segmentTotal: unit?.segmentTotal
 			})
 		});
 
@@ -332,36 +358,44 @@
 			const fileItem = selectedFiles[i];
 
 			try {
-				let images: string[] = [];
+				let units: ImageUnit[] = [];
 
 				if (fileItem.type === 'pdf') {
 					processingDetails = `Converting ${fileItem.name} to images...`;
 					addDebug('info', `${fileItem.name}: converting PDF pages to images.`);
-					images = await convertPdfToImages(fileItem.file);
-					totalImages += images.length;
-					addDebug('info', `${fileItem.name}: detected ${images.length} page image${images.length === 1 ? '' : 's'}.`);
+					const images = await convertPdfToImages(fileItem.file);
+					units = images.map((img) => ({ dataUrl: img, isSegmented: false }));
+					totalImages += units.length;
+					addDebug('info', `${fileItem.name}: detected ${units.length} page image${units.length === 1 ? '' : 's'}.`);
 				} else {
 					// PNG/JPG can contain multiple drawings. Split into visual panels and process each panel independently.
 					processingDetails = `Preparing ${fileItem.name} panels...`;
 					addDebug('info', `${fileItem.name}: detecting drawing panels.`);
 					const base64Image = await fileToBase64(fileItem.file);
-					images = await splitImageIntoPanels(base64Image);
-					totalImages += Math.max(images.length - 1, 0);
-					addDebug('info', `${fileItem.name}: detected ${images.length} panel${images.length === 1 ? '' : 's'}.`);
+					units = await splitImageIntoPanels(base64Image);
+					totalImages += Math.max(units.length - 1, 0);
+					addDebug('info', `${fileItem.name}: detected ${units.length} panel${units.length === 1 ? '' : 's'}.`);
 				}
 
 				// Process each image
-				for (let j = 0; j < images.length; j++) {
+				for (let j = 0; j < units.length; j++) {
+					const unit = units[j];
 					processedImages++;
-					const pageNum = fileItem.type === 'pdf' ? ` (page ${j + 1}/${images.length})` : '';
+					const pageNum = fileItem.type === 'pdf' ? ` (page ${j + 1}/${units.length})` : '';
 					processingDetails = `Processing ${fileItem.name}${pageNum} (${processedImages}/${totalImages})...`;
 					const imageName =
 						fileItem.type === 'pdf'
 							? `${fileItem.name}#page-${j + 1}`
-							: `${fileItem.name}#segment-${j + 1}`;
+							: `${fileItem.name}#segment-${unit.segmentIndex || j + 1}`;
 					addDebug('info', `Scanning ${imageName} (${processedImages}/${totalImages}).`);
 
-					const result = await extractPlaysFromImage(images[j], imageName, processedImages, totalImages);
+					const result = await extractPlaysFromImage(
+						unit.dataUrl,
+						imageName,
+						processedImages,
+						totalImages,
+						unit
+					);
 					if (result.skipped) {
 						addDebug('info', `${imageName}: skipped (${result.warning || 'no rows detected'}).`);
 						continue;

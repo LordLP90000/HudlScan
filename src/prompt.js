@@ -39,12 +39,38 @@ export const CONCEPTS = [
 /**
  * Build the prompt for AI vision API to extract plays from playbook diagrams.
  * @param {string} position - e.g. 'QB', 'FB', 'X', etc.
+ * @param {{ singleDiagramMode?: boolean }} [options]
  * @returns {string} The prompt text
  */
-export function buildPrompt(position) {
+export function buildPrompt(position, options = {}) {
   const pos = position || 'QB';
+  const singleDiagramMode = Boolean(options.singleDiagramMode);
   // @ts-expect-error - positionLabels indexing
   const labels = positionLabels[pos] || [pos];
+
+  if (singleDiagramMode) {
+    return `You are analyzing ONE cropped football play diagram for position labeled: ${labels.join(' or ')}
+
+*** INPUT TYPE ***
+This image is a single cropped diagram segment, not a full page.
+Do NOT count diagrams on the page.
+Extract exactly ONE JSON object if you can find relevant play data in this segment.
+
+*** WHAT TO EXTRACT ***
+- col1: Formation/Play name visible in or near this segment. Remove "2026" prefix if present.
+- col2: Route/blocking for ${labels.join(' or ')}. If the label cannot be found after careful inspection, use "No route found".
+- col3: Concept name (SMASH, GLANCE, SPACING, TREY, MOSES, POWER, ISO, etc.) if visible.
+
+*** IMPORTANT ***
+- This segment may cut off some text. If formation text is partially visible, use the best readable value.
+- Return [] only if this segment clearly has no playable diagram content.
+- Return ONLY a JSON array.
+
+Example output for a segment:
+[
+  {"col1": "ZUG A-BUMP SMASH", "col2": "Hitch", "col3": "SMASH"}
+]`;
+  }
 
   return `You are analyzing a football playbook page. Extract plays for position labeled: ${labels.join(' or ')}
 

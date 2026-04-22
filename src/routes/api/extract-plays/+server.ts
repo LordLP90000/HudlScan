@@ -98,7 +98,7 @@ function normalizePlays(rawPlays: RawPlay[]): RawPlay[] {
 
 export async function POST({ request }: { request: Request }) {
 	try {
-		const { imageBase64, fileName, position, imageIndex, imageTotal } = await request.json();
+		const { imageBase64, fileName, position, imageIndex, imageTotal, isSegmented, segmentIndex, segmentTotal } = await request.json();
 
 		if (!imageBase64 || !fileName || !position) {
 			return new Response(
@@ -109,10 +109,13 @@ export async function POST({ request }: { request: Request }) {
 
 		console.log(`Processing ${fileName} for ${position}...`);
 
-		const prompt = buildPrompt(position);
+		const prompt = buildPrompt(position, { singleDiagramMode: Boolean(isSegmented) });
 		const imageLabel = `image ${imageIndex ?? '?'} of ${imageTotal ?? '?'} for ${fileName}`;
 		const scopedInstructions = [
 			`REQUEST SCOPE: You are processing ${imageLabel}.`,
+			Boolean(isSegmented)
+				? `Segment mode: this is segment ${segmentIndex ?? '?'} of ${segmentTotal ?? '?'} from one source image.`
+				: 'Page mode: this may contain multiple diagrams.',
 			'Do not infer from any previous image. Ignore visual similarity to other pages.',
 			'Complete the full extraction for this image before returning.',
 			'Return only a valid JSON array.'
