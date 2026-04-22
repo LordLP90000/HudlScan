@@ -60,20 +60,23 @@ If you see 20 diagrams, output 20 entries. If you see 50 diagrams, output 50 ent
 
 *** FOR EACH DIAGRAM - WORK SYSTEMATICALLY ***
 Start at top-left, go row by row, left to right:
-1. Find the diagram
-2. SEARCH THOROUGHLY for position label (${labels.join(' or ')}) - it's ALWAYS there, look carefully
-3. Trace the line/arrow from that position ONLY - ignore other positions' routes
-4. Read the route/blocking for YOUR position only
-5. Read formation text UNDER the diagram
-6. Write JSON entry
-7. Move to NEXT diagram
+1. Find the diagram boundaries
+2. Search EVERYWHERE in the diagram for position label (${labels.join(' ')}) - check left side, right side, top, bottom, near the line of scrimmage
+3. The position IS there - don't give up. Look for small text, near other position labels
+4. Once found, trace the line/arrow from that position ONLY
+5. If there's NO arrow from that position (stays in to block), describe the blocking: "Lead block", "Pass protection", "Kick out"
+6. Read formation text UNDER the diagram
+7. Write JSON entry
+8. Move to NEXT diagram
 
 DO NOT STOP early. DO NOT skip diagrams. DO NOT group diagrams together.
 
-*** CRITICAL: ONLY EXTRACT YOUR POSITION'S ROUTE ***
-If looking for FB (A), ignore what QB (1), RB (2), X, Y, Z are doing.
-Only trace the arrow from the A/FB label.
-If you cannot find the label after thorough search, write "No route found" in col2 - but still output the entry!
+*** CRITICAL: FIND THE POSITION NO MATTER WHAT ***
+- The position (${labels.join(' or ')}) is in EVERY diagram
+- If you don't see it at first, look CLOSER - it might be small, partially hidden, or near other labels
+- Check near the offensive line, in the backfield, near the quarterback
+- If genuinely cannot find after exhaustive search: col2 = "No route found"
+- But 95% of diagrams SHOULD have a route - keep looking!
 
 *** WHAT TO EXTRACT FOR col1 (Formation/Play) ***
 - Base formation: ZUG or LUZERN

@@ -37,11 +37,19 @@ export async function POST({ request }: { request: Request }) {
 						messages: [{
 							role: 'user',
 							content: [
-								{ type: 'text', text: 'REFERENCE IMAGE: First image is a route tree legend for your understanding only. Do NOT extract it as a play.' },
-								{ type: 'image', source: { type: 'base64', media_type: 'image/png', data: routeTreeBase64 } },
+								{
+									type: 'text',
+									text: 'REFERENCE IMAGE: First image is a route tree legend for your understanding only. Do NOT extract it as a play.',
+									cache_control: { type: 'ephemeral' }
+								},
+								{
+									type: 'image',
+									source: { type: 'base64', media_type: 'image/png', data: routeTreeBase64 },
+									cache_control: { type: 'ephemeral' }
+								},
 								{ type: 'text', text: 'PLAYBOOK IMAGE: Extract plays from this image only:' },
 								{ type: 'image', source: { type: 'base64', media_type: 'image/png', data: imageBase64 } },
-								{ type: 'text', text: prompt }
+								{ type: 'text', text: prompt, cache_control: { type: 'ephemeral' } }
 							]
 						}]
 					})

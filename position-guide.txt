@@ -1,0 +1,36 @@
+# Football Playbook Position Guide
+# How positions are marked in diagrams
+
+## Position Labels (text-based):
+- **QB**: "QB", "1"
+- **RB**: "2", "RB", "Running Back", "2-back"
+- **FBBack**: "A", "FB", "Fullback", "A-back"
+- **X (WR)**: "X", "#1", "1", "Wide", "Split End", "SE", "WR"
+- **Y (WR)**: "Y", "#2", "2", "Slot", "Inside Slot"
+- **Z (WR)**: "Z", "#1", "Flanker", "Boundary"
+- **TE**: "T", "TE", "Tight End"
+
+## Position Placement:
+- QB is always behind the center at the top
+- RB/FB are in the backfield behind QB
+- X/Y/Z are split wide - X on one side, Z on boundary (edge), Y in the slot
+- TE is next to the tackle on either side
+
+## Position Visual Patterns:
+- Most positions have small circle/circle + label
+- Some use squares or simple dots with text
+- FB ("A") might look like RB ("2") but positioned differently
+- WR positions are mirrored on left/right sides
+- Position text is often just 1-2 characters
+
+## Route Arrow Types:
+- Solid lines = route
+- Dashed lines = combination (route + fake)
+- Double arrows = route/corner combination
+- Arrows always point DOWNFIELD (away from QB)
+
+## Position Clues:
+- Look for the label, not the dot/circle (dots can be too small)
+- Text is always near the position marker
+- If you see "2", "A", "X", "Y", "Z" - that's a position label
+- Ignore circles without text - they're just visual
