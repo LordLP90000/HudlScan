@@ -100,7 +100,7 @@
 		<!-- Bottom CTA -->
 		<section class="border border-zinc-800 rounded-2xl bg-zinc-900 p-8 text-center">
 			<h3 class="text-2xl font-bold mb-2">Ready to Save Hours of Manual Work?</h3>
-			<p class="text-zinc-400 mb-4">Join hundreds of coaches already using Hudl Playbook AI</p>
+			<p class="text-zinc-400 mb-4">Join Hudl Playbook AI</p>
 			<Button>Start Converting Free</Button>
 		</section>
 	</main>
@@ -114,7 +114,7 @@
 						<div class="w-6 h-6 rounded bg-orange-500"></div>
 						<span>Hudl Playbook AI</span>
 					</div>
-					<p class="text-zinc-500">Convert playbooks to Excel in seconds, not hours.</p>
+					<p class="text-zinc-500">Convert playbooks to Excel Automatically.</p>
 				</div>
 				<div>
 					<h4 class="font-bold mb-3">Product</h4>

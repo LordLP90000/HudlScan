@@ -48,20 +48,23 @@ export function buildPrompt(position) {
 
   return `You are analyzing a football playbook page. Extract plays for position labeled: ${labels.join(' or ')}
 
-*** DIAGRAM-BY-DIAGRAM EXTRACTION - NO LAZINESS ***
+*** CRITICAL: COUNT ALL DIAGRAMS FIRST ***
+STEP 1: Count how many play diagrams are on this page. Look at the entire page and count EVERY diagram box.
+STEP 2: You MUST output exactly that many JSON entries. No exceptions. No skipping.
 
-For EACH diagram individually:
-1. Find position label (${labels.join(' or ')})
-2. Trace the line/arrow from that position
-3. Read the route/blocking that line shows
-4. Read the formation text UNDER the diagram
-5. Write what you see - move to next diagram
+If you see 20 diagrams, output 20 entries. If you see 50 diagrams, output 50 entries.
 
-WARNING: Every diagram shows a DIFFERENT play. Do NOT repeat the same formation.
-- Diagram 1: "ZUG A-BUMP SMASH"
-- Diagram 2: "ZUG A-BUMP GLANCE"
-- Diagram 3: "LUZERN A-NEAR-BUMP SPACING"
-- These are THREE different formations - extract each one!
+*** FOR EACH DIAGRAM - WORK SYSTEMATICALLY ***
+Start at top-left, go row by row, left to right:
+1. Find the diagram
+2. Find position label (${labels.join(' or ')})
+3. Trace the line/arrow from that position
+4. Read the route/blocking
+5. Read formation text UNDER the diagram
+6. Write JSON entry
+7. Move to NEXT diagram
+
+DO NOT STOP early. DO NOT skip diagrams. DO NOT group diagrams together.
 
 *** WHAT TO EXTRACT FOR col1 (Formation/Play) ***
 - Base formation: ZUG or LUZERN
@@ -83,12 +86,19 @@ If not a route, describe the blocking exactly. NO made-up blocking terms.
 *** col3 (Concept) ***
 Extract the play concept written on/near the diagram: SMASH, GLANCE, SPACING, TREY, MOSES, POWER, ISO, etc.
 
-OUTPUT (one JSON entry per diagram - no repeats):
+OUTPUT FORMAT:
+- ONE JSON entry per diagram on the page
+- If 40 diagrams → 40 JSON entries
+- If 6 diagrams → 6 JSON entries
+- NO repeats, NO omissions
+
+Example (if page has 4 diagrams):
 [
   {"col1": "ZUG A-BUMP SMASH", "col2": "Hitch", "col3": "SMASH"},
   {"col1": "ZUG A-BUMP GLANCE", "col2": "Flat", "col3": "GLANCE"},
-  {"col1": "LUZERN A-NEAR-BUMP SPACING", "col2": "Corner", "col3": "SPACING"}
+  {"col1": "LUZERN A-NEAR-BUMP SPACING", "col2": "Corner", "col3": "SPACING"},
+  {"col1": "ZUG T-WING POWER", "col2": "Lead", "col3": "POWER"}
 ]
 
-Return ONLY the JSON array.`;
+Return ONLY the JSON array. Count = number of diagrams on page.`;
 }
