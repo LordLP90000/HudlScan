@@ -24,68 +24,85 @@ export async function POST({ request }: { request: Request }) {
 		let textContent = '[]';
 		let success = false;
 
-		// Try Claude API first (Sonnet 4.6 for vision)
-		const anthropicKey = process.env.ANTHROPIC_API_KEY;
-		if (anthropicKey) {
-			console.log('Attempting Claude API (claude-sonnet-4-20250514)...');
-			try {
-				const response = await fetch('https://api.anthropic.com/v1/messages', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-						'x-api-key': anthropicKey,
-						'anthropic-version': '2023-06-01'
-					},
-					body: JSON.stringify({
-						model: 'claude-sonnet-4-20250514',
-						max_tokens: 4000,
-						system: `You are analyzing football playbook diagrams.
+		// For SVG files, skip Claude (doesn't support SVG) and go straight to Moonshot
+		if (!isSvg) {
+			// Try Claude API first (Sonnet 4.6 for vision)
+			const anthropicKey = process.env.ANTHROPIC_API_KEY;
+			if (anthropicKey) {
+				console.log('Attempting Claude API (claude-sonnet-4-20250514)...');
+				try {
+					const response = await fetch('https://api.anthropic.com/v1/messages', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							'x-api-key': anthropicKey,
+							'anthropic-version': '2023-06-01'
+						},
+						body: JSON.stringify({
+							model: 'claude-sonnet-4-20250514',
+							max_tokens: 4000,
+							system: `You are analyzing football playbook diagrams.
 
 ${prompt}
 
 REFERENCE: First image is a route tree legend for understanding only. Do NOT extract it.`,
-						cache_control: { type: 'ephemeral' },
-						messages: [{
-							role: 'user',
-							content: [
-								{
-									type: 'image',
-									source: { type: 'base64', media_type: 'image/png', data: routeTreeBase64 },
-									cache_control: { type: 'ephemeral' }
-								},
-								{
-									type: 'text',
-									text: 'PLAYBOOK: Extract plays from this image:'
-								},
-								{
-									type: 'image',
-									source: { type: 'base64', media_type: mediaType, data: imageBase64 }
-								}
-							]
-						}]
-					})
-				});
+							cache_control: { type: 'ephemeral' },
+							messages: [{
+								role: 'user',
+								content: [
+									{
+										type: 'image',
+										source: { type: 'base64', media_type: 'image/png', data: routeTreeBase64 },
+										cache_control: { type: 'ephemeral' }
+									},
+									{
+										type: 'text',
+										text: 'PLAYBOOK: Extract plays from this image:'
+									},
+									{
+										type: 'image',
+										source: { type: 'base64', media_type: mediaType, data: imageBase64 }
+									}
+								]
+							}]
+						})
+					});
 
-				if (response.ok) {
-					const data = await response.json();
-					textContent = data.content?.[0]?.text || '[]';
-					success = true;
-					console.log(`Claude success for ${fileName} - cache usage:`, data.usage);
-				} else {
-					console.error(`Claude error ${response.status}:`, await response.text());
+					if (response.ok) {
+						const data = await response.json();
+						textContent = data.content?.[0]?.text || '[]';
+						success = true;
+						console.log(`Claude success for ${fileName} - cache usage:`, data.usage);
+					} else {
+						console.error(`Claude error ${response.status}:`, await response.text());
+					}
+				} catch (e) {
+					console.error('Claude API failed:', e);
 				}
-			} catch (e) {
-				console.error('Claude API failed:', e);
+			} else {
+				console.warn('ANTHROPIC_API_KEY not found in environment');
 			}
 		} else {
-			console.warn('ANTHROPIC_API_KEY not found in environment');
+			console.log('SVG detected - skipping Claude (not supported), using Moonshot only');
 		}
 
-		// Fallback to Moonshot Kimi API if Claude failed or not configured
+		// Fallback to Moonshot Kimi API if Claude failed or not configured, or for SVG files
 		if (!success) {
 			const moonshotKey = process.env.MOONSHOT_API_KEY;
 			if (moonshotKey) {
-				console.log('Falling back to Moonshot API (kimi-k2.5)...');
+				console.log('Using Moonshot API (kimi-k2.5)...');
+
+				// For SVG, try URL encoding instead of base64 since Moonshot may not handle SVG base64 well
+				let playbookImageUrl: string;
+				if (isSvg) {
+					// Decode base64 to get the SVG XML, then URL encode it
+					const svgXml = Buffer.from(imageBase64, 'base64').toString('utf-8');
+					playbookImageUrl = `data:image/svg+xml;utf-8,${encodeURIComponent(svgXml)}`;
+					console.log('Using URL-encoded SVG for Moonshot');
+				} else {
+					playbookImageUrl = `data:${mediaType};base64,${imageBase64}`;
+				}
+
 				const response = await fetch('https://api.moonshot.ai/v1/chat/completions', {
 					method: 'POST',
 					headers: {
@@ -102,7 +119,7 @@ REFERENCE: First image is a route tree legend for understanding only. Do NOT ext
 								{ type: 'text', text: 'REFERENCE IMAGE: First image is a route tree legend for understanding only. Do NOT extract it as a play.' },
 								{ type: 'image_url', image_url: { url: `data:image/png;base64,${routeTreeBase64}` } },
 								{ type: 'text', text: 'PLAYBOOK IMAGE: Extract plays from this image only:' },
-								{ type: 'image_url', image_url: { url: `data:${mediaType};base64,${imageBase64}` } },
+								{ type: 'image_url', image_url: { url: playbookImageUrl } },
 								{ type: 'text', text: prompt }
 							]
 						}]
