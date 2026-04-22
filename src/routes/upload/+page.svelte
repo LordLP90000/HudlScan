@@ -239,7 +239,7 @@
 		<!-- Hint Text -->
 		{#if uploadState === 'processing'}
 			<p class="text-zinc-600 text-xs text-center mt-3">
-				Analyzing play diagrams with vision AI... This may take a minute for PDFs.
+				Analyzing play diagrams with vision AI... This may take a few minutes for PDFs.
 			</p>
 		{/if}
 	</main>
