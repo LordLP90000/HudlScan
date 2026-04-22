@@ -36,6 +36,7 @@
 	let errorMessage = $state('');
 	let processingDetails = $state('');
 	let extractedPlays = $state<Play[]>([]);
+	let isProcessing = $state(false);
 
 	// Use relative path - works on both localhost and Vercel
 	const API_BASE = '';
@@ -47,7 +48,7 @@
 
 		for (let i = 1; i <= pdf.numPages; i++) {
 			const page = await pdf.getPage(i);
-			const scale = 2.0; // Higher scale for better quality
+			const scale = 4.0; // Higher scale for better quality (detailed playbook diagrams)
 			const viewport = page.getViewport({ scale });
 
 			const canvas = document.createElement('canvas');
@@ -56,7 +57,7 @@
 			canvas.width = viewport.width;
 
 			if (context) {
-				await page.render({ canvasContext: context, viewport }).promise;
+				await page.render({ canvasContext: context, viewport, canvas }).promise;
 				images.push(canvas.toDataURL('image/png'));
 			}
 		}
@@ -125,6 +126,12 @@
 	}
 
 	async function handleExtract() {
+		// Prevent concurrent uploads
+		if (isProcessing) {
+			return;
+		}
+		isProcessing = true;
+
 		uploadState = 'processing';
 		extractedPlays = [];
 
@@ -164,7 +171,9 @@
 					extractedPlays = [...extractedPlays, ...plays];
 				}
 			} catch (e) {
-				errorMessage = `Failed to process ${fileItem.name}: ${e.message}`;
+				isProcessing = false;
+				const error = e instanceof Error ? e : new Error(String(e));
+				errorMessage = `Failed to process ${fileItem.name}: ${error.message}`;
 				uploadState = 'error';
 				return;
 			}
@@ -173,6 +182,8 @@
 		// Store plays in sessionStorage for the editor page
 		sessionStorage.setItem('extractedPlays', JSON.stringify(extractedPlays));
 		sessionStorage.setItem('position', selectedPosition);
+
+		isProcessing = false;
 
 		// Navigate to editor
 		goto('/editor?position=' + selectedPosition);

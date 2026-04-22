@@ -14,7 +14,7 @@ export async function POST({ request }: { request: Request }) {
 
 		console.log(`Processing ${fileName} for ${position}...`);
 
-		const prompt = buildPrompt(position, true);
+		const prompt = buildPrompt(position);
 
 		let textContent = '[]';
 		let success = false;
