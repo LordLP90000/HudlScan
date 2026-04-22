@@ -12,7 +12,12 @@ export async function POST({ request }: { request: Request }) {
 			);
 		}
 
-		console.log(`Processing ${fileName} for ${position}...`);
+		// Detect if image is SVG by checking the data URI prefix
+		const isSvg = imageBase64.startsWith('data:image/svg+xml') ||
+		              fileName.toLowerCase().endsWith('.svg');
+		const mediaType = isSvg ? 'image/svg+xml' : 'image/png';
+
+		console.log(`Processing ${fileName} for ${position} (${mediaType})...`);
 
 		const prompt = buildPrompt(position);
 
@@ -34,22 +39,28 @@ export async function POST({ request }: { request: Request }) {
 					body: JSON.stringify({
 						model: 'claude-sonnet-4-20250514',
 						max_tokens: 4000,
+						system: `You are analyzing football playbook diagrams.
+
+${prompt}
+
+REFERENCE: First image is a route tree legend for understanding only. Do NOT extract it.`,
+						cache_control: { type: 'ephemeral' },
 						messages: [{
 							role: 'user',
 							content: [
-								{
-									type: 'text',
-									text: 'REFERENCE IMAGE: First image is a route tree legend for your understanding only. Do NOT extract it as a play.',
-									cache_control: { type: 'ephemeral' }
-								},
 								{
 									type: 'image',
 									source: { type: 'base64', media_type: 'image/png', data: routeTreeBase64 },
 									cache_control: { type: 'ephemeral' }
 								},
-								{ type: 'text', text: 'PLAYBOOK IMAGE: Extract plays from this image only:' },
-								{ type: 'image', source: { type: 'base64', media_type: 'image/png', data: imageBase64 } },
-								{ type: 'text', text: prompt, cache_control: { type: 'ephemeral' } }
+								{
+									type: 'text',
+									text: 'PLAYBOOK: Extract plays from this image:'
+								},
+								{
+									type: 'image',
+									source: { type: 'base64', media_type: mediaType, data: imageBase64 }
+								}
 							]
 						}]
 					})
@@ -59,7 +70,7 @@ export async function POST({ request }: { request: Request }) {
 					const data = await response.json();
 					textContent = data.content?.[0]?.text || '[]';
 					success = true;
-					console.log(`Claude success for ${fileName}`);
+					console.log(`Claude success for ${fileName} - cache usage:`, data.usage);
 				} else {
 					console.error(`Claude error ${response.status}:`, await response.text());
 				}
@@ -91,7 +102,7 @@ export async function POST({ request }: { request: Request }) {
 								{ type: 'text', text: 'REFERENCE IMAGE: First image is a route tree legend for understanding only. Do NOT extract it as a play.' },
 								{ type: 'image_url', image_url: { url: `data:image/png;base64,${routeTreeBase64}` } },
 								{ type: 'text', text: 'PLAYBOOK IMAGE: Extract plays from this image only:' },
-								{ type: 'image_url', image_url: { url: `data:image/png;base64,${imageBase64}` } },
+								{ type: 'image_url', image_url: { url: `data:${mediaType};base64,${imageBase64}` } },
 								{ type: 'text', text: prompt }
 							]
 						}]

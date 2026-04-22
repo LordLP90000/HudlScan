@@ -16,7 +16,7 @@
 	interface FileItem {
 		name: string;
 		size: string;
-		type: 'pdf' | 'image';
+		type: 'pdf' | 'image' | 'svg';
 		file: File;
 		pageCount?: number;
 	}
@@ -99,10 +99,14 @@
 		for (let i = 0; i < files.length; i++) {
 			const file = files[i];
 			const extension = file.name.split('.').pop()?.toLowerCase();
+			let fileType: 'pdf' | 'image' | 'svg' = 'image';
+			if (extension === 'pdf') fileType = 'pdf';
+			if (extension === 'svg') fileType = 'svg';
+
 			fileItems.push({
 				name: file.name,
 				size: formatFileSize(file.size),
-				type: extension === 'pdf' ? 'pdf' : 'image',
+				type: fileType,
 				file
 			});
 		}
@@ -158,6 +162,7 @@
 					images = await convertPdfToImages(fileItem.file);
 					totalImages += images.length;
 				} else {
+					// PNG, JPG, SVG - send directly as base64
 					images = [await fileToBase64(fileItem.file)];
 				}
 

@@ -2,7 +2,7 @@
 	interface FileItem {
 		name: string;
 		size: string;
-		type: 'pdf' | 'image';
+		type: 'pdf' | 'image' | 'svg';
 	}
 
 	interface Props {
@@ -20,7 +20,9 @@
 	}
 
 	function getFileIcon(type: string): string {
-		return type === 'pdf' ? '📄' : '🖼️';
+		if (type === 'pdf') return '📄';
+		if (type === 'svg') return '🎨';
+		return '🖼️';
 	}
 </script>
 
