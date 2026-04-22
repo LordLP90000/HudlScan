@@ -48,6 +48,10 @@ export function buildPrompt(position) {
 
   return `You are analyzing a football playbook page. Extract plays for position labeled: ${labels.join(' or ')}
 
+*** IGNORE THE ROUTE TREE IMAGE ***
+The FIRST image you see is a route tree legend REFERENCE only. DO NOT extract it.
+Only extract plays from the SECOND image (the actual playbook page).
+
 *** CRITICAL: COUNT ALL DIAGRAMS FIRST ***
 STEP 1: Count how many play diagrams are on this page. Look at the entire page and count EVERY diagram box.
 STEP 2: You MUST output exactly that many JSON entries. No exceptions. No skipping.
@@ -57,19 +61,26 @@ If you see 20 diagrams, output 20 entries. If you see 50 diagrams, output 50 ent
 *** FOR EACH DIAGRAM - WORK SYSTEMATICALLY ***
 Start at top-left, go row by row, left to right:
 1. Find the diagram
-2. Find position label (${labels.join(' or ')})
-3. Trace the line/arrow from that position
-4. Read the route/blocking
+2. SEARCH THOROUGHLY for position label (${labels.join(' or ')}) - it's ALWAYS there, look carefully
+3. Trace the line/arrow from that position ONLY - ignore other positions' routes
+4. Read the route/blocking for YOUR position only
 5. Read formation text UNDER the diagram
 6. Write JSON entry
 7. Move to NEXT diagram
 
 DO NOT STOP early. DO NOT skip diagrams. DO NOT group diagrams together.
 
+*** CRITICAL: ONLY EXTRACT YOUR POSITION'S ROUTE ***
+If looking for FB (A), ignore what QB (1), RB (2), X, Y, Z are doing.
+Only trace the arrow from the A/FB label.
+If you cannot find the label after thorough search, write "No route found" in col2 - but still output the entry!
+
 *** WHAT TO EXTRACT FOR col1 (Formation/Play) ***
 - Base formation: ZUG or LUZERN
 - Modifiers: A-BUMP, A-NEAR-BUMP, T-WING, I-OFF, Z-FLIP, T-FLIP, A-DIVIDE, A-SHORT-DIVIDE
 - Play concept: SMASH, GLANCE, SPACING, TREY, MOSES, POWER, ISO, GLANCE ARROW, SHALLOW CROSS, INSIDE ZONE, OUTSIDE ZONE
+- ALWAYS remove "2026" prefix if present
+- Example: "2026 ZUG A-BUMP SMASH" → "ZUG A-BUMP SMASH"
 - Example: "ZUG A-BUMP SMASH" or "LUZERN I-OFF TREY"
 
 *** NEVER EXTRACT THESE AS FORMATIONS ***
@@ -91,6 +102,7 @@ OUTPUT FORMAT:
 - If 40 diagrams → 40 JSON entries
 - If 6 diagrams → 6 JSON entries
 - NO repeats, NO omissions
+- If position label not found after thorough search: col2 = "No route found"
 
 Example (if page has 4 diagrams):
 [

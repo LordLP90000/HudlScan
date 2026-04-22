@@ -37,8 +37,9 @@ export async function POST({ request }: { request: Request }) {
 						messages: [{
 							role: 'user',
 							content: [
+								{ type: 'text', text: 'REFERENCE IMAGE: First image is a route tree legend for your understanding only. Do NOT extract it as a play.' },
 								{ type: 'image', source: { type: 'base64', media_type: 'image/png', data: routeTreeBase64 } },
-								{ type: 'text', text: 'Route tree reference.' },
+								{ type: 'text', text: 'PLAYBOOK IMAGE: Extract plays from this image only:' },
 								{ type: 'image', source: { type: 'base64', media_type: 'image/png', data: imageBase64 } },
 								{ type: 'text', text: prompt }
 							]
@@ -79,8 +80,9 @@ export async function POST({ request }: { request: Request }) {
 						messages: [{
 							role: 'user',
 							content: [
+								{ type: 'text', text: 'REFERENCE IMAGE: First image is a route tree legend for understanding only. Do NOT extract it as a play.' },
 								{ type: 'image_url', image_url: { url: `data:image/png;base64,${routeTreeBase64}` } },
-								{ type: 'text', text: 'Route tree reference.' },
+								{ type: 'text', text: 'PLAYBOOK IMAGE: Extract plays from this image only:' },
 								{ type: 'image_url', image_url: { url: `data:image/png;base64,${imageBase64}` } },
 								{ type: 'text', text: prompt }
 							]
