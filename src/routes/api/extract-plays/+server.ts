@@ -251,8 +251,13 @@ REFERENCE: First image is a route tree legend for understanding only. Do NOT ext
 
 		if (plays.length === 0) {
 			return new Response(
-				JSON.stringify({ error: `Extraction failed for ${imageLabel}. ${lastError}` }),
-				{ status: 502, headers: { 'Content-Type': 'application/json' } }
+				JSON.stringify({
+					success: true,
+					plays: [],
+					skipped: true,
+					warning: `No plays extracted for ${imageLabel}. ${lastError}`
+				}),
+				{ status: 200, headers: { 'Content-Type': 'application/json' } }
 			);
 		}
 

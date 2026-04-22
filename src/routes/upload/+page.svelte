@@ -28,6 +28,12 @@
 		col4: string;
 	}
 
+	interface ExtractionResult {
+		plays: Play[];
+		skipped?: boolean;
+		warning?: string;
+	}
+
 	type DebugLevel = 'info' | 'success' | 'error';
 
 	interface DebugEntry {
@@ -176,7 +182,7 @@
 				}
 
 				const density = darkPixels / (w * h);
-				if (density < 0.01) continue;
+				if (density < 0.02 || darkPixels < 2200) continue;
 
 				panelCanvas.width = w;
 				panelCanvas.height = h;
@@ -225,7 +231,7 @@
 		fileName: string,
 		imageIndex: number,
 		imageTotal: number
-	): Promise<Play[]> {
+	): Promise<ExtractionResult> {
 		const response = await fetch(`${API_BASE}/api/extract-plays`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
@@ -243,7 +249,11 @@
 		}
 
 		const data = await response.json();
-		return data.plays || [];
+		return {
+			plays: data.plays || [],
+			skipped: data.skipped,
+			warning: data.warning
+		};
 	}
 
 	function fileToBase64(file: File): Promise<string> {
@@ -351,9 +361,14 @@
 							: `${fileItem.name}#segment-${j + 1}`;
 					addDebug('info', `Scanning ${imageName} (${processedImages}/${totalImages}).`);
 
-					const plays = await extractPlaysFromImage(images[j], imageName, processedImages, totalImages);
-					extractedPlays = [...extractedPlays, ...plays];
-					addDebug('success', `${imageName}: extracted ${plays.length} row${plays.length === 1 ? '' : 's'}.`);
+					const result = await extractPlaysFromImage(images[j], imageName, processedImages, totalImages);
+					if (result.skipped) {
+						addDebug('info', `${imageName}: skipped (${result.warning || 'no rows detected'}).`);
+						continue;
+					}
+
+					extractedPlays = [...extractedPlays, ...result.plays];
+					addDebug('success', `${imageName}: extracted ${result.plays.length} row${result.plays.length === 1 ? '' : 's'}.`);
 				}
 			} catch (e) {
 				isProcessing = false;
