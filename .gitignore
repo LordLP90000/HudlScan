@@ -35,5 +35,12 @@ training_data.jsonl
 hudlmcr-playbook-final/
 docker/trained-model/
 
+# Large ML models (use HuggingFace/S3/external storage instead)
+*.safetensors
+*.bin
+*.gguf
+*.onnx
+models/
+
 # Documentation
 CLAUDE.md
