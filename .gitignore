@@ -27,3 +27,10 @@ test-results
 
 # Images
 *.svg
+
+# Local AI Setup
+*.db
+*.db-journal
+training_data.jsonl
+hudlmcr-playbook-final/
+docker/trained-model/

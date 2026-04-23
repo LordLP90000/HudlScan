@@ -109,7 +109,9 @@ export async function POST({ request }: { request: Request }) {
 
 		console.log(`Processing ${fileName} for ${position}...`);
 
-		const prompt = buildPrompt(position, { singleDiagramMode: Boolean(isSegmented) });
+		// DIAGNOSTIC: Toggle this to false to use page mode for all requests
+		const useSegmentMode = false; // Set to false to test if segment mode prompt is the issue
+		const prompt = buildPrompt(position, { singleDiagramMode: useSegmentMode && Boolean(isSegmented) });
 		const imageLabel = `image ${imageIndex ?? '?'} of ${imageTotal ?? '?'} for ${fileName}`;
 		const scopedInstructions = [
 			`REQUEST SCOPE: You are processing ${imageLabel}.`,
@@ -124,11 +126,65 @@ export async function POST({ request }: { request: Request }) {
 		let plays: RawPlay[] = [];
 		let lastError = '';
 
+		// ============================================================================
+		// LOCAL MOCR API (Self-hosted dots.mocr via Docker)
+		// ============================================================================
+		const localMocrUrl = process.env.LOCAL_MOCR_URL || 'http://127.0.0.1:8000';
+		const useLocalMocr = process.env.USE_LOCAL_MOCR === 'true';
+
 		for (let attempt = 1; attempt <= 3; attempt++) {
 			let textContent = '[]';
 			let success = false;
 
-			// Try Claude API first (Sonnet 4.6 for vision)
+			// Try local dots.mocr server first (if enabled)
+			if (useLocalMocr && !success) {
+				console.log(`Attempting local dots.mocr, attempt ${attempt}...`);
+				try {
+					const response = await fetch(`${localMocrUrl}/v1/chat/completions`, {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({
+							model: process.env.LOCAL_MOCR_MODEL || 'rednote-hilab/dots.mocr-svg',
+							messages: [{
+								role: 'user',
+								content: [
+									{
+										type: 'text',
+										text: `${prompt}\n\n${scopedInstructions}\n\nREFERENCE: First image is a route tree legend for understanding only. Do NOT extract it.`
+									},
+									{
+										type: 'image_url',
+										image_url: { url: `data:image/png;base64,${routeTreeBase64}` }
+									},
+									{
+										type: 'text',
+										text: `PLAYBOOK: Extract plays from this image. Attempt ${attempt}.`
+									},
+									{
+										type: 'image_url',
+										image_url: { url: `data:image/png;base64,${imageBase64}` }
+									}
+								]
+							}],
+							max_tokens: 4000,
+							temperature: 0
+						})
+					});
+
+					if (response.ok) {
+						const data = await response.json();
+						textContent = data.choices?.[0]?.message?.content || '[]';
+						success = true;
+						console.log(`Local dots.mocr success for ${fileName} on attempt ${attempt}`);
+					} else {
+						console.error(`Local dots.mocr error ${response.status}:`, await response.text());
+					}
+				} catch (e) {
+					console.error('Local dots.mocr failed:', e);
+				}
+			}
+
+			// Try Claude API next (Sonnet 4.6 for vision)
 			const anthropicKey = process.env.ANTHROPIC_API_KEY;
 			if (anthropicKey) {
 				console.log(`Attempting Claude API (claude-sonnet-4-20250514), attempt ${attempt}...`);
@@ -228,8 +284,49 @@ REFERENCE: First image is a route tree legend for understanding only. Do NOT ext
 				}
 			}
 
+			// Fallback to DeepSeek API if Moonshot also failed or not configured
 			if (!success) {
-				lastError = 'Both APIs failed. Configure ANTHROPIC_API_KEY or MOONSHOT_API_KEY environment variable.';
+				const deepseekKey = process.env.DEEPSEEK_API_KEY;
+				if (deepseekKey) {
+					console.log(`Falling back to DeepSeek API (deepseek-chat), attempt ${attempt}...`);
+					const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							'Authorization': `Bearer ${deepseekKey}`
+						},
+						body: JSON.stringify({
+							model: 'deepseek-chat',
+							max_tokens: 8000,
+							temperature: 1,
+							messages: [{
+								role: 'user',
+								content: [
+									{ type: 'text', text: 'REFERENCE IMAGE: First image is a route tree legend for understanding only. Do NOT extract it as a play.' },
+									{ type: 'image_url', image_url: { url: `data:image/png;base64,${routeTreeBase64}` } },
+									{ type: 'text', text: `PLAYBOOK IMAGE: Extract plays from this image only. Attempt ${attempt}.` },
+									{ type: 'image_url', image_url: { url: `data:image/png;base64,${imageBase64}` } },
+									{ type: 'text', text: `${prompt}\n\n${scopedInstructions}` }
+								]
+							}]
+						})
+					});
+
+					if (response.ok) {
+						const data = await response.json();
+						textContent = data.choices?.[0]?.message?.content || '[]';
+						success = true;
+						console.log(`DeepSeek success for ${fileName} on attempt ${attempt}`);
+					} else {
+						console.error(`DeepSeek error ${response.status}:`, await response.text());
+					}
+				} else {
+					console.warn('DEEPSEEK_API_KEY not found in environment');
+				}
+			}
+
+			if (!success) {
+				lastError = 'All APIs failed. Configure USE_LOCAL_MOCR=true with local server, or ANTHROPIC_API_KEY, MOONSHOT_API_KEY, or DEEPSEEK_API_KEY for cloud APIs.';
 				continue;
 			}
 

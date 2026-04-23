@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  hudlmcr-inference:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hudlmcr-inference
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_PATH=${MODEL_PATH:-rednote-hilab/dots.mocr-svg}
+      - HF_HOME=/models/.cache
+    volumes:
+      # Mount for custom trained model
+      - ./trained-model:/models
+      # Cache HuggingFace models
+      - model-cache:/root/.cache/huggingface
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  model-cache:

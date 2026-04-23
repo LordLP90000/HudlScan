@@ -1,0 +1,137 @@
+{
+  "name": "HudlScanner Play Extraction",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "extract-play",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-node",
+      "name": "Webhook: Upload Image",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "hudlscanner-extract"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse incoming request\nconst body = $input.item.json;\nconst { imageBase64, fileName, position, imageIndex, imageTotal } = body;\n\nif (!imageBase64 || !fileName || !position) {\n  throw new Error('Missing required fields: imageBase64, fileName, position');\n}\n\nreturn {\n  json: {\n    imageBase64,\n    fileName,\n    position: position || 'QB',\n    imageIndex: imageIndex || 1,\n    imageTotal: imageTotal || 1\n  }\n};"
+      },
+      "id": "parse-request",
+      "name": "Parse Request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "url": "=http://127.0.0.1:8000/v1/chat/completions",
+        "authentication": "none",
+        "requestMethod": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "rednote-hilab/dots.mocr-svg"
+            },
+            {
+              "name": "messages",
+              "value": "={{JSON.stringify([{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"Extract football plays from this image. Return JSON array with col1 (formation), col2 (route/blocking), col3 (concept).\"}, {\"type\": \"image_url\", \"image_url\": {\"url\": `data:image/png;base64,${$json.imageBase64}`}}]}])}}"
+            },
+            {
+              "name": "max_tokens",
+              "value": "4000"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "call-model",
+      "name": "HTTP: Call Local Model",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse and clean the model response\nconst response = $input.item.json;\n\nlet textContent = '';\n\n// Handle different response formats\nif (response.choices && response.choices[0]) {\n  textContent = response.choices[0].message?.content || '';\n} else if (response.content) {\n  textContent = response.content;\n} else {\n  textContent = JSON.stringify(response);\n}\n\n// Extract JSON from response\nlet plays = [];\ntry {\n  // Try direct parse\n  plays = JSON.parse(textContent);\n} catch {\n  // Try to extract JSON array from text\n  const start = textContent.indexOf('[');\n  if (start !== -1) {\n    const end = textContent.lastIndexOf(']') + 1;\n    plays = JSON.parse(textContent.substring(start, end));\n  }\n}\n\n// Ensure we have an array\nif (!Array.isArray(plays)) {\n  plays = [];\n}\n\n// Normalize plays\nconst normalized = plays\n  .filter(p => p && typeof p === 'object')\n  .map(p => ({\n    col1: String(p.col1 || '').trim(),\n    col2: String(p.col2 || '').trim(),\n    col3: String(p.col3 || '').trim(),\n    col4: String(p.col4 || '').trim()\n  }))\n  .filter(p => p.col1 || p.col2 || p.col3 || p.col4);\n\nreturn {\n  json: {\n    success: true,\n    plays: normalized,\n    count: normalized.length\n  }\n};"
+      },
+      "id": "parse-response",
+      "name": "Code: Parse JSON Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{JSON.stringify($json)}}"
+      },
+      "id": "respond-webhook",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1120, 300]
+    }
+  ],
+  "connections": {
+    "Webhook: Upload Image": {
+      "main": [
+        [
+          {
+            "node": "Parse Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Request": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Call Local Model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: Call Local Model": {
+      "main": [
+        [
+          {
+            "node": "Code: Parse JSON Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Parse JSON Response": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
