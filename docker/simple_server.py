@@ -1,0 +1,93 @@
+#!/usr/bin/env python3
+"""Simple OCR server using transformers without vLLM"""
+import os
+import json
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from transformers import AutoTokenizer, AutoModelForCausalLM
+import torch
+from PIL import Image
+import base64
+from io import BytesIO
+
+app = Flask(__name__)
+CORS(app)
+
+MODEL_PATH = os.environ.get('MODEL_PATH', 'rednote-hilab/dots.mocr-svg')
+PORT = int(os.environ.get('PORT', 8000))
+
+print(f"Loading model: {MODEL_PATH}...")
+try:
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH, trust_remote_code=True)
+    model = AutoModelForCausalLM.from_pretrained(
+        MODEL_PATH,
+        trust_remote_code=True,
+        torch_dtype=torch.float16,
+        device_map="auto"
+    )
+    print(f"Model loaded successfully!")
+except Exception as e:
+    print(f"Error loading model: {e}")
+    model = None
+    tokenizer = None
+
+@app.route('/health', methods=['GET'])
+def health():
+    return jsonify({"status": "ok" if model else "error"})
+
+@app.route('/v1/chat/completions', methods=['POST'])
+def chat_completions():
+    if not model or not tokenizer:
+        return jsonify({"error": "Model not loaded"}), 500
+
+    data = request.json
+    messages = data.get('messages', [])
+
+    # Extract image from messages
+    image_base64 = None
+    prompt_text = ""
+
+    for msg in messages:
+        content = msg.get('content', [])
+        if isinstance(content, list):
+            for item in content:
+                if item.get('type') == 'image_url':
+                    url = item.get('image_url', {}).get('url', '')
+                    if url.startswith('data:image/png;base64,'):
+                        image_base64 = url.split(',')[1]
+                elif item.get('type') == 'text':
+                    prompt_text += item.get('text', '')
+
+    if not image_base64:
+        return jsonify({"error": "No image found"}), 400
+
+    # Decode image
+    image_data = base64.b64decode(image_base64)
+    image = Image.open(BytesIO(image_data))
+
+    # Process with model
+    try:
+        response = model.chat(
+            tokenizer=tokenizer,
+            image=image,
+            question=prompt_text,
+            generation_config=dict(
+                max_new_tokens=2048,
+                do_sample=False,
+            )
+        )
+
+        return jsonify({
+            "choices": [{
+                "message": {
+                    "content": response,
+                    "role": "assistant"
+                }
+            }]
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
+    print(f"Starting server on port {PORT}...")
+    app.run(host='0.0.0.0', port=PORT)

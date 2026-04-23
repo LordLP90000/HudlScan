@@ -1,20 +1,41 @@
-FROM vllm/vllm-openai:v0.17.1
+FROM python:3.12-slim
 
-# Install additional dependencies for fine-tuning
-RUN pip install transformers accelerate datasets pillow
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
-# Create directory for custom models
+# Install PyTorch with CUDA support and transformers
+RUN pip install --no-cache-dir \
+    torch \
+    torchvision \
+    transformers>=4.47.0 \
+    accelerate \
+    pillow \
+    flask \
+    flask-cors \
+    qwen-vl-utils \
+    av \
+    opencv-python
+
+# Create directory for models
 RUN mkdir -p /models
+
+# Copy server script
+COPY simple_server.py /app/simple_server.py
+WORKDIR /app
 
 # Expose API port
 EXPOSE 8000
 
-# Default to dots.mocr pre-trained
-# Override with: --mount source=trained-model,target=/models and MODEL_PATH=/models
-CMD ["sh", "-c", "vllm serve ${MODEL_PATH:-rednote-hilab/dots.mocr-svg} \
-    --tensor-parallel-size 1 \
-    --gpu-memory-utilization 0.85 \
-    --trust-remote-code \
-    --chat-template-content-format string \
-    --port 8000 \
-    --host 0.0.0.0"]
+# Set environment variables
+ENV MODEL_PATH=/models/dots.mocr-svg
+ENV PORT=8000
+ENV PYTHONUNBUFFERED=1
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Run the server
+CMD ["python", "simple_server.py"]

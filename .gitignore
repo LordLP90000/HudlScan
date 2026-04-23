@@ -34,3 +34,6 @@ test-results
 training_data.jsonl
 hudlmcr-playbook-final/
 docker/trained-model/
+
+# Documentation
+CLAUDE.md
