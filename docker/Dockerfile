@@ -1,22 +1,10 @@
-FROM python:3.12-slim
+FROM vllm/vllm-openai:v0.17.1
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install PyTorch with CUDA support and transformers
+# Install additional dependencies
 RUN pip install --no-cache-dir \
-    torch \
-    torchvision \
-    transformers>=4.47.0 \
-    accelerate \
-    pillow \
     flask \
     flask-cors \
-    qwen-vl-utils \
-    av \
-    opencv-python
+    qwen-vl-utils
 
 # Create directory for models
 RUN mkdir -p /models
