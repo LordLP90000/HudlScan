@@ -11,41 +11,41 @@ This script:
 
 import json
 import os
+import sys
 from pathlib import Path
 from typing import List, Dict
 import torch
 from transformers import (
     AutoTokenizer,
-    AutoModelForVision2Seq,
+    AutoModelForCausalLM,
     TrainingArguments,
     Trainer,
     default_data_collator
 )
 from torch.utils.data import Dataset
-from PIL import Image
 
 # Paths
 TRAINING_DATA = Path(r"C:\Users\anton\HudlScanner\training\aback_training.jsonl")
 MODEL_DIR = Path(r"C:\Users\anton\HudlScanner\models\dots.mocr-svg")
 OUTPUT_DIR = Path(r"C:\Users\anton\HudlScanner\models\aback_finetuned")
-TRAINING_IMAGES = Path(r"C:\Users\anton\HudlScanner\training\images")
 
 # Model config
-MODEL_NAME = "google/dots-mocr-svg"  # or local path
 MAX_LENGTH = 128
 BATCH_SIZE = 2  # Adjust based on GPU memory
 GRADIENT_ACCUMULATION_STEPS = 4
 NUM_EPOCHS = 10
 LEARNING_RATE = 5e-5
 
+# Special A-Back position tokens
+SPECIAL_TOKENS = ["A-Back", "A-Bump", "A-Near", "I-Off", "T-Flip", "T-Wing", "Z-Flip", "A-Near-Bump"]
+
+
 class ABackDataset(Dataset):
     """Dataset for A-Back training data."""
 
-    def __init__(self, data: List[Dict], image_dir: Path = None, tokenizer=None, processor=None):
+    def __init__(self, data: List[Dict], tokenizer=None):
         self.data = data
-        self.image_dir = image_dir
         self.tokenizer = tokenizer
-        self.processor = processor
 
     def __len__(self):
         return len(self.data)
@@ -54,7 +54,7 @@ class ABackDataset(Dataset):
         item = self.data[idx]
 
         # Create text input from formation + concept
-        text_input = f"Formation: {item['formation']}, Concept: {item['concept']}"
+        text_input = f"Formation: {item['formation']}, Concept: {item['concept']}. What is the A-Back route?"
 
         # Target output: route/action
         target = item['route']
@@ -82,6 +82,7 @@ class ABackDataset(Dataset):
             "labels": targets["input_ids"].squeeze(),
         }
 
+
 def load_training_data(path: Path) -> List[Dict]:
     """Load training data from JSONL file."""
     data = []
@@ -90,10 +91,12 @@ def load_training_data(path: Path) -> List[Dict]:
             data.append(json.loads(line))
     return data
 
+
 def split_data(data: List[Dict], train_ratio: float = 0.9):
     """Split data into train and eval sets."""
     split_idx = int(len(data) * train_ratio)
     return data[:split_idx], data[split_idx:]
+
 
 def main():
     print("="*60)
@@ -103,9 +106,11 @@ def main():
     # Check device
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"\nDevice: {device}")
-    if device == "cpu":
+    if device == "cuda":
+        print(f"GPU: {torch.cuda.get_device_name(0)}")
+        print(f"VRAM: {torch.cuda.get_device_properties(0).total_memory / 1024**3:.1f} GB")
+    else:
         print("WARNING: Training on CPU will be very slow!")
-        print("Consider using a GPU or cloud training (HuggingFace Jobs)")
 
     # Load training data
     print(f"\nLoading training data from: {TRAINING_DATA}")
@@ -116,28 +121,44 @@ def main():
     train_data, eval_data = split_data(data)
     print(f"Train: {len(train_data)}, Eval: {len(eval_data)}")
 
-    # Load model and tokenizer
-    print(f"\nLoading model from: {MODEL_DIR}")
-    try:
-        tokenizer = AutoTokenizer.from_pretrained(str(MODEL_DIR))
-        model = AutoModelForVision2Seq.from_pretrained(
-            str(MODEL_DIR),
-            torch_dtype=torch.bfloat16 if device == "cuda" else torch.float32
-        )
-    except Exception as e:
-        print(f"Error loading local model: {e}")
-        print("Trying to load from HuggingFace Hub...")
-        tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-        model = AutoModelForVision2Seq.from_pretrained(
-            MODEL_NAME,
-            torch_dtype=torch.bfloat16 if device == "cuda" else torch.float32
-        )
+    # Load tokenizer
+    print(f"\nLoading tokenizer from: {MODEL_DIR}")
+    tokenizer = AutoTokenizer.from_pretrained(
+        str(MODEL_DIR),
+        trust_remote_code=True
+    )
+
+    # Add special tokens for A-Back positions
+    tokenizer.add_special_tokens({"additional_special_tokens": SPECIAL_TOKENS})
+    print(f"Added {len(SPECIAL_TOKENS)} special tokens: {SPECIAL_TOKENS}")
+
+    # Load model using AutoModelForCausalLM with trust_remote_code
+    # The dots.mocr model extends Qwen2ForCausalLM
+    print(f"\nLoading DotsOCR model from: {MODEL_DIR}")
+
+    # Try loading as Qwen2ForCausalLM since DotsOCR extends it
+    from transformers.models.qwen2 import Qwen2ForCausalLM
+
+    # First load the config to get the architecture info
+    from transformers import AutoConfig
+    config = AutoConfig.from_pretrained(str(MODEL_DIR), trust_remote_code=True)
+    print(f"Config arch: {config.architectures}")
+
+    # Load the model - it should work with AutoModelForCausalLM since it's a Qwen2 variant
+    model = AutoModelForCausalLM.from_pretrained(
+        str(MODEL_DIR),
+        trust_remote_code=True,
+        torch_dtype=torch.bfloat16 if device == "cuda" else torch.float32,
+        # Don't load vision tower for text-only training
+        ignore_mismatched_sizes=True
+    )
+
+    # Resize embeddings for new tokens
+    model.resize_token_embeddings(len(tokenizer))
+    print(f"Token vocab size: {len(tokenizer)}")
+    print(f"Model embeddings resized: {model.get_input_embeddings().weight.shape[0]}")
 
     model.to(device)
-
-    # Resize embeddings for new tokens if needed
-    tokenizer.add_tokens(["A-Back", "A-Bump", "A-Near", "I-Off", "T-Flip", "T-Wing", "Z-Flip"])
-    model.resize_token_embeddings(len(tokenizer))
 
     # Create datasets
     train_dataset = ABackDataset(train_data, tokenizer=tokenizer)
@@ -162,9 +183,11 @@ def main():
         metric_for_best_model="eval_loss",
         greater_is_better=False,
         report_to=["tensorboard"],
-        fp16=device == "cuda",
+        fp16=False,
         bf16=device == "cuda" and torch.cuda.is_bf16_supported(),
         dataloader_num_workers=0,
+        logging_dir=str(OUTPUT_DIR / "logs"),
+        remove_unused_columns=False,
     )
 
     # Create trainer
@@ -180,11 +203,14 @@ def main():
     print("\n" + "="*60)
     print("Starting training...")
     print("="*60)
+    print(f"Effective batch size: {BATCH_SIZE * GRADIENT_ACCUMULATION_STEPS}")
+    print(f"Total steps: {len(train_dataset) // BATCH_SIZE * NUM_EPOCHS}")
 
     trainer.train()
 
     # Save final model
     final_output = OUTPUT_DIR / "final"
+    final_output.mkdir(parents=True, exist_ok=True)
     trainer.save_model(str(final_output))
     tokenizer.save_pretrained(str(final_output))
 
@@ -194,11 +220,18 @@ def main():
 
     # Show training stats
     print("\nTraining history:")
+    train_losses = []
     for log in trainer.state.log_history:
         if "loss" in log:
             epoch = log.get("epoch", "N/A")
             loss = log["loss"]
-            print(f"  Epoch {epoch}: Loss = {loss:.4f}")
+            train_losses.append(loss)
+            print(f"  Epoch {epoch:.2f}: Loss = {loss:.4f}")
+
+    if train_losses:
+        print(f"\nFinal loss: {train_losses[-1]:.4f}")
+        print(f"Loss reduction: {train_losses[0] - train_losses[-1]:.4f}")
+
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>TEST</title></head>
+<body style="background:white">
+<h1>Image Test - If you see this, page loads</h1>
+<h2>Direct image (URL encoded):</h2>
+<img src="http://localhost:8888/images/2026%20Lions%20Pass%20Game%20v1-01.png" style="border:5px solid green">
+<h2>Check browser console (F12) for errors</h2>
+<script>
+console.log('Script running');
+fetch('http://localhost:8888/images/2026%20Lions%20Pass%20Game%20v1-01.png')
+  .then(r => { console.log('Response status:', r.status); return r.blob(); })
+  .then(b => { console.log('Blob size:', b.size); })
+  .catch(e => console.error('Error:', e));
+</script>
+</body>
+</html>

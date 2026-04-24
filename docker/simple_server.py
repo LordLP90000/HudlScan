@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Simple OCR server using transformers without vLLM"""
 import os
+import sys
 import json
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -9,6 +10,20 @@ import torch
 from PIL import Image
 import base64
 from io import BytesIO
+
+# Mock flash_attn before any model imports
+class MockFlashAttention:
+    def __init__(self, *args, **kwargs):
+        pass
+    def __getattr__(self, name):
+        def noop(*args, **kwargs):
+            return None
+        return noop
+
+sys.modules['flash_attn'] = MockFlashAttention()
+sys.modules['flash_attn.flash_attn_func'] = MockFlashAttention()
+sys.modules['flash_attn.bert_padding'] = MockFlashAttention()
+sys.modules['flash_attn.layer_norm'] = MockFlashAttention()
 
 app = Flask(__name__)
 CORS(app)
@@ -28,6 +43,8 @@ try:
     print(f"Model loaded successfully!")
 except Exception as e:
     print(f"Error loading model: {e}")
+    import traceback
+    traceback.print_exc()
     model = None
     tokenizer = None
 

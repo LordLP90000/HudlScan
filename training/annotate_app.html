@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Back Training Data Annotator</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #eee;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 450px;
+            gap: 20px;
+        }
+        .image-panel {
+            background: #16213e;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .image-container {
+            text-align: center;
+            background: #0f0f23;
+            border-radius: 4px;
+            padding: 10px;
+        }
+        #mainImage {
+            max-width: 100%;
+            max-height: 75vh;
+            border-radius: 4px;
+        }
+        .form-panel {
+            background: #16213e;
+            border-radius: 8px;
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        h1 { margin: 0 0 5px 0; font-size: 20px; }
+        .subtitle { font-size: 12px; color: #64748b; margin-bottom: 15px; }
+        .progress { color: #4ade80; font-size: 14px; margin-bottom: 15px; }
+        .extraction-box {
+            background: #064e3b;
+            border: 1px solid #4ade80;
+            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+        .extraction-box.loading {
+            background: #423508;
+            border-color: #fbbf24;
+        }
+        .extraction-box.error {
+            background: #450a0a;
+            border-color: #ef4444;
+        }
+        .extraction-title {
+            font-size: 11px;
+            color: #4ade80;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .extraction-content {
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .extraction-row {
+            display: flex;
+            margin-bottom: 4px;
+        }
+        .extraction-label {
+            color: #94a3b8;
+            width: 80px;
+        }
+        .extraction-value {
+            color: #f1f5f9;
+            font-weight: 500;
+        }
+        .field { margin-bottom: 12px; }
+        label {
+            display: block;
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 4px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #334155;
+            border-radius: 4px;
+            background: #0f0f23;
+            color: #eee;
+            font-size: 14px;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #4ade80;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+        .btn-confirm {
+            background: #4ade80;
+            color: #064e3b;
+        }
+        .btn-confirm:hover { background: #22c55e; }
+        .btn-correct {
+            background: #f59e0b;
+            color: #451a03;
+        }
+        .btn-correct:hover { background: #d97706; }
+        .btn-skip {
+            background: #64748b;
+            color: #f1f5f9;
+        }
+        .btn-skip:hover { background: #475569; }
+        .btn-download {
+            background: #3b82f6;
+            color: #f1f5f9;
+        }
+        .btn-download:hover { background: #2563eb; }
+        .btn-retry {
+            background: #8b5cf6;
+            color: #f1f5f9;
+            font-size: 12px;
+            padding: 8px;
+        }
+        .btn-retry:hover { background: #7c3aed; }
+        .saved-count {
+            text-align: center;
+            padding: 10px;
+            background: #0f0f23;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        .nav-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .nav-btn {
+            background: #334155;
+            color: #f1f5f9;
+            padding: 8px;
+            font-size: 12px;
+        }
+        .nav-btn:hover { background: #475569; }
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .shortcuts {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 15px;
+            text-align: center;
+        }
+        .corrected-badge {
+            background: #f59e0b;
+            color: #451a03;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 8px;
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image-panel">
+            <div class="image-container">
+                <img id="mainImage" src="" alt="Loading..." onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%2250%22 font-size=%2250%22 fill=%22%23666%22>?</text></svg>'">
+            </div>
+        </div>
+        <div class="form-panel">
+            <h1>A-Back Training Annotator <span id="correctedBadge" class="corrected-badge hidden">CORRECTED</span></h1>
+            <div class="subtitle">Model predicts → You confirm or correct</div>
+            <div class="progress" id="progress">Loading...</div>
+            <div class="saved-count">
+                <strong>Saved:</strong> <span id="savedCount">0</span> / <span id="totalCount">0</span>
+            </div>
+
+            <!-- Model Extraction Box -->
+            <div id="extractionBox" class="extraction-box">
+                <div class="extraction-title">
+                    <span id="extractionStatus">🤖 Model Prediction</span>
+                    <button class="btn-retry hidden" id="retryBtn" onclick="retryExtraction()" style="float:right;margin-top:-5px;">Retry</button>
+                </div>
+                <div class="extraction-content" id="extractionContent">
+                    Loading...
+                </div>
+            </div>
+
+            <!-- Your Correction -->
+            <div style="margin-bottom:12px;padding:8px;background:#0f0f23;border-radius:4px;">
+                <div style="font-size:11px;color:#94a3b8;margin-bottom:8px;">✏️ YOUR CORRECTION (if needed)</div>
+                <div class="field">
+                    <input type="text" id="formation" placeholder="Formation">
+                </div>
+                <div class="field">
+                    <input type="text" id="concept" placeholder="Concept">
+                </div>
+                <div class="field">
+                    <input type="text" id="position" placeholder="Position">
+                </div>
+                <div class="field">
+                    <input type="text" id="route" placeholder="Route">
+                </div>
+                <div class="field">
+                    <input type="checkbox" id="noPlay" onchange="toggleNoPlay()" style="width:auto;margin-right:8px;">
+                    <label for="noPlay" style="display:inline;">No play on this page (rules only)</label>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="prevImage()" id="prevBtn">← Previous</button>
+                <button class="nav-btn" onclick="nextImage()" id="nextBtn">Next →</button>
+            </div>
+
+            <button class="btn-confirm" id="confirmBtn" onclick="confirmAndNext()">✓ Correct - Save & Next</button>
+            <button class="btn-correct" id="correctBtn" onclick="correctAndNext()">✏️ Corrected - Save & Next</button>
+            <button class="btn-skip" onclick="skip()">Skip (no play / can't tell)</button>
+            <button class="btn-download" onclick="download()">Download JSONL</button>
+
+            <div class="shortcuts">
+                Enter = Confirm | Ctrl+Enter = Correct | Arrow keys = Navigate
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let images = [];
+        let currentIndex = 0;
+        let currentExtraction = null;
+        let savedCount = 0;
+
+        // Datalist options
+        const FORMATIONS = ['Luzern', 'Zug', 'Unknown'];
+        const CONCEPTS = ['Power', 'ISO', 'Fold', 'Cross', 'Smash', 'Glance', 'Shallow Cross', 'Moses', 'Flood', 'Quick Hit', 'Swing Screen', 'Stick', 'Spacing', 'X Quick Hit', 'Inside Zone', 'Outside Zone', 'Trey'];
+        const POSITIONS = ['regular', 'a_near', 'a_bump', 'a_near_bump', 'i_off', 'i', 't_flip', 't_wing', 'z_flip'];
+        const ROUTES = ['5 Out', 'Go', 'Cross', 'Angle Out', 'Stick', 'Comeback', 'Flat', 'Lead Block Rb', 'Shoot', 'Block D-end inside'];
+
+        async function init() {
+            // Load images
+            const resp = await fetch('/api/images');
+            const data = await resp.json();
+            images = data.images;
+            document.getElementById('totalCount').textContent = images.length;
+
+            // Load saved count
+            const annResp = await fetch('/api/annotations');
+            const annotations = await annResp.json();
+            savedCount = Object.keys(annotations).length;
+            document.getElementById('savedCount').textContent = savedCount;
+
+            // Setup datalists
+            setupDatalists();
+
+            // Load first image
+            loadImage(0);
+        }
+
+        function setupDatalists() {
+            const createDatalist = (id, values) => {
+                let html = `<datalist id="${id}">`;
+                values.forEach(v => html += `<option value="${v}">`);
+                html += '</datalist>';
+                document.body.insertAdjacentHTML('beforeend', html);
+                document.getElementById(id.replace('list', '')).setAttribute('list', id);
+            };
+            createDatalist('formationslist', FORMATIONS);
+            createDatalist('conceptslist', CONCEPTS);
+            createDatalist('positionslist', POSITIONS);
+            createDatalist('routeslist', ROUTES);
+        }
+
+        async function loadImage(index) {
+            if (index < 0 || index >= images.length) return;
+            currentIndex = index;
+
+            const img = images[index];
+            document.getElementById('mainImage').src = `/images/${encodeURIComponent(img)}`;
+            document.getElementById('progress').textContent = `Image ${index + 1} of ${images.length}: ${img}`;
+
+            // Reset state
+            currentExtraction = null;
+            document.getElementById('extractionBox').className = 'extraction-box loading';
+            document.getElementById('extractionStatus').textContent = '🤖 Analyzing...';
+            document.getElementById('extractionContent').innerHTML = 'Running OCR...';
+            document.getElementById('retryBtn').classList.add('hidden');
+            document.getElementById('correctedBadge').classList.add('hidden');
+
+            // Clear form
+            document.getElementById('formation').value = '';
+            document.getElementById('concept').value = '';
+            document.getElementById('position').value = '';
+            document.getElementById('route').value = '';
+            document.getElementById('noPlay').checked = false;
+            toggleNoPlay();
+
+            // Update nav buttons
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = index === images.length - 1;
+
+            // Run extraction
+            runExtraction(img);
+        }
+
+        async function runExtraction(filename) {
+            try {
+                const resp = await fetch('/api/extract', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ filename: filename })
+                });
+                const result = await resp.json();
+
+                currentExtraction = result;
+                displayExtraction(result);
+
+                // Pre-fill form with extraction results
+                if (!result.error) {
+                    document.getElementById('formation').value = result.formation || '';
+                    document.getElementById('concept').value = result.concept || '';
+                    document.getElementById('position').value = result.position || '';
+                    document.getElementById('route').value = result.route || '';
+                }
+            } catch (e) {
+                currentExtraction = { error: String(e) };
+                displayExtraction({ error: String(e) });
+            }
+        }
+
+        function displayExtraction(result) {
+            const box = document.getElementById('extractionBox');
+            const content = document.getElementById('extractionContent');
+            const status = document.getElementById('extractionStatus');
+
+            if (result.error) {
+                box.className = 'extraction-box error';
+                status.textContent = '❌ Error';
+                content.innerHTML = `<div style="color:#fca5a5">${result.error}</div>`;
+                document.getElementById('retryBtn').classList.remove('hidden');
+                return;
+            }
+
+            box.className = 'extraction-box';
+            status.textContent = '🤖 Model Predicted:';
+
+            let html = '';
+            const fields = [
+                ['Formation', result.formation],
+                ['Concept', result.concept],
+                ['Position', result.position],
+                ['Route', result.route]
+            ];
+
+            fields.forEach(([label, value]) => {
+                const display = value || '<span style="color:#64748b">(not detected)</span>';
+                html += `<div class="extraction-row"><span class="extraction-label">${label}:</span><span class="extraction-value">${display}</span></div>`;
+            });
+
+            content.innerHTML = html;
+        }
+
+        function retryExtraction() {
+            loadImage(currentIndex);
+        }
+
+        function toggleNoPlay() {
+            const noPlay = document.getElementById('noPlay').checked;
+            const fields = ['formation', 'concept', 'position', 'route'];
+            fields.forEach(id => {
+                document.getElementById(id).disabled = noPlay;
+                if (noPlay) document.getElementById(id).value = '';
+            });
+        }
+
+        async function saveAnnotation(corrected = false) {
+            const img = images[currentIndex];
+            const noPlay = document.getElementById('noPlay').checked;
+
+            const data = {
+                filename: img,
+                formation: noPlay ? null : document.getElementById('formation').value,
+                concept: noPlay ? null : document.getElementById('concept').value,
+                position: noPlay ? null : document.getElementById('position').value,
+                route: noPlay ? null : document.getElementById('route').value,
+                notes: '',
+                no_play: noPlay,
+                corrected: corrected,
+                model_prediction: currentExtraction && !currentExtraction.error ? currentExtraction : null
+            };
+
+            await fetch('/api/save', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            savedCount++;
+            document.getElementById('savedCount').textContent = savedCount;
+        }
+
+        async function confirmAndNext() {
+            await saveAnnotation(false); // Not corrected - model was right
+            nextImage();
+        }
+
+        async function correctAndNext() {
+            await saveAnnotation(true); // Corrected - model was wrong
+            nextImage();
+        }
+
+        function skip() {
+            nextImage();
+        }
+
+        function nextImage() {
+            if (currentIndex < images.length - 1) {
+                loadImage(currentIndex + 1);
+            } else {
+                alert('All images processed! Download your annotations.');
+            }
+        }
+
+        function prevImage() {
+            if (currentIndex > 0) {
+                loadImage(currentIndex - 1);
+            }
+        }
+
+        function download() {
+            window.location.href = '/api/download';
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT') return;
+
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (e.ctrlKey) {
+                    correctAndNext();
+                } else {
+                    confirmAndNext();
+                }
+            } else if (e.key === 'ArrowLeft') {
+                prevImage();
+            } else if (e.key === 'ArrowRight') {
+                nextImage();
+            }
+        });
+
+        // Track if user modified values
+        ['formation', 'concept', 'position', 'route'].forEach(id => {
+            document.getElementById(id).addEventListener('input', () => {
+                document.getElementById('correctedBadge').classList.remove('hidden');
+            });
+        });
+
+        init();
+    </script>
+</body>
+</html>

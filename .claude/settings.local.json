@@ -6,7 +6,19 @@
       "Read(//c/Users/anton/HudlScan/**)",
       "Bash(xargs -I {} taskkill //F //PID {})",
       "Bash(node server.js)",
-      "Bash(curl -s http://localhost:3002)"
+      "Bash(curl -s http://localhost:3002)",
+      "Bash(python -c \"import torch; print\\(f''PyTorch: {torch.__version__}''\\); print\\(f''CUDA available: {torch.cuda.is_available\\(\\)}''\\); print\\(f''CUDA version: {torch.version.cuda if torch.cuda.is_available\\(\\) else \"\"N/A\"\"}''\\)\")",
+      "Bash(python:*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/annotate.html)",
+      "Bash(curl -s http://localhost:8080/api/images)",
+      "Bash(pip install:*)",
+      "Bash(taskkill /F /IM python.exe)",
+      "Bash(curl -s -I http://localhost:8080/images/2026%20Lions%20Pass%20Game%20v1-01.png)",
+      "Bash(curl -s http://localhost:8080/)",
+      "Bash(curl:*)",
+      "Bash(taskkill //F //IM python.exe)",
+      "Bash(dir C:UsersantonHudlScannermodelsdots.mocr-svg)",
+      "Bash(docker compose:*)"
     ]
   }
 }

@@ -10,8 +10,8 @@ services:
       - MODEL_PATH=/models/dots.mocr-svg
       - PORT=8000
     volumes:
-      # Mount local downloaded model (absolute path for Windows Docker)
-      - C:/Users/anton/HudlScanner/models/dots.mocr-svg:/models/dots.mocr-svg:ro
+      # Mount local downloaded model (relative path from docker/ directory)
+      - ../models/dots.mocr-svg:/models/dots.mocr-svg:ro
     deploy:
       resources:
         reservations:

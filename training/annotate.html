@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A-Back Training Annotator</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f0f0f0; }
+        .container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 400px; gap: 20px; }
+        .image-panel { background: white; border-radius: 8px; padding: 20px; }
+        #mainImage { max-width: 100%; height: auto; border: 2px solid #ccc; }
+        .form-panel { background: white; border-radius: 8px; padding: 20px; }
+        h1 { margin: 0 0 10px; font-size: 20px; }
+        .progress { color: green; font-size: 14px; margin-bottom: 15px; }
+        .model-prediction { background: #e8f5e9; border: 2px solid #4caf50; padding: 15px; margin-bottom: 15px; border-radius: 4px; }
+        .model-prediction h3 { margin: 0 0 10px 0; font-size: 14px; color: #2e7d32; }
+        .field { margin-bottom: 10px; }
+        label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 3px; }
+        input, select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        button { width: 100%; padding: 12px; margin-bottom: 8px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .btn-confirm { background: #4caf50; color: white; }
+        .btn-correct { background: #ff9800; color: white; }
+        .btn-skip { background: #9e9e9e; color: white; }
+        .btn-download { background: #2196f3; color: white; }
+        .nav-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px; }
+        .nav-btn { background: #607d8b; color: white; padding: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image-panel">
+            <img id="mainImage" src="" alt="Playbook page">
+            <p id="progress" style="text-align:center;margin-top:10px;"></p>
+        </div>
+        <div class="form-panel">
+            <h1>A-Back Training Annotator</h1>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="prevImage()">← Prev</button>
+                <button class="nav-btn" onclick="nextImage()">Next →</button>
+            </div>
+
+            <div class="model-prediction">
+                <h3>🤖 Model Extracted:</h3>
+                <div id="predictionContent">Loading...</div>
+            </div>
+
+            <div style="background:#fff3e0;padding:15px;margin-bottom:15px;border-radius:4px;">
+                <h3 style="margin:0 0 10px;font-size:14px;color:#e65100;">✏️ Your Correction:</h3>
+                <div class="field">
+                    <label>Formation</label>
+                    <input type="text" id="formation" placeholder="e.g. Luzern, Zug">
+                </div>
+                <div class="field">
+                    <label>Concept</label>
+                    <input type="text" id="concept" placeholder="e.g. Power, Cross, Stick">
+                </div>
+                <div class="field">
+                    <label>A-Back Position</label>
+                    <select id="position">
+                        <option value="">-- Select --</option>
+                        <option value="regular">Regular</option>
+                        <option value="a_near">A-Near</option>
+                        <option value="a_bump">A-Bump</option>
+                        <option value="a_near_bump">A-Near-Bump</option>
+                        <option value="i_off">I-Off</option>
+                        <option value="i">I</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>A-Back Route</label>
+                    <input type="text" id="route" placeholder="e.g. 5 Out, Lead Block">
+                </div>
+            </div>
+
+            <button class="btn-confirm" onclick="confirmAndNext()">✓ Model was Correct - Save</button>
+            <button class="btn-correct" onclick="correctAndNext()">✏️ I Corrected It - Save</button>
+            <button class="btn-skip" onclick="skip()">Skip - No Play</button>
+            <button class="btn-download" onclick="download()">Download JSONL</button>
+        </div>
+    </div>
+
+    <script>
+        let images = [];
+        let currentIndex = 0;
+        let currentPrediction = null;
+
+        // Load images list
+        async function loadImages() {
+            const resp = await fetch('/images-list.json');
+            const text = await resp.text();
+            images = JSON.parse(text);
+            loadImage(0);
+        }
+
+        // Alternative: hardcoded list if no json file
+        async function loadImagesFallback() {
+            images = [
+                '2026 Lions Pass Game v1-01.png',
+                '2026 Lions Pass Game v1-02.png',
+                '2026 Lions Pass Game v1-03.png',
+                '2026 Lions Pass Game v1-04.png',
+                '2026 Lions Pass Game v1-05.png',
+                // Add more as needed
+            ];
+            loadImage(0);
+        }
+
+        async function loadImage(index) {
+            if (index < 0 || index >= images.length) return;
+            currentIndex = index;
+            const img = images[index];
+
+            // Use relative path - this works!
+            document.getElementById('mainImage').src = 'images/' + img;
+            document.getElementById('progress').textContent = `Image ${index + 1} / ${images.length}: ${img}`;
+
+            // Clear and get prediction
+            document.getElementById('predictionContent').innerHTML = 'Running AI analysis...';
+            currentPrediction = null;
+
+            try {
+                const resp = await fetch('/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image: img })
+                });
+                const prediction = await resp.json();
+                currentPrediction = prediction;
+                displayPrediction(prediction);
+
+                // Pre-fill form
+                document.getElementById('formation').value = prediction.formation || '';
+                document.getElementById('concept').value = prediction.concept || '';
+                document.getElementById('position').value = prediction.position || '';
+                document.getElementById('route').value = prediction.route || '';
+            } catch (e) {
+                document.getElementById('predictionContent').innerHTML = '<span style="color:red">Error: ' + e.message + '</span>';
+            }
+        }
+
+        function displayPrediction(pred) {
+            let html = '';
+            if (pred.error) {
+                html = '<span style="color:red">Error: ' + pred.error + '</span>';
+            } else {
+                html = '<b>Formation:</b> ' + (pred.formation || '(not detected)') + '<br>';
+                html += '<b>Concept:</b> ' + (pred.concept || '(not detected)') + '<br>';
+                html += '<b>Position:</b> ' + (pred.position || '(not detected)') + '<br>';
+                html += '<b>Route:</b> ' + (pred.route || '(not detected)');
+            }
+            document.getElementById('predictionContent').innerHTML = html;
+        }
+
+        async function saveAnnotation(corrected) {
+            const img = images[currentIndex];
+            await fetch('/save', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    image: img,
+                    formation: document.getElementById('formation').value,
+                    concept: document.getElementById('concept').value,
+                    position: document.getElementById('position').value,
+                    route: document.getElementById('route').value,
+                    corrected: corrected,
+                    model_prediction: currentPrediction
+                })
+            });
+        }
+
+        async function confirmAndNext() {
+            await saveAnnotation(false); // Model was correct
+            nextImage();
+        }
+
+        async function correctAndNext() {
+            await saveAnnotation(true); // User corrected
+            nextImage();
+        }
+
+        function skip() {
+            nextImage();
+        }
+
+        function nextImage() {
+            if (currentIndex < images.length - 1) {
+                loadImage(currentIndex + 1);
+            } else {
+                alert('All images done! Click Download to save.');
+            }
+        }
+
+        function prevImage() {
+            if (currentIndex > 0) {
+                loadImage(currentIndex - 1);
+            }
+        }
+
+        function download() {
+            window.location.href = '/download';
+        }
+
+        // Try to load list, fall back to hardcoded
+        loadImages().catch(() => loadImagesFallback());
+    </script>
+</body>
+</html>

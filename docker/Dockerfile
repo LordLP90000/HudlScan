@@ -1,7 +1,7 @@
 FROM vllm/vllm-openai:v0.17.1
 
-# Install additional dependencies
-RUN pip install --no-cache-dir \
+# Install additional dependencies (ignore blinker conflict)
+RUN pip install --no-cache-dir --ignore-installed blinker \
     flask \
     flask-cors \
     qwen-vl-utils

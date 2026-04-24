@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>A-Back Annotator - Multi-Play</title>
+    <style>
+        body { font-family: Arial; margin: 0; padding: 20px; background: #333; }
+        .container { max-width: 1600px; margin: 0 auto; display: grid; grid-template-columns: 1fr 450px; gap: 20px; }
+        .image-box { background: #fff; border-radius: 8px; padding: 20px; }
+        img { max-width: 100%; height: auto; border: 2px solid #000; }
+        .form-box { background: #fff; border-radius: 8px; padding: 20px; }
+        h1 { margin: 0 0 10px; font-size: 18px; }
+        h2 { font-size: 14px; margin: 10px 0; }
+        .ai-box { background: #e8f5e9; padding: 15px; margin-bottom: 15px; border-radius: 4px; }
+        .ai-box h3 { margin: 0 0 10px; font-size: 14px; }
+        input, select { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        label { font-size: 12px; font-weight: bold; display: block; margin-bottom: 3px; }
+        button { width: 100%; padding: 10px; margin-bottom: 8px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .btn-green { background: #4caf50; color: white; }
+        .btn-orange { background: #ff9800; color: white; }
+        .btn-gray { background: #9e9e9e; color: white; }
+        .btn-blue { background: #2196f3; color: white; }
+        .btn-red { background: #f44336; color: white; }
+        .btn-purple { background: #9c27b0; color: white; }
+        .navs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px; }
+        .plays-list { max-height: 300px; overflow-y: auto; background: #f5f5f5; padding: 10px; border-radius: 4px; margin-bottom: 15px; }
+        .play-item { background: white; padding: 10px; margin-bottom: 8px; border-radius: 4px; border-left: 4px solid #4caf50; }
+        .play-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .play-number { font-weight: bold; color: #4caf50; }
+        .play-delete { background: #f44336; color: white; border: none; padding: 2px 8px; border-radius: 3px; cursor: pointer; font-size: 12px; }
+        .play-details { font-size: 12px; color: #555; }
+        .play-count { background: #2196f3; color: white; padding: 5px 10px; border-radius: 20px; font-size: 14px; display: inline-block; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image-box">
+            <img id="img" src="" alt="Loading...">
+            <p id="progress" style="text-align:center;"></p>
+        </div>
+        <div class="form-box">
+            <h1>A-Back Annotator</h1>
+            <div class="navs">
+                <button onclick="prev()">← Prev</button>
+                <button onclick="saveAndNext()">Done - Next →</button>
+            </div>
+
+            <div class="ai-box">
+                <h3>🤖 AI Prediction:</h3>
+                <div id="ai">Loading...</div>
+                <button class="btn-blue" onclick="usePrediction()" style="margin-top:10px;">Use AI Prediction</button>
+            </div>
+
+            <div style="background:#fff3e0;padding:15px;margin-bottom:15px;border-radius:4px;">
+                <h3 style="margin:0 0 10px;font-size:14px;">➕ Add Play to This Image:</h3>
+                <label>Formation</label>
+                <input id="formation" placeholder="e.g. Luzern">
+                <label>Concept</label>
+                <input id="concept" placeholder="e.g. Power, Cross">
+                <label>Position Modifiers (check all that apply):</label>
+                <div style="background:white;padding:10px;border-radius:4px;margin-bottom:10px;">
+                    <label style="display:inline-block;margin-right:15px;font-weight:normal;">
+                        <input type="checkbox" id="pos_regular" checked onchange="updatePosition()"> Regular (none)
+                    </label>
+                    <label style="display:inline-block;margin-right:15px;font-weight:normal;">
+                        <input type="checkbox" id="pos_a_near" onchange="updatePosition()"> A-Near
+                    </label>
+                    <label style="display:inline-block;margin-right:15px;font-weight:normal;">
+                        <input type="checkbox" id="pos_a_bump" onchange="updatePosition()"> A-Bump
+                    </label>
+                    <label style="display:inline-block;font-weight:normal;">
+                        <input type="checkbox" id="pos_i_off" onchange="updatePosition()"> I-Off
+                    </label>
+                </div>
+                <input type="hidden" id="position" value="regular">
+                <label>Route</label>
+                <input id="route" placeholder="e.g. 5 Out, Lead Block">
+                <button class="btn-green" onclick="addPlay()">+ Add Play to List</button>
+            </div>
+
+            <h2>Plays for this image:</h2>
+            <span class="play-count" id="playCount">0 plays</span>
+            <div class="plays-list" id="playsList">
+                <p style="color:#777;font-style:italic;">No plays added yet. Add plays from the form above.</p>
+            </div>
+
+            <button class="btn-purple" onclick="skip()">Skip - No Plays on This Page</button>
+            <button class="btn-blue" onclick="download()">Download JSONL</button>
+        </div>
+    </div>
+
+    <script>
+        let images = [];
+        let idx = 0;
+        let currentPlays = [];  // Plays for current image
+        let currentPrediction = null;
+
+        async function load() {
+            const r = await fetch('/api/images');
+            images = await r.json();
+            show(0);
+        }
+
+        async function show(i) {
+            if (i < 0 || i >= images.length) return;
+            idx = i;
+            const img = images[i];
+
+            document.getElementById('img').src = 'images/' + encodeURIComponent(img);
+            document.getElementById('progress').textContent = `${i+1} / ${images.length}: ${img}`;
+            document.getElementById('ai').textContent = 'Analyzing...';
+
+            // Clear plays for new image
+            currentPlays = [];
+            updatePlaysList();
+
+            // Clear form
+            document.getElementById('formation').value = '';
+            document.getElementById('concept').value = '';
+            setPositionFromValue('regular');
+            updatePosition();
+            document.getElementById('route').value = '';
+
+            // Get AI prediction
+            try {
+                const r = await fetch('/api/predict', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({image: img})
+                });
+                currentPrediction = await r.json();
+                displayPrediction(currentPrediction);
+            } catch (e) {
+                document.getElementById('ai').textContent = 'Error: ' + e.message;
+                currentPrediction = null;
+            }
+        }
+
+        function displayPrediction(pred) {
+            let html = '<b>F:</b> ' + (pred.formation || '?') + '<br>';
+            html += '<b>C:</b> ' + (pred.concept || '?') + '<br>';
+            html += '<b>P:</b> ' + (pred.position || '?') + '<br>';
+            html += '<b>R:</b> ' + (pred.route || '?');
+            if (pred.note) {
+                html += '<br><small style="color:#666">' + pred.note + '</small>';
+            }
+            document.getElementById('ai').innerHTML = html;
+        }
+
+        function updatePosition() {
+            const regular = document.getElementById('pos_regular').checked;
+            const aNear = document.getElementById('pos_a_near').checked;
+            const aBump = document.getElementById('pos_a_bump').checked;
+            const iOff = document.getElementById('pos_i_off').checked;
+
+            // Build position string from combinations
+            let position = '';
+            if (iOff) {
+                position = 'i_off';
+            } else if (aNear && aBump) {
+                position = 'a_near_bump';
+            } else if (aNear) {
+                position = 'a_near';
+            } else if (aBump) {
+                position = 'a_bump';
+            } else {
+                position = 'regular';
+            }
+
+            document.getElementById('position').value = position;
+
+            // Uncheck regular if other options selected
+            if (!regular && (aNear || aBump || iOff)) {
+                // Other options selected, regular is implicitly unchecked
+            }
+        }
+
+        function setPositionFromValue(value) {
+            // Reset all checkboxes
+            document.getElementById('pos_regular').checked = (value === 'regular');
+            document.getElementById('pos_a_near').checked = (value === 'a_near' || value === 'a_near_bump');
+            document.getElementById('pos_a_bump').checked = (value === 'a_bump' || value === 'a_near_bump');
+            document.getElementById('pos_i_off').checked = (value === 'i_off');
+        }
+
+        function usePrediction() {
+            if (!currentPrediction) {
+                alert('No prediction available yet');
+                return;
+            }
+            document.getElementById('formation').value = currentPrediction.formation || '';
+            document.getElementById('concept').value = currentPrediction.concept || '';
+            setPositionFromValue(currentPrediction.position || 'regular');
+            updatePosition();
+            document.getElementById('route').value = currentPrediction.route || '';
+        }
+
+        function addPlay() {
+            const formation = document.getElementById('formation').value.trim();
+            const concept = document.getElementById('concept').value.trim();
+            const position = document.getElementById('position').value;
+            const route = document.getElementById('route').value.trim();
+
+            if (!formation && !concept && !route) {
+                alert('Please fill in at least one field');
+                return;
+            }
+
+            currentPlays.push({
+                formation,
+                concept,
+                position,
+                route
+            });
+
+            updatePlaysList();
+
+            // Clear form for next play
+            document.getElementById('formation').value = '';
+            document.getElementById('concept').value = '';
+            setPositionFromValue('regular');
+            updatePosition();
+            document.getElementById('route').value = '';
+        }
+
+        function removePlay(index) {
+            currentPlays.splice(index, 1);
+            updatePlaysList();
+        }
+
+        function updatePlaysList() {
+            const listEl = document.getElementById('playsList');
+            const countEl = document.getElementById('playCount');
+
+            countEl.textContent = currentPlays.length + ' play' + (currentPlays.length !== 1 ? 's' : '');
+
+            if (currentPlays.length === 0) {
+                listEl.innerHTML = '<p style="color:#777;font-style:italic;">No plays added yet. Add plays from the form above.</p>';
+                return;
+            }
+
+            let html = '';
+            currentPlays.forEach((play, i) => {
+                html += '<div class="play-item">';
+                html += '<div class="play-item-header">';
+                html += '<span class="play-number">Play ' + (i+1) + '</span>';
+                html += '<button class="play-delete" onclick="removePlay(' + i + ')">✕</button>';
+                html += '</div>';
+                html += '<div class="play-details">';
+                if (play.formation) html += '<b>F:</b> ' + play.formation + ' ';
+                if (play.concept) html += '<b>C:</b> ' + play.concept + ' ';
+                if (play.position && play.position !== 'regular') {
+                    const posLabel = play.position.replace(/_/g, '-').toUpperCase();
+                    html += '<b>P:</b> ' + posLabel + ' ';
+                }
+                if (play.route) html += '<b>R:</b> ' + play.route;
+                html += '</div>';
+                html += '</div>';
+            });
+            listEl.innerHTML = html;
+        }
+
+        async function saveAndNext() {
+            await fetch('/api/save', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    image: images[idx],
+                    plays: currentPlays
+                })
+            });
+            next();
+        }
+
+        async function skip() {
+            // Skip with no plays
+            await fetch('/api/save', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    image: images[idx],
+                    plays: []
+                })
+            });
+            next();
+        }
+
+        function next() { show(idx + 1); }
+        function prev() { show(idx - 1); }
+        function download() { window.location = '/api/download'; }
+
+        load();
+    </script>
+</body>
+</html>
