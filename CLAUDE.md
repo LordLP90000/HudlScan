@@ -110,27 +110,65 @@ docker-compose down
 | What | Location |
 |------|----------|
 | Training images | `for hudlscan/*.png` (134 files) |
+| Source CSV | `for hudlscan/Playsheet A back Anderst Sortiert.CSV` |
+| Extracted JSON | `for hudlscan/plays_extracted.json` |
+| Training JSONL | `training/plays_training.jsonl` |
 | Scripts | `scripts/*.py` |
 | Database | `hudlscanner.db` |
 | n8n workflow | `n8n/hudlscanner-extract-workflow.json` |
 | Docker config | `docker/` |
-| Training output | `training_data.jsonl` |
+| HF Space | https://lordlp9000-mocr-inference.hf.space |
+
+## CSV Format Rules
+
+The playbook CSV has 4 columns:
+- **col1, col3**: Formations (slash = multiple formations share same route)
+- **col2, col4**: Routes/blocking assignments
+
+**Slash notation (`/`)** means multiple formations share the same route:
+- `A-Near / Zug Z-Flip` + route `Cross` → 2 entries: (A-Near, Cross) and (Zug Z-Flip, Cross)
+- `Power / Trey` + route `Fill the Pulling Gap` → 2 entries with different concepts
+
+**Notes in parentheses**: Extract as separate field
+- `*Bump / I Off / ZG` + route `5 Out (*Angle Out)` → note = "Angle Out"
+
+**Concept handling**: Concepts are NOT explicitly in columns. Manual sorting required after extraction. The parser extracts formation/route/notes only; concepts are assigned manually in the web UI.
 
 ## Training Process
 
-1. **Generate ground truth** using Claude API via HudlScanner app
-2. **Create training dataset:**
+1. **Parse CSV to JSON:**
    ```bash
-   python scripts/create_training_dataset.py training/images training/extractions training_data.jsonl
+   python scripts/parse_plays_csv.py
    ```
-3. **Fine-tune model:**
+   Creates `for hudlscan/plays_extracted.json` with raw column data.
+
+2. **Convert to training JSONL:**
    ```bash
-   python scripts/finetune_dots_mocr.py training_data.jsonl ./hudlmcr-playbook-final
+   python scripts/convert_plays_to_jsonl.py
    ```
-4. **Switch to trained model** by updating `docker/.env`:
+   Creates `training/plays_training.jsonl` with format:
+   ```json
+   {"formation": "Cross", "route": "Delayed Out", "notes": ""}
+   {"formation": "Power", "route": "Fill the Pulling Gap", "notes": ""}
+   ```
+
+3. **Manually add concepts** to training data or sort via web UI.
+
+4. **Fine-tune model:**
+   ```bash
+   python scripts/finetune_dots_mocr.py training/plays_training.jsonl ./hudlmcr-playbook-final
+   ```
+
+5. **Switch to trained model** by updating `docker/.env`:
    ```bash
    MODEL_PATH=/models/hudlmcr-playbook-final
    ```
+
+## Deployment Notes
+
+- **HF Space CPU tier**: https://lordlp9000-mocr-inference.hf.space
+- Vercel app needs `LOCAL_MOCR_URL` updated to point to HF Space after training
+- n8n workflow already updated to use HF Space URL
 
 ---
 

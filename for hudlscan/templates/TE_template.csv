@@ -1,0 +1,76 @@
+FORMATION+CONCEPT,ROUTE/ACTION
+# TE Template - Fill in routes/actions for Tight End
+# Reference: Use rules provided for each concept
+
+# === RUNNING CONCEPTS ===
+Luzern Trey,
+Zug Trey,
+Luzern A-Near Trey,
+Zug A-Bump Trey,
+
+Luzern Power,
+Zug Power,
+Luzern A-Near Power,
+Zug A-Bump Power,
+
+Luzern ISO,
+Zug ISO,
+
+Luzern Inside Zone,
+Zug Inside Zone,
+
+Luzern Fold Right Run,
+Zug Fold Right Run,
+
+Luzern Outside Zone,
+Zug Outside Zone,
+
+# Special: Zug Bump in Outside Zone - TE takes backside End
+Zug Bump Outside Zone,Block backside End (A-Back in Zug Bump, no motion)
+
+# === PASSING CONCEPTS ===
+
+# Glance
+Luzern 2x2 Glance Field,
+Zug 2x2 Glance Field,
+
+Luzern 2x2 Glance Boundary,
+Zug 2x2 Glance Boundary,
+
+Luzern 3x1 Glance Field (Trips),
+Zug 3x1 Glance Field (Trips),
+
+Luzern 3x1 Glance Boundary (Single),
+Zug 3x1 Glance Boundary (Single),
+
+# Shallow Cross (2x2 only)
+Luzern 2x2 Shallow Cross Field,
+Zug 2x2 Shallow Cross Field,
+
+Luzern 2x2 Shallow Cross Boundary,
+Zug 2x2 Shallow Cross Boundary,
+
+# Stick
+Luzern Stick,
+Zug Stick,
+Luzern A-Near Stick Fade,Slot Fade (fake 5 Out, run Fade)
+Zug A-Near Stick Fade,Slot Fade (fake 5 Out, run Fade)
+
+# Stick Fade - TE runs fade instead of 5 Out
+Luzern A-Near Stick Fade,Slot Fade
+Zug A-Near Stick Fade,Slot Fade
+
+# Spacing
+Luzern 2x2 Spacing,
+Zug 2x2 Spacing,
+
+# Fold Pass 3x1 - TE between receiver and A-Back, runs 5 In
+Luzern Fold Pass 3x1,5 In
+
+# Fold Pass 2x2 - TE comeback to middle
+Luzern Fold Pass 2x2,Comeback to middle
+
+# Fold RPO - TE comeback
+Luzern Fold RPO,Comeback
+
+# Add more formations/concepts as needed

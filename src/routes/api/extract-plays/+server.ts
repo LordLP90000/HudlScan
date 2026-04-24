@@ -110,7 +110,7 @@ export async function POST({ request }: { request: Request }) {
 		console.log(`Processing ${fileName} for ${position}...`);
 
 		// DIAGNOSTIC: Toggle this to false to use page mode for all requests
-		const useSegmentMode = false; // Set to false to test if segment mode prompt is the issue
+		const useSegmentMode = true; // Set to false to test if segment mode prompt is the issue
 		const prompt = buildPrompt(position, { singleDiagramMode: useSegmentMode && Boolean(isSegmented) });
 		const imageLabel = `image ${imageIndex ?? '?'} of ${imageTotal ?? '?'} for ${fileName}`;
 		const scopedInstructions = [

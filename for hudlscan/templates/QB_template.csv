@@ -1,0 +1,85 @@
+FORMATION+CONCEPT,ACTION/PROGRESSION
+# QB Template - Fill in actions and progressions for each formation+concept combo
+# Reference: Use rules provided for each concept
+
+# === RUNNING CONCEPTS ===
+Luzern Trey,
+Zug Trey,
+Luzern A-Near Trey,
+Zug A-Bump Trey,
+
+Luzern Power,
+Zug Power,
+Luzern A-Near Power,
+Zug A-Bump Power,
+
+Luzern ISO,
+Zug ISO,
+
+Luzern Inside Zone,
+Zug Inside Zone,
+
+Luzern Fold Right Run,
+Zug Fold Right Run,
+Luzern Fold RPO,
+Zug Fold RPO,
+
+Luzern Outside Zone,
+Zug Outside Zone,
+
+# === PASSING CONCEPTS ===
+Luzern Smash,Progression: Hitch(1) -> Corner(2) -> RB angle(CD)
+Zug Smash,Progression: Hitch(1) -> Corner(2) -> RB angle(CD)
+
+Luzern Glance,
+Zug Glance,
+Luzern 2x2 Glance,
+Zug 2x2 Glance,
+Luzern 3x1 Glance Field,
+Zug 3x1 Glance Field,
+
+Luzern Shallow Cross,
+Zug Shallow Cross,
+
+Luzern Moses,
+Zug Moses,
+Luzern 2x2 Moses,
+Zug 2x2 Moses,
+Luzern 3x1 Moses,
+Zug 3x1 Moses,
+
+Luzern Cross,
+Zug Cross,
+Luzern 2x2 Cross,
+Zug 2x2 Cross,
+Luzern 3x1 Cross,
+Zug 3x1 Cross,
+
+Luzern Flood,
+Zug Flood,
+Luzern 3x1 Flood,
+Zug 3x1 Flood,
+
+Luzern Quick Hit Field,
+Zug Quick Hit Field,
+Luzern 3x1 Quick Hit Field,
+Zug 3x1 Quick Hit Field,
+
+Luzern Swing Screen Left,
+Zug Swing Screen Left,
+Luzern Swing Screen Right,
+Zug Swing Screen Right,
+
+Luzern Stick,
+Zug Stick,
+Luzern 2x2 Stick,
+Zug 2x2 Stick,
+Luzern 3x1 Stick,
+Zug 3x1 Stick,
+
+Luzern Spacing,
+Zug Spacing,
+Luzern 2x2 Spacing,
+Zug 2x2 Spacing,
+
+# Add more formations/concepts as needed

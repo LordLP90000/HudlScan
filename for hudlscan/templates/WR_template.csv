@@ -1,0 +1,104 @@
+FORMATION+CONCEPT,RECEIVER,ROUTE
+# WR Template - Fill in routes for #1, #2, #3 receivers
+# Reference: Use rules provided for each concept
+
+# === PASSING CONCEPTS ===
+
+# Smash (2x2 only)
+Luzern 2x2 Smash Field,#1,Hitch
+Luzern 2x2 Smash Field,#2,Corner
+Luzern 2x2 Smash Field,RB,Hitch middle
+
+Luzern 2x2 Smash Boundary,#1,Hitch
+Luzern 2x2 Smash Boundary,#2,Corner
+
+# Glance
+Luzern 2x2 Glance Boundary,#1,Glance
+Luzern 2x2 Glance Boundary,#2,Wheel
+Luzern 2x2 Glance Boundary,RB,Flat to boundary
+
+Luzern 2x2 Glance Field,#1,Hitch
+Luzern 2x2 Glance Field,#2,Slot Fade
+
+Luzern 3x1 Glance Field (Trips),#1,Glance
+Luzern 3x1 Glance Field (Trips),#2,Wheel
+Luzern 3x1 Glance Field (Trips),#3,Flat
+Luzern 3x1 Glance Field (Trips)-Single,#1,Hitch
+
+# Shallow Cross (2x2 only)
+Luzern 2x2 Shallow Cross Field,#1,Post
+Luzern 2x2 Shallow Cross Field,#2,10-yard In
+Luzern 2x2 Shallow Cross Boundary,#1,Go
+Luzern 2x2 Shallow Cross Boundary,#2,Shallow Cross
+Luzern 2x2 Shallow Cross,RB,Swing to boundary
+
+# Moses
+Luzern 2x2 Moses Field,#1,Comeback
+Luzern 2x2 Moses Field,#2,Seam
+Luzern 2x2 Moses Boundary,#1,Comeback
+Luzern 2x2 Moses Boundary,#2,Seam
+
+Luzern 3x1 Moses Field (Trips),#1,Comeback
+Luzern 3x1 Moses Field (Trips),#2,Seam
+Luzern 3x1 Moses Field (Trips),#3,Deep Cross
+Luzern 3x1 Moses Boundary (Single),#1,Comeback
+
+# Cross
+Luzern 2x2 Cross Boundary,#1,Go
+Luzern 2x2 Cross Boundary,#2,5-Out
+Luzern 2x2 Cross Field,#1,Post
+Luzern 2x2 Cross Field,#2,Cross
+Luzern 2x2 Cross,RB,Pass Protection
+
+Luzern 3x1 Cross Single (Boundary),#1,Go
+Luzern 3x1 Cross Trips (Field),#1,Post
+Luzern 3x1 Cross Trips (Field),#2,Cross
+Luzern 3x1 Cross Trips (Field),#3,Shallow Cross
+
+# Flood
+Luzern 3x1 Flood Field (Trips),#1,Go (High)
+Luzern 3x1 Flood Field (Trips),#2,10-12 Yard Out (Middle)
+Luzern 3x1 Flood Field (Trips),#3,Secure tag
+Luzern 3x1 Flood Boundary (Single),#1,Short Cross/Drag (Low)
+
+# Quick Hit (3x1 only)
+Luzern 3x1 Quick Hit Field (Trips),#1,Screen
+Luzern 3x1 Quick Hit Field (Trips),#2,Block Outside
+Luzern 3x1 Quick Hit Field (Trips),#3,Block Inside
+Luzern 3x1 Quick Hit Boundary (Single),#1,Stay
+
+# Swing Screen
+Luzern Swing Screen Left,#1,Go
+Luzern Swing Screen Left,#2,Block MDM
+Luzern Swing Screen Right,#1,Go
+Luzern Swing Screen Right,#2,Block MDM
+
+# Stick
+Luzern 2x2 Stick Field,#1,Go
+Luzern 2x2 Stick Field,#2,Stick
+Luzern 2x2 Stick Field,RB,Flat to field
+Luzern 2x2 Stick Boundary,#1,Dig
+Luzern 2x2 Stick Boundary,#2,5-Out
+
+Luzern 3x1 Stick Field (Trips),#1,Go
+Luzern 3x1 Stick Field (Trips),#2,5-Yard Quick Out
+Luzern 3x1 Stick Field (Trips),#3,Stick
+Luzern 3x1 Stick Boundary (Single),#1,Dig
+Luzern 3x1 Stick Boundary (Single),RB,Flat to boundary
+
+# Stick Fade
+Luzern A-Near Stick Fade,#1,5-Yard Hitch
+Luzern A-Near Stick Fade,TE,Slot Fade
+
+# Spacing (2x2 only)
+Luzern 2x2 Spacing Field,#1,3-Step Slant
+Luzern 2x2 Spacing Field,#2,1-Step Slant
+Luzern 2x2 Spacing Boundary,#1,5-Yard Sit (inside OLB)
+Luzern 2x2 Spacing Boundary,#2,5-Yard Sit (outside OLB)
+Luzern 2x2 Spacing,RB,Flat to boundary
+
+# ZUG EXCEPTION for Spacing
+Zug 2x2 Spacing Field,#1,5-Yard Sit (inside OLB)
+Zug 2x2 Spacing Field,#2,5-Yard Sit (outside OLB)
+
+# Add more formations/concepts as needed

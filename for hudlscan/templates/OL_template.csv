@@ -1,0 +1,59 @@
+FORMATION+CONCEPT,POSITION,ACTION
+# OL Template - Fill in actions for each OL position (C, LG, RG, LT, RT)
+# Reference: Use rules provided for each concept
+
+# === RUNNING CONCEPTS ===
+# Trey
+Luzern Trey,C,
+Luzern Trey,LG,
+Luzern Trey,RG,
+Luzern Trey,LT,
+Luzern Trey,RT,
+
+Luzern A-Near Trey,C,
+Luzern A-Near Trey,LG,
+Luzern A-Near Trey,RG,
+Luzern A-Near Trey,LT,
+Luzern A-Near Trey,RT,
+
+# Power
+Luzern Power,C,
+Luzern Power,LG (pulls),
+Luzern Power,RG,
+Luzern Power,LT,
+Luzern Power,RT,
+
+# ISO
+Luzern ISO,C,
+Luzern ISO,LG,
+Luzern ISO,RG,
+Luzern ISO,LT,
+Luzern ISO,RT,
+
+# Inside Zone
+Luzern Inside Zone,C,
+Luzern Inside Zone,LG,
+Luzern Inside Zone,RG,
+Luzern Inside Zone,LT,
+Luzern Inside Zone,RT,
+
+# Fold
+Luzern Fold Right Run,C,
+Luzern Fold Right Run,LG,
+Luzern Fold Right Run,RG,
+Luzern Fold Right Run,LT,
+Luzern Fold Right Run,RT,
+
+# Outside Zone
+Luzern Outside Zone,C,
+Luzern Outside Zone,LG,
+Luzern Outside Zone,RG,
+Luzern Outside Zone,LT,
+Luzern Outside Zone,RT,
+
+# === PASSING CONCEPTS ===
+# (Add OL pass protection rules for each concept)
+Luzern Smash,ALL,Pass Protection
+Zug Smash,ALL,Pass Protection
+
+# Add more formations/concepts as needed

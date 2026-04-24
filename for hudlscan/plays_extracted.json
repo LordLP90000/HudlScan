@@ -1,0 +1,128 @@
+[
+  {
+    "row": 1,
+    "col1": "Cross",
+    "col2": "Delayed Out",
+    "col3": "Power / Trey",
+    "col4": "Fill the Pulling Gap"
+  },
+  {
+    "row": 2,
+    "col1": "A-Near / Zug Z-Flip",
+    "col2": "Cross",
+    "col3": "Power A div",
+    "col4": "Lead Block the Gap"
+  },
+  {
+    "row": 3,
+    "col1": "Zug A-Bump",
+    "col2": "Go ",
+    "col3": "Power PS",
+    "col4": "2nd lead Block"
+  },
+  {
+    "row": 4,
+    "col1": "Boot L Flood",
+    "col2": "behind OL to Flat",
+    "col3": "Trey Div",
+    "col4": "follow as 3rd Block"
+  },
+  {
+    "row": 5,
+    "col1": "A Secure",
+    "col2": "Block with RT",
+    "col3": "Trey PS",
+    "col4": "Lead block Rb"
+  },
+  {
+    "row": 6,
+    "col1": "Fold 3x1 / Spacing",
+    "col2": "Tab",
+    "col3": "Shallow Cross",
+    "col4": "Shallow Cross"
+  },
+  {
+    "row": 7,
+    "col1": "Run",
+    "col2": "Out Block first color",
+    "col3": "Zug A Bump",
+    "col4": "Go"
+  },
+  {
+    "row": 8,
+    "col1": "2x2 / RPO",
+    "col2": "Shoot",
+    "col3": "Lu I Off A Cross",
+    "col4": "Through Gap Cross "
+  },
+  {
+    "row": 9,
+    "col1": "Lu Glance (Arrow)",
+    "col2": "Wheel",
+    "col3": "Lu Smash/Right Flood",
+    "col4": "Corner"
+  },
+  {
+    "row": 10,
+    "col1": "A Near / Z Flip ",
+    "col2": "delay Flat",
+    "col3": "Zug ",
+    "col4": "5 Out"
+  },
+  {
+    "row": 11,
+    "col1": "Zug A Bump ",
+    "col2": "Slant",
+    "col3": "Zug A Bump ",
+    "col4": "Hitch "
+  },
+  {
+    "row": 12,
+    "col1": "ISO ",
+    "col2": "Find PS Hole and Kill",
+    "col3": "Stick",
+    "col4": "delay 5 Out"
+  },
+  {
+    "row": 13,
+    "col1": "Inside / Out Zone I ",
+    "col2": "Block BS End",
+    "col3": "A Near (+Bump)",
+    "col4": "Stick"
+  },
+  {
+    "row": 14,
+    "col1": "Inside Zone",
+    "col2": "Block an area",
+    "col3": "*Bump / I Off / ZG ",
+    "col4": "5 Out (*Angle Out)"
+  },
+  {
+    "row": 15,
+    "col1": "Zug O Zone Bump",
+    "col2": "Just Something",
+    "col3": "Zug A Bump",
+    "col4": "10 Dig"
+  },
+  {
+    "row": 16,
+    "col1": "T-Jet Sweep",
+    "col2": "Block  End",
+    "col3": "Swing Screen",
+    "col4": "Lead block Rb"
+  },
+  {
+    "row": 17,
+    "col1": "A Bump Short Jet",
+    "col2": "Handoff Bubble",
+    "col3": "Trap",
+    "col4": "Block PS End"
+  },
+  {
+    "row": 18,
+    "col1": "Z-Jet Sweep",
+    "col2": "Leadblock Z",
+    "col3": "I (Off) A Trap",
+    "col4": "Wait on LG A Power"
+  }
+]

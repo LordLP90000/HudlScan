@@ -1,0 +1,69 @@
+{"formation": "﻿Power", "concept": "﻿Power", "position": "regular", "route": "Fill the Pulling Gap", "description": "A-Back executes ﻿Power"}
+{"formation": "Zug", "concept": "A-Near-Bump Power Right", "position": "a_near", "route": "Fill the Pulling Gap", "description": "A-Back executes A-Near-Bump Power Right"}
+{"formation": "Zug", "concept": "Power Right", "position": "regular", "route": "2nd lead Block", "description": "A-Back executes Power Right"}
+{"formation": "Luzern", "concept": "A-Bump Power Right", "position": "a_bump", "route": "Lead Block Rb", "description": "A-Back executes A-Bump Power Right"}
+{"formation": "Luzern", "concept": "A-Near Power Right", "position": "a_near", "route": "Lead Block Rb", "description": "A-Back executes A-Near Power Right"}
+{"formation": "Luzern", "concept": "I Power Right", "position": "i", "route": "Lead Block Rb", "description": "A-Back executes I Power Right"}
+{"formation": "Luzern", "concept": "I-Off Power Right", "position": "i_off", "route": "Lead Block Rb", "description": "A-Back executes I-Off Power Right"}
+{"formation": "Luzern", "concept": "T-Flip Power Right", "position": "t_flip", "route": "Lead Block Rb", "description": "A-Back executes T-Flip Power Right"}
+{"formation": "Luzern", "concept": "Power Right", "position": "regular", "route": "Lead Block Rb", "description": "A-Back executes Power Right"}
+{"formation": "Luzern", "concept": "T-Wing Power Right", "position": "t_wing", "route": "Lead Block Rb", "description": "A-Back executes T-Wing Power Right"}
+{"formation": "Zug", "concept": "A-Bump Power Right", "position": "a_bump", "route": "2nd lead Block", "description": "A-Back executes A-Bump Power Right"}
+{"formation": "Zug", "concept": "Z-Flip Power Right", "position": "z_flip", "route": "2nd lead Block", "description": "A-Back executes Z-Flip Power Right"}
+{"formation": "﻿ISO", "concept": "﻿ISO", "position": "regular", "route": "Find Playside Hole and Kill", "description": "A-Back executes ﻿ISO"}
+{"formation": "﻿Luzern Fold", "concept": "﻿Fold", "position": "regular", "route": "Out Block first color", "play_type": "run", "description": "A-Back executes ﻿Fold"}
+{"formation": "Luzern", "concept": "Fold", "position": "regular", "route": "Comeback", "play_type": "pass_3x1", "description": "A-Back runs Comeback to middle of field"}
+{"formation": "Luzern", "concept": "Fold", "position": "regular", "route": "Shoot", "play_type": "pass_2x2", "description": "A-Back runs Shoot route (shallow flat)"}
+{"formation": "Luzern", "concept": "Fold", "position": "regular", "route": "Shoot", "play_type": "rpo", "description": "A-Back runs Shoot route (shallow flat)"}
+{"formation": "﻿Luzern Smash", "concept": "﻿Smash", "position": "regular", "route": "Corner", "description": "A-Back executes ﻿Smash"}
+{"formation": "Luzern", "concept": "A-Bump Smash", "position": "a_bump", "route": "Corner", "description": "A-Back executes A-Bump Smash"}
+{"formation": "Zug", "concept": "Smash", "position": "regular", "route": "5 Out", "description": "No A-Back role (RB runs Hitch middle)"}
+{"formation": "Zug", "concept": "A-Bump Smash", "position": "a_bump", "route": "Hitch", "description": "A-Back executes A-Bump Smash"}
+{"formation": "﻿Luzern Glance", "concept": "﻿Glance", "position": "regular", "route": "Wheel", "description": "A-Back executes ﻿Glance"}
+{"formation": "Luzern", "concept": "A-Near Glance", "position": "a_near", "route": "delay Flat", "description": "A-Back executes A-Near Glance"}
+{"formation": "Luzern", "concept": "A-Bump Glance", "position": "a_bump", "route": "Wheel", "description": "A-Back executes A-Bump Glance"}
+{"formation": "Luzern", "concept": "I-Off Glance", "position": "i_off", "route": "Wheel", "description": "A-Back executes I-Off Glance"}
+{"formation": "Zug", "concept": "A-Bump Glance", "position": "a_bump", "route": "Slant", "description": "A-Back executes A-Bump Glance"}
+{"formation": "Zug", "concept": "A-Near-Bump Glance", "position": "a_near", "route": "Delay Flat", "description": "A-Back executes A-Near-Bump Glance"}
+{"formation": "Zug", "concept": "Z-Flip Glance", "position": "z_flip", "route": "Delay Flat", "description": "A-Back executes Z-Flip Glance"}
+{"formation": "Luzern", "concept": "T-Wing Glance Arrow", "position": "t_wing", "route": "Wheel", "description": "A-Back executes T-Wing Glance Arrow"}
+{"formation": "﻿Luzern Moses", "concept": "﻿Moses", "position": "regular", "route": "Shallow Go", "description": "A-Back executes ﻿Moses"}
+{"formation": "Luzern", "concept": "A-Near Moses", "position": "a_near", "route": "Deep Cross", "description": "A-Back executes A-Near Moses"}
+{"formation": "Luzern", "concept": "A-Bump Moses", "position": "a_bump", "route": "Go", "description": "A-Back executes A-Bump Moses"}
+{"formation": "Luzern", "concept": "I-Off Moses", "position": "i_off", "route": "Go", "description": "A-Back executes I-Off Moses"}
+{"formation": "Zug", "concept": "Moses", "position": "regular", "route": "Go", "description": "No A-Back role (RB in pass protection)"}
+{"formation": "Zug", "concept": "A-Bump Moses", "position": "a_bump", "route": "Comeback", "description": "A-Back executes A-Bump Moses"}
+{"formation": "Zug", "concept": "A-Near-Bump Moses", "position": "a_near", "route": "Deep Cross", "description": "A-Back executes A-Near-Bump Moses"}
+{"formation": "Zug", "concept": "Z-Flip Moses", "position": "z_flip", "route": "Deep Cross", "description": "A-Back executes Z-Flip Moses"}
+{"formation": "﻿Cross", "concept": "﻿Cross", "position": "regular", "route": "5 Out", "description": "A-Back executes ﻿Cross"}
+{"formation": "Luzern", "concept": "A-Near Cross", "position": "a_near", "route": "Cross", "description": "A-Back executes A-Near Cross"}
+{"formation": "Luzern", "concept": "A-Bump Cross", "position": "a_bump", "route": "5 Out", "description": "A-Back executes A-Bump Cross"}
+{"formation": "Luzern", "concept": "I-Off Cross", "position": "i_off", "route": "5 Out", "description": "A-Back executes I-Off Cross"}
+{"formation": "Zug", "concept": "Cross", "position": "regular", "route": "5 Out", "description": "No A-Back role (RB in pass protection)"}
+{"formation": "Zug", "concept": "A-Bump Cross", "position": "a_bump", "route": "Go", "description": "A-Back executes A-Bump Cross"}
+{"formation": "Zug", "concept": "A-Near-Bump Cross", "position": "a_near", "route": "Cross", "description": "A-Back executes A-Near-Bump Cross"}
+{"formation": "Zug", "concept": "Z-Flip Cross", "position": "z_flip", "route": "Cross", "description": "A-Back executes Z-Flip Cross"}
+{"formation": "﻿Luzern I Boot Left Flood", "concept": "﻿I Boot Left Flood", "position": "regular", "route": "Flat", "description": "A-Back executes ﻿I Boot Left Flood"}
+{"formation": "Luzern", "concept": "I-Off T-Wing Boot left Flood T Secure", "position": "i_off", "route": "Behind OL to Flat", "description": "A-Back executes I-Off T-Wing Boot left Flood T Secure"}
+{"formation": "Luzern", "concept": "A-Near Boot Left Flood A Secure", "position": "a_near", "route": "Block with RT", "description": "A-Back executes A-Near Boot Left Flood A Secure"}
+{"formation": "﻿Luzern A-Bump A-Over", "concept": "X Quick Hit", "position": "a_bump", "route": "Motion Fullspeed to called Reciever and hit the Cornerback", "description": "No A-Back role (RB stays in box)"}
+{"formation": "Luzern A-Near", "concept": "X Quick Hit", "position": "a_near", "route": "Block Inside Read if Safety or Linebacker", "description": "No A-Back role (RB stays in box)"}
+{"formation": "Zug A-Near-Bump", "concept": "X Quick Hit", "position": "a_near", "route": "Block Cornerback Outside", "description": "No A-Back role (RB stays in box)"}
+{"formation": "﻿Luzern Right", "concept": "Swing Screen", "position": "regular", "route": "Lead block Rb", "description": "A-Back is LEAD BLOCKER on swing route, blocks for RB"}
+{"formation": "Luzern Left", "concept": "Swing Screen", "position": "regular", "route": "Lead block Rb", "description": "A-Back is LEAD BLOCKER on swing route, blocks for RB"}
+{"formation": "Zug Right", "concept": "Swing Screen", "position": "regular", "route": "Lead block Rb", "description": "A-Back is LEAD BLOCKER on swing route, blocks for RB"}
+{"formation": "Zug Left", "concept": "Swing Screen", "position": "regular", "route": "Lead block Rb", "description": "A-Back is LEAD BLOCKER on swing route, blocks for RB"}
+{"formation": "Luzern I-Off Right", "concept": "Swing Screen", "position": "i_off", "route": "Lead block Rb", "description": "A-Back is LEAD BLOCKER on swing route, blocks for RB"}
+{"formation": "Zug Z-Flip Right", "concept": "Swing Screen", "position": "z_flip", "route": "Lead block Rb", "description": "A-Back is LEAD BLOCKER on swing route, blocks for RB"}
+{"formation": "﻿Luzern Stick", "concept": "﻿Stick", "position": "regular", "route": "delay 5 Out", "description": "A-Back executes ﻿Stick"}
+{"formation": "Luzern", "concept": "A-Near Stick", "position": "a_near", "route": "Stick", "description": "A-Back executes A-Near Stick"}
+{"formation": "Luzern", "concept": "A-Bump Stick", "position": "a_bump", "route": "Angle Out", "description": "A-Back executes A-Bump Stick"}
+{"formation": "Luzern", "concept": "I-Off Stick", "position": "i_off", "route": "5 Out", "description": "A-Back executes I-Off Stick"}
+{"formation": "Zug", "concept": "Stick", "position": "regular", "route": "5 Out", "description": "A-Back runs 5 Out route"}
+{"formation": "Zug", "concept": "A-Bump Stick", "position": "a_bump", "route": "10 Dig", "description": "A-Back executes A-Bump Stick"}
+{"formation": "Zug", "concept": "A-Near-Bump Stick", "position": "a_near", "route": "Stick", "description": "A-Back executes A-Near-Bump Stick"}
+{"formation": "Luzern A-Near", "concept": "Stick Fade", "position": "a_near", "route": "Stick", "description": "A-Back executes Stick Fade"}
+{"formation": "﻿Luzern Spacing", "concept": "﻿Spacing", "position": "regular", "route": "Comeback", "description": "A-Back executes ﻿Spacing"}
+{"formation": "Zug", "concept": "Spacing", "position": "regular", "route": "Comeback", "description": "A-Back runs Comeback route (depth varies by formation)"}
+{"formation": "Zug", "concept": "A-Bump Spacing", "position": "a_bump", "route": "Comeback", "description": "A-Back executes A-Bump Spacing"}
+{"formation": "Luzern", "concept": "A-Bump Spacing", "position": "a_bump", "route": "Comeback", "description": "A-Back executes A-Bump Spacing"}
