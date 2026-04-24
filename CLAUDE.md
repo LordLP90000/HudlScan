@@ -17,7 +17,7 @@
   - Primary: Anthropic Claude API (fallback when local unavailable)
   - Local: `rednote-hilab/dots.mocr-svg` via Docker vLLM
   - Backup: Moonshot API, DeepSeek API
-- **Training:** 134 PNG images in `for hudlscan/` folders for fine-tuning
+- **Training:** ML pipeline for position-specific concept extraction
 
 ---
 
@@ -48,6 +48,17 @@ The fix is in `src/hooks.server.ts` which loads dotenv manually. If API keys are
 ```bash
 npm install dotenv
 ```
+
+---
+
+# Hardware Configuration
+
+- **GPU:** NVIDIA GeForce RTX 4050 Laptop GPU, 6GB VRAM
+- **Current PyTorch:** CPU-only (needs CUDA version for GPU training)
+- **Install CUDA PyTorch:**
+  ```bash
+  pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+  ```
 
 ---
 
@@ -103,72 +114,167 @@ docker-compose down
 
 ---
 
-# Training Data Workflow
+# ML Training Pipeline (A-Back/Fullback)
 
 ## File Locations
 
 | What | Location |
 |------|----------|
-| Training images | `for hudlscan/*.png` (134 files) |
-| Source CSV | `for hudlscan/Playsheet A back Anderst Sortiert.CSV` |
-| Extracted JSON | `for hudlscan/plays_extracted.json` |
-| Training JSONL | `training/plays_training.jsonl` |
-| Scripts | `scripts/*.py` |
-| Database | `hudlscanner.db` |
-| n8n workflow | `n8n/hudlscanner-extract-workflow.json` |
-| Docker config | `docker/` |
+| Concept CSV files | `for hudlscan/*.csv` (12 concept files) |
+| Position templates | `for hudlscan/templates/*.csv` (RB, QB, OL, WR, TE) |
+| Training images | `training/images/*.png` (17 images) |
+| Training data | `training/aback_training.jsonl` (69 examples) |
+| Base model | `models/dots.mocr-svg/` |
+| Fine-tuned output | `models/aback_finetuned/final/` |
+| Scripts | `scripts/build_aback_training.py`, `scripts/train_aback_model.py`, `scripts/test_aback_extraction.py` |
 | HF Space | https://lordlp9000-mocr-inference.hf.space |
+| Requirements | `requirements-ml.txt` |
 
-## CSV Format Rules
+## CSV File Format
 
-The playbook CSV has 4 columns:
-- **col1, col3**: Formations (slash = multiple formations share same route)
-- **col2, col4**: Routes/blocking assignments
+Each concept has its own CSV file with two columns:
+- **Column 1:** Formation + Concept (e.g., "Luzern A-Near Power Right")
+- **Column 2:** A-Back Route/Action (e.g., "Lead Block Rb")
 
-**Slash notation (`/`)** means multiple formations share the same route:
-- `A-Near / Zug Z-Flip` + route `Cross` → 2 entries: (A-Near, Cross) and (Zug Z-Flip, Cross)
-- `Power / Trey` + route `Fill the Pulling Gap` → 2 entries with different concepts
+**Concept CSV files:**
+- `Power.csv`, `ISO.csv`, `Fold.csv`
+- `Smash.csv`, `Glance.csv`, `Shallow Cross.csv`
+- `Moses.csv`, `Cross.csv`, `Flood.csv`
+- `X Quick Hit.csv`, `Swing Screen.csv`
+- `Stick.csv`, `Spacing.csv`
 
-**Notes in parentheses**: Extract as separate field
-- `*Bump / I Off / ZG` + route `5 Out (*Angle Out)` → note = "Angle Out"
+## A-Back Position Patterns
 
-**Concept handling**: Concepts are NOT explicitly in columns. Manual sorting required after extraction. The parser extracts formation/route/notes only; concepts are assigned manually in the web UI.
+| Position | Formation Pattern | Description |
+|----------|-------------------|-------------|
+| regular | (no modifier) | Default position (next to RT) |
+| a_near | A-Near, A Near | Flipped to left side (next to LT) |
+| a_bump | A-Bump, A Bump | Bumped position |
+| a_near_bump | A-Near-Bump | A-Near + Bump combined |
+| i_off | I-Off, I Off | I-Off formation |
+| i | Luzern I (not I-Off) | I formation |
+| t_flip | T-Flip, T Flip | T-Flip formation |
+| t_wing | T-Wing, T Wing | T-Wing formation |
+| z_flip | Z-Flip, Z Flip | Z-Flip formation |
 
-## Training Process
+## Training Workflow
 
-1. **Parse CSV to JSON:**
-   ```bash
-   python scripts/parse_plays_csv.py
-   ```
-   Creates `for hudlscan/plays_extracted.json` with raw column data.
+### 1. Build Training Data from CSVs
 
-2. **Convert to training JSONL:**
-   ```bash
-   python scripts/convert_plays_to_jsonl.py
-   ```
-   Creates `training/plays_training.jsonl` with format:
-   ```json
-   {"formation": "Cross", "route": "Delayed Out", "notes": ""}
-   {"formation": "Power", "route": "Fill the Pulling Gap", "notes": ""}
-   ```
+```bash
+python scripts/build_aback_training.py
+```
 
-3. **Manually add concepts** to training data or sort via web UI.
+Creates `training/aback_training.jsonl` with 69 A-Back examples.
 
-4. **Fine-tune model:**
-   ```bash
-   python scripts/finetune_dots_mocr.py training/plays_training.jsonl ./hudlmcr-playbook-final
-   ```
+**Output format:**
+```json
+{"formation": "Luzern A-Near", "concept": "Power", "position": "a_near", "route": "Lead Block Rb", "aback_role": "..."}
+{"formation": "Zug A-Bump", "concept": "Stick", "position": "a_bump", "route": "Angle Out", "aback_role": "..."}
+```
 
-5. **Switch to trained model** by updating `docker/.env`:
-   ```bash
-   MODEL_PATH=/models/hudlmcr-playbook-final
-   ```
+### 2. Fine-Tune the Model
 
-## Deployment Notes
+```bash
+# First install dependencies
+pip install -r requirements-ml.txt
 
-- **HF Space CPU tier**: https://lordlp9000-mocr-inference.hf.space
-- Vercel app needs `LOCAL_MOCR_URL` updated to point to HF Space after training
-- n8n workflow already updated to use HF Space URL
+# Run training (requires GPU or patience for CPU)
+python scripts/train_aback_model.py
+```
+
+**Training settings:**
+- Batch size: 2 (adjust for GPU memory)
+- Epochs: 10
+- Learning rate: 5e-5
+- Train/eval split: 90/10
+
+### 3. Test Extraction
+
+```bash
+python scripts/test_aback_extraction.py
+```
+
+Tests lookup against training data or model inference.
+
+---
+
+# Concept Rules Reference
+
+## Running Concepts
+
+### Trey
+- **Backside A-Back:** Seals where pullers left
+- **With Divide:** Follows as 3rd blocker
+- **Playside A-Back:** Leads upfield to extend wall
+
+### Power
+- **Playside/motioned:** 2nd lead blocker after puller
+- **A-Divide:** Leads up the hole
+- **Backside:** Fills pulling Guard's gap
+
+### ISO
+- **A-Back:** Finds hole, hits first defender hard inside
+
+### Inside Zone
+- **A-Back (under center):** Blocks backside End
+
+### Fold
+- **Run:** A-Back goes outside, blocks first defender
+- **RPO / 2x2 Pass:** A-Back runs "Shoot" route (shallow flat)
+- **3x1 Pass:** A-Back runs Comeback to middle of field
+
+### Outside Zone
+- **A-Back:** Blocks backside End
+
+## Passing Concepts
+
+### Smash, Glance, Shallow Cross, Moses, Cross
+- **A-Back:** No role (RB handles routes)
+
+### Flood
+- **A-Back (SECURE tag):** Blocks D-end inside to secure edge for QB boot
+
+### Quick Hit
+- **A-Back:** No role (RB stays in box)
+
+### Swing Screen
+- **A-Back:** Lead blocker on swing route, blocks for RB
+
+### Stick
+- **Regular / I-Off:** 5 Out route
+- **A-Bump:** Angle Out route
+- **Outside-most player:** 10 Dig route
+- **A-Near:** Stick route
+
+### Spacing
+- **A-Back:** Comeback route (depth varies by formation)
+
+### X Quick Hit
+- **Screen to X receiver** (left outside receiver)
+- **Z Quick Hit:** Screen to Z receiver (right outside receiver)
+
+## Special Modifiers
+
+- **Divide:** Position-specific (A-Divide = A-Back, T-Divide = TE, etc.)
+- **Fix:** Trips formation - A-Back crosses to block CB instead of Slot
+- **Fade:** TE fakes 5 Out, runs Fade route
+- **Side:** Positional knowledge from formation (not extracted separately)
+
+---
+
+# Position Templates
+
+Templates for future data collection (A-Back complete, others to be filled):
+
+| Position | Template File | Status |
+|----------|--------------|--------|
+| A-Back | (using concept CSVs) | ✅ Complete (69 examples) |
+| RB | `templates/RB_template.csv` | ⏳ To be filled |
+| QB | `templates/QB_template.csv` | ⏳ To be filled |
+| OL | `templates/OL_template.csv` | ⏳ To be filled |
+| WR | `templates/WR_template.csv` | ⏳ To be filled |
+| TE | `templates/TE_template.csv` | ⏳ To be filled |
 
 ---
 
@@ -178,8 +284,11 @@ The playbook CSV has 4 columns:
 # Check if Docker model is responding
 curl http://localhost:8001/health
 
-# Check database stats
-python scripts/db_queries.py stats
+# Build training data
+python scripts/build_aback_training.py
+
+# Test extraction
+python scripts/test_aback_extraction.py
 
 # View Docker logs
 cd docker && docker-compose logs -f
