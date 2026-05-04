@@ -9,11 +9,17 @@
 		children: Snippet;
 		class?: string;
 		fullWidth?: boolean;
+		size?: 'md' | 'lg';
 	}
 
-	let { variant = 'primary', type = 'button', onclick, href, children, class: className = '', fullWidth = false }: Props = $props();
+	let { variant = 'primary', type = 'button', onclick, href, children, class: className = '', fullWidth = false, size = 'md' }: Props = $props();
 
-	const baseClasses = 'inline-block rounded-xl px-3.5 py-2.5 text-sm font-bold transition-all';
+	const sizeClasses = {
+		md: 'px-3.5 py-2.5 text-sm',
+		lg: 'px-6 py-3 text-base'
+	};
+
+	const baseClasses = `inline-block rounded-xl font-bold transition-all ${sizeClasses[size]}`;
 
 	const variantClasses = {
 		primary: 'bg-orange-500 text-white hover:bg-orange-600',
