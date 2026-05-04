@@ -5,92 +5,145 @@
 
 <svelte:head>
 	<title>Pricing - Hudl Playbook AI</title>
-	<meta name="description" content="Simple pricing for coaches and programs. Free tier available." />
+	<meta
+		name="description"
+		content="Simple pricing for coaches and programs. Start free, upgrade when you need more playbooks."
+	/>
 </svelte:head>
 
-<div class="min-h-screen bg-zinc-950 text-white">
+<div class="min-h-screen bg-zinc-950 text-white pb-20 md:pb-0">
 	<Nav />
 
-	<main class="max-w-6xl mx-auto px-5 py-5">
+	<main class="max-w-7xl mx-auto px-6 py-12">
 		<!-- Hero Section -->
-		<section class="text-center mb-10">
-			<h2 class="text-3xl font-bold mb-2">Simple, Transparent Pricing</h2>
-			<p class="text-zinc-400">Start free, upgrade when you need more.</p>
+		<section class="text-center mb-12">
+			<h1 class="text-3xl md:text-5xl font-bold mb-4">Simple, Coach-Friendly Pricing</h1>
+			<p class="text-zinc-400 text-lg max-w-xl mx-auto">
+				Start free with 5 playbooks. Upgrade when you're ready to convert more.
+			</p>
 		</section>
 
-		<!-- Pricing Cards -->
-		<section class="grid grid-cols-3 gap-5 mb-10">
-			<!-- Free -->
-			<div class="border border-zinc-800 rounded-xl bg-zinc-900 p-5">
-				<h4 class="font-bold text-lg mb-1">Free</h4>
-				<p class="text-zinc-400 text-sm mb-4">For trying out</p>
-				<div class="text-2xl font-bold mb-4">$0<span class="text-sm font-normal text-zinc-500">/month</span></div>
-				<ul class="text-sm text-zinc-400 space-y-2 mb-4">
-					<li>• 5 playbooks/month</li>
-					<li>• All positions included</li>
-					<li>• Standard processing</li>
-					<li>• Excel export</li>
-				</ul>
-				<Button variant="secondary" fullWidth href="/upload">Get Started</Button>
-			</div>
-
-			<!-- Pro -->
-			<div class="border border-orange-500 rounded-xl bg-zinc-900 p-5 relative">
-				<div class="absolute -top-2 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs px-2 py-0.5 rounded">
-					Popular
+		<!-- Pricing Cards - Emphasize Free and Pro -->
+		<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 max-w-4xl mx-auto">
+			<!-- Free - Highlighted for new users -->
+			<div class="border border-zinc-700 rounded-3xl bg-zinc-900 p-8 flex flex-col">
+				<div class="mb-6">
+					<h3 class="font-bold text-2xl mb-2">Free</h3>
+					<p class="text-zinc-400 text-sm">Try everything risk-free</p>
 				</div>
-				<h4 class="font-bold text-lg mb-1">Pro</h4>
-				<p class="text-zinc-400 text-sm mb-4">For coaches</p>
-				<div class="text-2xl font-bold mb-4">$19<span class="text-sm font-normal text-zinc-500">/month</span></div>
-				<ul class="text-sm text-zinc-400 space-y-2 mb-4">
-					<li>• 50 playbooks/month</li>
-					<li>• Priority processing</li>
-					<li>• All positions</li>
-					<li>• Excel export</li>
-					<li>• Email support</li>
+				<div class="mb-6">
+					<span class="text-5xl font-bold">$0</span>
+					<span class="text-zinc-500">/month</span>
+				</div>
+				<ul class="space-y-3 mb-8 flex-1">
+					<li class="flex items-start gap-3">
+						<span class="text-emerald-400 mt-0.5">✓</span>
+						<span class="text-zinc-300"><strong class="text-white">5 playbooks</strong> per month</span>
+					</li>
+					<li class="flex items-start gap-3">
+						<span class="text-emerald-400 mt-0.5">✓</span>
+						<span class="text-zinc-300">All positions supported</span>
+					</li>
+					<li class="flex items-start gap-3">
+						<span class="text-emerald-400 mt-0.5">✓</span>
+						<span class="text-zinc-300">Excel export included</span>
+					</li>
+					<li class="flex items-start gap-3">
+						<span class="text-emerald-400 mt-0.5">✓</span>
+						<span class="text-zinc-300">Full editor access</span>
+					</li>
 				</ul>
-				<Button fullWidth href="/upload">Start Free Trial</Button>
+				<Button variant="secondary" fullWidth href="/upload" size="lg">Start Free</Button>
+				<p class="text-xs text-zinc-500 text-center mt-3">No credit card required</p>
 			</div>
 
-			<!-- Team -->
-			<div class="border border-zinc-800 rounded-xl bg-zinc-900 p-5">
-				<h4 class="font-bold text-lg mb-1">Team</h4>
-				<p class="text-zinc-400 text-sm mb-4">For programs</p>
-				<div class="text-2xl font-bold mb-4">$49<span class="text-sm font-normal text-zinc-500">/month</span></div>
-				<ul class="text-sm text-zinc-400 space-y-2 mb-4">
-					<li>• Unlimited playbooks</li>
-					<li>• Dedicated support</li>
-					<li>• Custom exports</li>
-					<li>• Priority processing</li>
-					<li>• Team accounts</li>
+			<!-- Pro - Recommended, most prominent -->
+			<div
+				class="border-2 border-orange-500 rounded-3xl bg-linear-to-br from-orange-500/10 to-transparent p-8 flex flex-col relative"
+			>
+				<div
+					class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-bold px-4 py-1.5 rounded-full"
+				>
+					Most Popular
+				</div>
+				<div class="mb-6">
+					<h3 class="font-bold text-2xl mb-2">Pro</h3>
+					<p class="text-zinc-400 text-sm">For serious coaches</p>
+				</div>
+				<div class="mb-6">
+					<span class="text-5xl font-bold">$19</span>
+					<span class="text-zinc-500">/month</span>
+				</div>
+				<ul class="space-y-3 mb-8 flex-1">
+					<li class="flex items-start gap-3">
+						<span class="text-orange-400 mt-0.5">✓</span>
+						<span class="text-zinc-300"><strong class="text-white">50 playbooks</strong> per month</span>
+					</li>
+					<li class="flex items-start gap-3">
+						<span class="text-orange-400 mt-0.5">✓</span>
+						<span class="text-zinc-300">Everything in Free</span>
+					</li>
+					<li class="flex items-start gap-3">
+						<span class="text-orange-400 mt-0.5">✓</span>
+						<span class="text-zinc-300">Priority processing</span>
+					</li>
+					<li class="flex items-start gap-3">
+						<span class="text-orange-400 mt-0.5">✓</span>
+						<span class="text-zinc-300">Email support</span>
+					</li>
 				</ul>
-				<Button variant="secondary" fullWidth href="/contact">Contact Sales</Button>
+				<Button fullWidth href="/upload" size="lg">Get Started</Button>
+				<p class="text-xs text-zinc-500 text-center mt-3">Cancel anytime</p>
 			</div>
 		</section>
 
-		<!-- FAQ -->
-		<section class="mb-10">
-			<h3 class="text-zinc-400 text-sm font-bold uppercase tracking-wider mb-4">Frequently Asked Questions</h3>
-			<div class="space-y-4">
-				<div class="border border-zinc-800 rounded-xl bg-zinc-900 p-4">
-					<h4 class="font-bold mb-1">What counts as a playbook?</h4>
-					<p class="text-zinc-400 text-sm">One playbook = one PDF or image file upload. Multi-page PDFs count as one playbook.</p>
+		<!-- Team Plan - Simplified -->
+		<section class="mb-16">
+			<div class="border border-zinc-800 rounded-2xl bg-zinc-900/50 p-8 text-center max-w-2xl mx-auto">
+				<h3 class="font-bold text-xl mb-2">Need More?</h3>
+				<p class="text-zinc-400 mb-4">
+					Unlimited playbooks, dedicated support, and custom exports for your program.
+				</p>
+				<Button variant="secondary" href="/contact">Contact for Team Pricing</Button>
+			</div>
+		</section>
+
+		<!-- FAQ - Common questions -->
+		<section class="mb-12">
+			<h2 class="text-2xl font-bold mb-8 text-center">Common Questions</h2>
+			<div class="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+				<div class="border border-zinc-800 rounded-xl bg-zinc-900/50 p-6">
+					<h4 class="font-bold mb-2">What counts as a playbook?</h4>
+					<p class="text-zinc-400 text-sm">
+						One playbook = one PDF file or one image file. Multi-page PDFs count as a single
+						playbook.
+					</p>
 				</div>
-				<div class="border border-zinc-800 rounded-xl bg-zinc-900 p-4">
-					<h4 class="font-bold mb-1">Can I switch plans?</h4>
-					<p class="text-zinc-400 text-sm">Yes, upgrade or downgrade anytime. Changes take effect at the start of your next billing cycle.</p>
+				<div class="border border-zinc-800 rounded-xl bg-zinc-900/50 p-6">
+					<h4 class="font-bold mb-2">Can I try before paying?</h4>
+					<p class="text-zinc-400 text-sm">
+						Absolutely. The free tier lets you convert 5 playbooks—no credit card required.
+					</p>
 				</div>
-				<div class="border border-zinc-800 rounded-xl bg-zinc-900 p-4">
-					<h4 class="font-bold mb-1">Do plays expire?</h4>
-					<p class="text-zinc-400 text-sm">No, your extracted plays are stored permanently. Access them anytime from your account.</p>
+				<div class="border border-zinc-800 rounded-xl bg-zinc-900/50 p-6">
+					<h4 class="font-bold mb-2">What happens if I exceed my limit?</h4>
+					<p class="text-zinc-400 text-sm">
+						We'll notify you when you're close. You can upgrade anytime or wait for your
+						monthly reset.
+					</p>
+				</div>
+				<div class="border border-zinc-800 rounded-xl bg-zinc-900/50 p-6">
+					<h4 class="font-bold mb-2">Can I cancel anytime?</h4>
+					<p class="text-zinc-400 text-sm">
+						Yes. Cancel anytime and you'll keep access until the end of your billing period.
+					</p>
 				</div>
 			</div>
 		</section>
 
-		<!-- CTA -->
-		<section class="border border-zinc-800 rounded-2xl bg-zinc-900 p-8 text-center">
-			<h3 class="text-2xl font-bold mb-2">Questions?</h3>
-			<p class="text-zinc-400 mb-4">We're here to help.</p>
+		<!-- Bottom CTA -->
+		<section class="text-center">
+			<p class="text-zinc-400 mb-4">Still have questions?</p>
 			<Button variant="secondary" href="/contact">Contact Us</Button>
 		</section>
 	</main>

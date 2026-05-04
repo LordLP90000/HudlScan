@@ -1,56 +1,159 @@
 <script lang="ts">
 	import Nav from '$lib/components/Nav.svelte';
-	import Card from '$lib/components/Card.svelte';
 	import Button from '$lib/components/Button.svelte';
 </script>
 
 <svelte:head>
 	<title>Features - Hudl Playbook AI</title>
-	<meta name="description" content="Features that save hours of manual playbook conversion work." />
+	<meta
+		name="description"
+		content="Extract every play, formation, and route from your playbooks automatically. No more manual data entry."
+	/>
 </svelte:head>
 
-<div class="min-h-screen bg-zinc-950 text-white">
+<div class="min-h-screen bg-zinc-950 text-white pb-20 md:pb-0">
 	<Nav />
 
-	<main class="max-w-6xl mx-auto px-5 py-5">
-		<!-- Hero Section -->
-		<section class="text-center mb-10">
-			<h2 class="text-3xl font-bold mb-2">Features That Save Hours of Manual Work</h2>
-			<p class="text-zinc-400">Everything you need to convert playbooks into playcalling sheets.</p>
+	<main class="max-w-7xl mx-auto px-6 py-12">
+		<!-- Hero Section - Benefit-focused -->
+		<section class="text-center mb-16">
+			<h1 class="text-3xl md:text-5xl font-bold mb-4">Everything You Need to Automate Playbook Entry</h1>
+			<p class="text-zinc-400 text-lg max-w-2xl mx-auto">
+				Stop typing plays by hand. Upload once, get your entire playbook in Excel—ready to
+				use.
+			</p>
 		</section>
 
-		<!-- Feature Cards -->
-		<section class="grid grid-cols-3 gap-5 mb-10">
-			<Card title="Server-Side Processing" description="Processing continues in background. Upload large PDFs and let our servers handle the heavy lifting." />
-			<Card title="Position-Specific" description="Extract routes for selected role. QB, RB, FB, X, Y, Z, TE — each position gets its dedicated routes." />
-			<Card title="Excel Export" description="Download formatted sheet. Ready to use for playcalling with all formations and routes organized." />
+		<!-- Core Features - What matters most -->
+		<section class="mb-16">
+			<h2 class="text-xl font-bold mb-6 text-zinc-300">Core Features</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+				<div
+					class="border border-zinc-800 rounded-2xl bg-zinc-900/50 p-6 hover:border-orange-500/50 transition-colors"
+				>
+					<div class="w-12 h-12 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-2xl mb-4">
+						📄
+					</div>
+					<h3 class="font-bold text-xl mb-2">PDF & Image Support</h3>
+					<p class="text-zinc-400">
+						Upload entire playbook PDFs or individual screenshots. We handle multi-page PDFs
+						automatically—no need to split files.
+					</p>
+				</div>
+
+				<div
+					class="border border-zinc-800 rounded-2xl bg-zinc-900/50 p-6 hover:border-orange-500/50 transition-colors"
+				>
+					<div class="w-12 h-12 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-2xl mb-4">
+						🎯
+					</div>
+					<h3 class="font-bold text-xl mb-2">Position-Specific Extraction</h3>
+					<p class="text-zinc-400">
+						Extract routes for your exact position—QB, RB, FB, X, Y, Z, or TE. Each gets
+						dedicated route recognition.
+					</p>
+				</div>
+
+				<div
+					class="border border-zinc-800 rounded-2xl bg-zinc-900/50 p-6 hover:border-orange-500/50 transition-colors"
+				>
+					<div class="w-12 h-12 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-2xl mb-4">
+						🏈
+					</div>
+					<h3 class="font-bold text-xl mb-2">Formation Recognition</h3>
+					<p class="text-zinc-400">
+						Identifies formations like ZUG, LUZERN with all modifiers—A-BUMP, T-WING,
+						I-OFF, T-FLIP, and more.
+					</p>
+				</div>
+
+				<div
+					class="border border-zinc-800 rounded-2xl bg-zinc-900/50 p-6 hover:border-orange-500/50 transition-colors"
+				>
+					<div class="w-12 h-12 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-2xl mb-4">
+						✓
+					</div>
+					<h3 class="font-bold text-xl mb-2">Excel Export</h3>
+					<p class="text-zinc-400">
+						Download a formatted spreadsheet ready for playcalling. Formation, concept,
+						routes, and tags—all organized.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- What Gets Extracted - Concrete output -->
+		<section class="mb-16">
+			<h2 class="text-xl font-bold mb-6 text-zinc-300">What Gets Extracted</h2>
+			<div class="border border-zinc-800 rounded-2xl bg-zinc-900/30 overflow-hidden">
+				<div class="grid grid-cols-4 bg-zinc-900/50 px-6 py-3 text-sm font-semibold text-zinc-300 border-b border-zinc-800">
+					<div>Formation</div>
+					<div>Concept</div>
+					<div>Strength</div>
+					<div>Route/Action</div>
+				</div>
+				<div class="grid grid-cols-4 px-6 py-3 text-sm border-b border-zinc-800/50">
+					<div class="text-zinc-300">Luzern A-Near</div>
+					<div class="text-zinc-400">Power</div>
+					<div class="text-zinc-400">Right</div>
+					<div class="text-orange-400">Lead Block RB</div>
+				</div>
+				<div class="grid grid-cols-4 px-6 py-3 text-sm border-b border-zinc-800/50">
+					<div class="text-zinc-300">Zug A-Bump</div>
+					<div class="text-zinc-400">Stick</div>
+					<div class="text-zinc-400">Left</div>
+					<div class="text-orange-400">5 Out</div>
+				</div>
+				<div class="grid grid-cols-4 px-6 py-3 text-sm border-b border-zinc-800/50">
+					<div class="text-zinc-300">Trips Right</div>
+					<div class="text-zinc-400">Smash</div>
+					<div class="text-zinc-400">Right</div>
+					<div class="text-orange-400">Corner Route</div>
+				</div>
+				<div class="grid grid-cols-4 px-6 py-3 text-sm">
+					<div class="text-zinc-300">Luzern I-Off</div>
+					<div class="text-zinc-400">ISO</div>
+					<div class="text-zinc-400">Right</div>
+					<div class="text-orange-400">Hits A-Gap</div>
+				</div>
+			</div>
+			<p class="text-xs text-zinc-500 mt-3">Example output. Actual results vary by playbook content.</p>
 		</section>
 
 		<!-- Additional Features -->
-		<section class="grid grid-cols-2 gap-5 mb-10">
-			<div class="border border-zinc-800 rounded-xl bg-zinc-900 p-5">
-				<h3 class="font-bold text-lg mb-2">AI-Powered Extraction</h3>
-				<p class="text-zinc-400 text-sm">Advanced vision models read play diagrams accurately, understanding route trees and formations like a coach would.</p>
-			</div>
-			<div class="border border-zinc-800 rounded-xl bg-zinc-900 p-5">
-				<h3 class="font-bold text-lg mb-2">Batch Processing</h3>
-				<p class="text-zinc-400 text-sm">Upload multiple pages at once. Process entire playbook PDFs in one session — no need to upload page by page.</p>
-			</div>
-			<div class="border border-zinc-800 rounded-xl bg-zinc-900 p-5">
-				<h3 class="font-bold text-lg mb-2">Formation Recognition</h3>
-				<p class="text-zinc-400 text-sm">Automatically identifies formations like ZUG, LUZERN with all modifiers — A-BUMP, T-WING, I-OFF, and more.</p>
-			</div>
-			<div class="border border-zinc-800 rounded-xl bg-zinc-900 p-5">
-				<h3 class="font-bold text-lg mb-2">Review & Edit</h3>
-				<p class="text-zinc-400 text-sm">Before exporting, review all extracted plays in a clean editor. Make quick corrections before downloading.</p>
+		<section class="mb-16">
+			<h2 class="text-xl font-bold mb-6 text-zinc-300">More Features</h2>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+				<div class="bg-zinc-900/30 border border-zinc-800 rounded-xl p-5">
+					<h3 class="font-bold mb-2">Review Before Export</h3>
+					<p class="text-zinc-400 text-sm">
+						See all extracted plays in a clean editor. Make quick corrections before
+						downloading.
+					</p>
+				</div>
+				<div class="bg-zinc-900/30 border border-zinc-800 rounded-xl p-5">
+					<h3 class="font-bold mb-2">Batch Processing</h3>
+					<p class="text-zinc-400 text-sm">
+						Upload multiple files at once. Process entire playbooks in a single session.
+					</p>
+				</div>
+				<div class="bg-zinc-900/30 border border-zinc-800 rounded-xl p-5">
+					<h3 class="font-bold mb-2">Play Type Tags</h3>
+					<p class="text-zinc-400 text-sm">
+						Automatic tagging for run, pass, RPO, and screen concepts for easy filtering.
+					</p>
+				</div>
 			</div>
 		</section>
 
 		<!-- CTA -->
-		<section class="border border-zinc-800 rounded-2xl bg-zinc-900 p-8 text-center">
-			<h3 class="text-2xl font-bold mb-2">Ready to Try It Out?</h3>
-			<p class="text-zinc-400 mb-4">Start converting your playbooks for free.</p>
-			<Button href="/upload">Start Converting Free</Button>
+		<section class="border border-zinc-800 rounded-3xl bg-zinc-900 p-10 md:p-16 text-center">
+			<h2 class="text-2xl md:text-4xl font-bold mb-4">Ready to Stop Typing Plays?</h2>
+			<p class="text-zinc-400 text-lg mb-8 max-w-xl mx-auto">
+				Upload your first playbook and get the full Excel output—free. No credit card
+				required.
+			</p>
+			<Button href="/upload" size="lg">Upload Your First Playbook</Button>
 		</section>
 	</main>
 </div>

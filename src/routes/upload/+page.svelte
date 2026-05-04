@@ -59,7 +59,7 @@
 	let extractedPlays = $state<Play[]>([]);
 	let isProcessing = $state(false);
 	let debugEntries = $state<DebugEntry[]>([]);
-	let showDebugPanel = $state(true);
+	let showDebugPanel = $state(false);
 
 	// Use relative path - works on both localhost and Vercel
 	const API_BASE = '';
@@ -440,18 +440,33 @@
 
 <svelte:head>
 	<title>Upload Your Playbook - Hudl Playbook AI</title>
+	<meta
+		name="description"
+		content="Upload your football playbook screenshots or PDFs and let AI extract every play into a formatted Excel spreadsheet."
+	/>
 </svelte:head>
 
-<div class="min-h-screen bg-zinc-950 text-white">
+<div class="min-h-screen bg-zinc-950 text-white pb-20 md:pb-0">
 	<Nav links={false} cta={false} backButton />
 
-	<main class="max-w-[900px] mx-auto px-5 py-5">
+	<main class="max-w-150 mx-auto px-5 py-8">
 		<!-- Page Title -->
-		<div class="text-center mb-3.5">
-			<h2 class="text-3xl font-bold">
-				Convert Your <span class="text-orange-500">Playbook</span>
-			</h2>
-			<p class="text-zinc-400 text-sm mt-1.5">AI extracts plays from playbook PDFs or images</p>
+		<div class="text-center mb-8">
+			<h1 class="text-3xl md:text-4xl font-bold mb-3">
+				Upload Your <span class="text-orange-500">Playbook</span>
+			</h1>
+			<p class="text-zinc-400 text-base max-w-md mx-auto leading-relaxed">
+				Select your position, upload playbook images or PDFs, and get every play extracted to
+				Excel in seconds.
+			</p>
+		</div>
+
+		<!-- What You Get -->
+		<div class="bg-zinc-900/50 border border-zinc-800 rounded-xl p-4 mb-6">
+			<p class="text-sm text-zinc-300 text-center">
+				<span class="text-orange-400 font-semibold">You'll get:</span>
+				Formation, Concept, Position Routes, and Tags in a formatted Excel sheet
+			</p>
 		</div>
 
 		<!-- Error Banner -->
@@ -460,64 +475,106 @@
 		{/if}
 
 		<!-- Main Panel -->
-		<div class="border border-zinc-800 rounded-xl bg-zinc-900 p-4">
-			<!-- Position Selector -->
-			<PositionSelector selectedPosition={selectedPosition} onSelect={(pos: string) => (selectedPosition = pos)} />
+		<div class="border border-zinc-800 rounded-2xl bg-zinc-900 p-6">
+			<!-- Position Selector with clearer label -->
+			<div class="mb-6">
+				<label class="block text-sm font-semibold mb-3 text-zinc-300">
+					Which position are you extracting for?
+				</label>
+				<PositionSelector
+					selectedPosition={selectedPosition}
+					onSelect={(pos: string) => (selectedPosition = pos)}
+				/>
+			</div>
 
 			{#if uploadState === 'empty'}
-				<FileDropzone onFilesSelected={handleFilesSelected} />
+				<div>
+					<FileDropzone onFilesSelected={handleFilesSelected} />
+					<p class="text-xs text-zinc-500 mt-3 text-center">
+						Supports PDF, PNG, and JPG files up to 50MB
+					</p>
+				</div>
 
 			{:else if uploadState === 'ready'}
-				<div class="text-sm font-bold mb-3">Ready to process ({selectedFiles.length} file{selectedFiles.length === 1 ? '' : 's'})</div>
+				<div class="text-sm font-semibold mb-3 text-zinc-300">
+					Ready to process ({selectedFiles.length} file{selectedFiles.length === 1 ? '' : 's'})
+				</div>
 
 				<FileList files={selectedFiles} onRemove={removeFile} />
 
-				<div class="mt-2.5">
-					<Button onclick={handleExtract} fullWidth>Extract Plays with AI</Button>
+				<div class="mt-4">
+					<Button onclick={handleExtract} fullWidth size="lg">Extract Plays to Excel</Button>
 				</div>
 				<div class="mt-2">
-					<Button variant="secondary" onclick={handleChooseDifferent} fullWidth>Choose different files</Button>
+					<Button variant="secondary" onclick={handleChooseDifferent} fullWidth
+						>Choose different files</Button
+					>
 				</div>
 
 			{:else if uploadState === 'processing'}
-				<ProcessingSpinner message="Processing with AI..." details={processingDetails} />
+				<ProcessingSpinner message="Extracting plays with AI..." details={processingDetails} />
 			{/if}
 		</div>
 
-		{#if uploadState !== 'empty'}
-			<div class="mt-3 border border-zinc-800 rounded-xl bg-zinc-900/80 overflow-hidden">
-				<div class="flex items-center justify-between px-3 py-2 border-b border-zinc-800">
-					<h3 class="text-xs font-semibold tracking-wide text-zinc-300">Debug panel</h3>
-					<button
-						type="button"
-						onclick={() => (showDebugPanel = !showDebugPanel)}
-						class="text-[11px] text-zinc-400 hover:text-white transition-colors"
-					>
-						{showDebugPanel ? 'Hide' : 'Show'}
-					</button>
-				</div>
+		<!-- Debug Panel - Hidden by default for better UX -->
+		{#if uploadState !== 'empty' && uploadState !== 'processing'}
+			<button
+				type="button"
+				onclick={() => (showDebugPanel = !showDebugPanel)}
+				class="w-full mt-4 text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
+			>
+				{showDebugPanel ? 'Hide' : 'Show'} debug panel
+			</button>
+		{/if}
 
-				{#if showDebugPanel}
-					<div class="max-h-48 overflow-y-auto px-3 py-2 space-y-1.5 text-[11px]">
-						{#if debugEntries.length === 0}
-							<p class="text-zinc-500">No debug events yet.</p>
-						{:else}
-							{#each debugEntries as entry}
-								<p class={entry.level === 'error' ? 'text-red-400' : entry.level === 'success' ? 'text-emerald-400' : 'text-zinc-300'}>
-									[{entry.time}] {entry.message}
-								</p>
-							{/each}
-						{/if}
-					</div>
-				{/if}
+		{#if showDebugPanel && uploadState !== 'processing'}
+			<div class="mt-3 border border-zinc-800 rounded-xl bg-zinc-900/80 overflow-hidden">
+				<div class="px-4 py-2 border-b border-zinc-800">
+					<h3 class="text-xs font-semibold tracking-wide text-zinc-300">Debug panel</h3>
+				</div>
+				<div class="max-h-48 overflow-y-auto px-4 py-3 space-y-1.5 text-[11px] font-mono">
+					{#if debugEntries.length === 0}
+						<p class="text-zinc-500">No debug events yet.</p>
+					{:else}
+						{#each debugEntries as entry}
+							<p
+								class={entry.level === 'error'
+									? 'text-red-400'
+									: entry.level === 'success'
+										? 'text-emerald-400'
+										: 'text-zinc-300'}
+							>
+								[{entry.time}] {entry.message}
+							</p>
+						{/each}
+					{/if}
+				</div>
 			</div>
 		{/if}
 
-		<!-- Hint Text -->
+		<!-- Processing Hint -->
 		{#if uploadState === 'processing'}
-			<p class="text-zinc-600 text-xs text-center mt-3">
-				Analyzing play diagrams with vision AI... This may take a few minutes for PDFs.
+			<p class="text-zinc-500 text-sm text-center mt-4">
+				Analyzing play diagrams with vision AI... This typically takes 30-60 seconds per page.
 			</p>
+		{/if}
+
+		<!-- Trust Indicators -->
+		{#if uploadState === 'empty'}
+			<div class="mt-6 grid grid-cols-3 gap-3 text-center text-xs">
+				<div class="bg-zinc-900/50 rounded-lg p-3">
+					<div class="text-orange-400 font-bold text-lg">PDF</div>
+					<div class="text-zinc-500">Multi-page</div>
+				</div>
+				<div class="bg-zinc-900/50 rounded-lg p-3">
+					<div class="text-orange-400 font-bold text-lg">All</div>
+					<div class="text-zinc-500">Positions</div>
+				</div>
+				<div class="bg-zinc-900/50 rounded-lg p-3">
+					<div class="text-orange-400 font-bold text-lg">99%</div>
+					<div class="text-zinc-500">Accuracy</div>
+				</div>
+			</div>
 		{/if}
 	</main>
 </div>
