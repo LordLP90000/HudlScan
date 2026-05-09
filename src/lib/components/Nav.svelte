@@ -7,8 +7,18 @@
 
 	let { links = true, cta = true, backButton = false }: Props = $props();
 
+	let mobileMenuOpen = $state(false);
+
 	function goBack() {
 		window.history.back();
+	}
+
+	function toggleMobileMenu() {
+		mobileMenuOpen = !mobileMenuOpen;
+	}
+
+	function closeMobileMenu() {
+		mobileMenuOpen = false;
 	}
 </script>
 
@@ -45,6 +55,7 @@
 	</div>
 
 	{#if links}
+		<!-- Desktop Nav -->
 		<div class="hidden md:flex gap-6 text-sm">
 			<a
 				href="/how-it-works"
@@ -62,11 +73,27 @@
 				></span>
 			</a>
 		</div>
+
+		<!-- Mobile Menu Button -->
+		<button
+			onclick={toggleMobileMenu}
+			class="md:hidden text-zinc-400 hover:text-white p-2 -mr-2"
+			aria-label="Toggle menu"
+			aria-expanded={mobileMenuOpen}
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				{#if mobileMenuOpen}
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+				{:else}
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+				{/if}
+			</svg>
+		</button>
 	{/if}
 
 	<div class="flex items-center gap-3">
 		{#if backButton}
-			<div></div>
+			<div class="md:hidden w-10"></div>
 		{/if}
 
 		{#if cta}
@@ -74,15 +101,42 @@
 				href="/upload"
 				class="bg-orange-500 text-white rounded-lg px-4 py-2 text-sm font-bold hover:bg-orange-600 transition-all hover:shadow-lg hover:shadow-orange-500/20"
 			>
-				Upload Playbook
+				<span class="hidden sm:inline">Upload Playbook</span>
+				<span class="sm:hidden">Upload</span>
 			</a>
 		{/if}
 	</div>
 </nav>
 
-<!-- Mobile Nav (shown when links=true) -->
-{#if links}
-	<div class="md:hidden fixed bottom-0 left-0 right-0 bg-zinc-900 border-t border-zinc-800 px-4 py-2 flex justify-around z-50 safe-area-inset-bottom">
+<!-- Mobile Dropdown Menu - matches desktop nav -->
+{#if links && mobileMenuOpen}
+	<div
+		class="md:hidden fixed top-16 left-0 right-0 bg-zinc-900 border-b border-zinc-800 z-40 animate-slideDown"
+	>
+		<div class="px-4 py-4 space-y-4">
+			<a
+				href="/how-it-works"
+				onclick={closeMobileMenu}
+				class="block text-zinc-300 hover:text-white py-2 transition-colors"
+			>
+				How It Works
+			</a>
+			<a
+				href="/pricing"
+				onclick={closeMobileMenu}
+				class="block text-zinc-300 hover:text-white py-2 transition-colors"
+			>
+				Pricing
+			</a>
+		</div>
+	</div>
+{/if}
+
+<!-- Mobile Bottom Nav (hidden when dropdown is open) -->
+{#if links && !mobileMenuOpen}
+	<div
+		class="md:hidden fixed bottom-0 left-0 right-0 bg-zinc-900 border-t border-zinc-800 px-4 py-2 flex justify-around z-50 safe-area-inset-bottom transition-transform"
+	>
 		<a
 			href="/"
 			class="flex flex-col items-center gap-1 text-zinc-400 hover:text-white transition-colors"
@@ -138,8 +192,24 @@
 		</a>
 	</div>
 {/if}
+
 <style>
 	:global(.safe-area-inset-bottom) {
 		padding-bottom: env(safe-area-inset-bottom, 0px);
+	}
+
+	@keyframes slideDown {
+		from {
+			opacity: 0;
+			transform: translateY(-10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.animate-slideDown {
+		animation: slideDown 0.2s ease-out;
 	}
 </style>
