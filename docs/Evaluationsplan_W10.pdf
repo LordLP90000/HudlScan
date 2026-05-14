@@ -1,0 +1,150 @@
+# Evaluationsplan – HudlScanner
+## Usability-Evaluation für Playbook-OCR-Application
+
+**Datum:** 14. Mai 2026
+**Version:** 1.0
+**Projekt:** HudlScanner – American Football Playbook Extraction
+
+---
+
+## 1. Testziele
+
+Dieser Test soll folgende Fragen beantworten:
+
+1. **Können Football-Trainer ohne technische Vorkenntnisse innerhalb von 3 Minuten ein Playbook-Bild hochladen und die erste Extraktion erhalten?**
+
+2. **Verstehen die Nutzer die Ergebnisseite (Formation, Concept, A-Back Route) korrekt und können sie mit ihrem Playbook vergleichen?**
+
+3. **Sind Nutzer in der Lage, extrahierte Plays bei Fehlern zu korrigieren und wiederzuholen?**
+
+4. **Wie hoch ist die subjektive Zufriedenheit mit der Anwendung (SUS-Score)?**
+
+---
+
+## 2. Zu prüfende Abläufe (Scope)
+
+### ✅ Im Test enthalten:
+- Landing Page → Verständnis des Angebots
+- Upload Page → PDF/Bild-Upload und Verarbeitung
+- Results Page → Anzeige der extrahierten Formation + Concept + A-Back Route
+- Navigation zwischen den Seiten
+
+### ❌ Ausgeklammert:
+- Registrierung / Login (nicht im Prototyp)
+- Kontakt- und Feedback-Formulare (nice-to-have, nicht Kernfunktion)
+- Pricing-Seite (nur informativ)
+- Local Model Mode (Docker-Konfiguration – nur für Entwickler)
+
+---
+
+## 3. Evaluationsmethoden
+
+### 3.1 Heuristische Expertenevaluation
+- **Durchgeführt von:** Kommiliton aus Informatik-Kurs
+- **Methodik:** Anwendung von Nielsens 10 Heuristiken auf den aktuellen Prototyp
+- **Dokumentation:** Issues werden mit Schweregrad 1-4 kategorisiert
+
+### 3.2 Testnutzer:innen
+- **Zielgruppe:**
+  - 2-3 Personen ohne IT-Hintergrund
+  - Ideal: Personen mit Sport-/Football-Interesse (aber kein Expertenwissen)
+- **Setting:** Einzeltest, moderiert, "Think-Aloud"-Protokoll
+
+---
+
+## 4. Tasks (Aufgaben)
+
+### Task 1: First Impression & Understanding (2')
+> *"Du bist American Football Coach und suchst nach einer Möglichkeit, deine手写 Playbooks digital zu bekommen. Diese Website behauptet, genau das zu können. Was bietet sie dir genau an?"*
+
+**Ziel:** Versteht der Nutzer das Value Proposition?
+
+---
+
+### Task 2: Upload & First Extraction (5')
+> *"Lade ein Playbook-Bild von deinem Computer hoch und warte auf das Ergebnis. Beschriebe, was während der Verarbeitung passiert."*
+
+**Ziel:** Ist der Upload-Prozess intuitiv? Gibt es Feedback während der Verarbeitung?
+
+---
+
+### Task 3: Result Interpretation (5')
+> *"Du hast jetzt ein Ergebnis. Vergleiche es mit deinem Original-Bild. Welche Formation hat das System erkannt? Welches Concept? Was macht der A-Back?"*
+
+**Ziel:** Versteht der Nutzer die Ergebnisseite? Sind die Labels klar?
+
+---
+
+### Task 4: Error Handling (3')
+> *"Die Erkennung scheint falsch zu sein. Versuche, das Ergebnis zu korrigieren oder den Vorgang zu wiederholen."*
+
+**Ziel:** Findet der Nutzer die Korrektur-Optionen?
+
+---
+
+### Task 5: Cross-Device Navigation (3')
+> *"Ein Kollege zeigt dir die Website auf seinem Handy. Wie findest du die Upload-Funktion auf dem Mobilgerät?"*
+
+**Ziel:** Funktioniert die Mobile Navigation?
+
+---
+
+## 5. Rollen
+
+| Rolle | Person | Aufgabe |
+|-------|--------|---------|
+| **Moderator** | Anton | Führt durch, stellt Tasks, greift nicht ein (außer bei Abbruch) |
+| **Beobachter** | (selbst) | Notiert Probleme, Stockungen, emotionale Reaktionen |
+| **Protokollant** | (selbst) | Hält Issues im Issue Log fest |
+| **Testnutzer** | 2-3 Personen | Führt Tasks aus, "denkt laut" |
+
+*Bei Einzelprojekt: Alle drei Rollen werden von einer Person übernommen*
+
+---
+
+## 6. Bewertungssystem (Schweregrad)
+
+| Schweregrad | Bedeutung | Beispiele |
+|-------------|-----------|-----------|
+| **1** | **Kosmetisches Problem** – nur beheben, wenn Zeit vorhanden | Rechtschreibfehler, kleiner Pixel-Ruck |
+| **2** | **Kleines Problem** – niedrige Priorität | Button-Text etwas unklar, aber lösbar |
+| **3** | **Grosses Problem** – hohe Priorität | Nutzer landet in Sackgasse, findet Lösung erst nach 30+ Sekunden |
+| **4** | **Katastrophe** – muss vor Launch behoben werden | Task bricht ab, Nutzer gibt frustriert auf |
+
+---
+
+## 7. Verwendeter Fragebogen
+
+**SUS-Fragebogen (System Usability Scale)** wird nach dem Nutzertest eingesetzt.
+
+*10 Fragen mit 5-point Likert-Skala (1 = stimme gar nicht zu, 5 = stimme voll zu)*
+
+---
+
+## 8. Issue Log Template
+
+```
+Datum: _________  Task #: ___  Schweregrad: ___
+Beschreibung: ______________________________________
+__________________________________________________
+Heuristik-Verletzung (falls zutreffend): ___________
+__________________________________________________
+```
+
+---
+
+## 9. Testumgebung
+
+- **Browser:** Chrome / Edge (aktuellste Version)
+- **Geräte:** Desktop (1920x1080) + Mobile (iPhone 12 Pro Viewport)
+- **Daten:** 3 Test-Bilder in `training/images/` verfügbar
+- **Local Model:** Docker Container muss laufen (`cd docker && docker-compose up -d`)
+
+---
+
+## 10. Erfolgskriterien
+
+Der Test ist erfolgreich, wenn:
+- Mindestens 80% der Tasks ohne Hilfe gelöst werden
+- Kein Issue mit Schweregrad 4 auftritt
+- SUS-Score ≥ 68 (durchschnittlich)
