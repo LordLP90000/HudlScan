@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Nav from '$lib/components/Nav.svelte';
+
 	let uploadsCount = $state(0);
 	let accuracyValue = $state(0);
 
@@ -28,6 +30,7 @@
 </svelte:head>
 
 <div class="min-h-screen bg-zinc-950 text-white">
+	<Nav />
 	<main class="max-w-7xl mx-auto px-6 py-16">
 		<div class="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
 			<div class="space-y-8">
