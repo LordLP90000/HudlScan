@@ -47,7 +47,7 @@
 			</button>
 		{/if}
 		<a href="/" class="flex items-center gap-2.5 font-bold text-base hover:text-orange-500 transition-colors">
-			<div class="w-8 h-8 rounded-lg bg-linear-to-br from-orange-500 to-orange-600 flex items-center justify-center">
+			<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
 				<span class="text-white text-sm font-bold">H</span>
 			</div>
 			<span class="hidden sm:inline">Hudl Playbook AI</span>
