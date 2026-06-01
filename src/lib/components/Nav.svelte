@@ -82,7 +82,7 @@
 	</div>
 </nav>
 
-{* Mobile Bottom Navigation - thumb-friendly, always visible on mobile *}
+<!-- Mobile Bottom Navigation - thumb-friendly, always visible on mobile -->
 {#if links}
 	<div
 		class="md:hidden fixed bottom-0 left-0 right-0 bg-zinc-900 border-t border-zinc-800 px-4 py-2 flex justify-around z-50 safe-area-inset-bottom transition-transform"

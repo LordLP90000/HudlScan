@@ -21,7 +21,7 @@
 		<p class="text-zinc-400 text-xs mt-1">{details}</p>
 	{/if}
 
-	{* Progress Bar *}
+	<!-- Progress Bar -->
 	{#if progress > 0}
 		<div class="mt-4 max-w-xs mx-auto">
 			<div class="flex items-center justify-between text-xs text-zinc-400 mb-1">
