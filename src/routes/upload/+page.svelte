@@ -60,6 +60,8 @@
 	let isProcessing = $state(false);
 	let debugEntries = $state<DebugEntry[]>([]);
 	let showDebugPanel = $state(false);
+	let uploadProgress = $state(0); // 0-100 percentage
+	let estimatedTimeRemaining = $state(''); // e.g. "~30 seconds remaining"
 
 	// Use relative path - works on both localhost and Vercel
 	const API_BASE = '';
@@ -338,6 +340,9 @@
 
 		uploadState = 'processing';
 		extractedPlays = [];
+		uploadProgress = 0;
+		estimatedTimeRemaining = '';
+		const startTime = Date.now();
 		addDebug('info', `Starting extraction for ${selectedFiles.length} file${selectedFiles.length === 1 ? '' : 's'}.`);
 
 		let totalImages = 0;
@@ -381,6 +386,19 @@
 				for (let j = 0; j < units.length; j++) {
 					const unit = units[j];
 					processedImages++;
+
+					// Update progress
+					if (totalImages > 0) {
+						uploadProgress = Math.round((processedImages / totalImages) * 100);
+
+						// Estimate remaining time
+						const elapsedSeconds = (Date.now() - startTime) / 1000;
+						const avgTimePerImage = elapsedSeconds / processedImages;
+						const remainingImages = totalImages - processedImages;
+						const estimatedSeconds = Math.ceil(avgTimePerImage * remainingImages);
+						estimatedTimeRemaining = `~${estimatedSeconds} seconds remaining`;
+					}
+
 					const pageNum = fileItem.type === 'pdf' ? ` (page ${j + 1}/${units.length})` : '';
 					processingDetails = `Processing ${fileItem.name}${pageNum} (${processedImages}/${totalImages})...`;
 					const imageName =
@@ -512,7 +530,12 @@
 				</div>
 
 			{:else if uploadState === 'processing'}
-				<ProcessingSpinner message="Extracting plays with AI..." details={processingDetails} />
+				<ProcessingSpinner
+					message="Extracting plays with AI..."
+					details={processingDetails}
+					progress={uploadProgress}
+					estimatedTime={estimatedTimeRemaining}
+				/>
 			{/if}
 		</div>
 
