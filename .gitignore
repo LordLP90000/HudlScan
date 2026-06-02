@@ -48,3 +48,6 @@ CLAUDE.md
 # Graphify output
  graphify-out/
  *.csv
+# UI/UX Pro Max data
+  ui-ux-pro-max/data/
+  ui-ux-pro-max\data/
