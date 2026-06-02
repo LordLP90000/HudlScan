@@ -44,3 +44,7 @@ models/
 
 # Documentation
 CLAUDE.md
+
+# Graphify output
+ graphify-out/
+ *.csv
