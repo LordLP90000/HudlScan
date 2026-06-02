@@ -232,6 +232,11 @@ def main():
         print(f"\nFinal loss: {train_losses[-1]:.4f}")
         print(f"Loss reduction: {train_losses[0] - train_losses[-1]:.4f}")
 
+    # SECURITY: Explicitly clear GPU memory to prevent OOM on repeated runs
+    if device == "cuda":
+        torch.cuda.empty_cache()
+        print("GPU cache cleared")
+
 
 if __name__ == "__main__":
     main()

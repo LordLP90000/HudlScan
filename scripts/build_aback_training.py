@@ -67,10 +67,10 @@ def strip_bom(text: str) -> str:
         text = text[1:]
     return text.strip()
 
-def extract_concept(formation_concept: str) -> tuple[str, str]:
+def extract_concept(formation_concept: str) -> tuple[str, str | None]:
     """
     Extract concept and play type from formation+concept string.
-    Returns: (concept, play_type)
+    Returns: (concept, play_type) where play_type may be None
     """
     fc = strip_bom(formation_concept)
 

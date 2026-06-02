@@ -19,7 +19,13 @@
       "Bash(taskkill //F //IM python.exe)",
       "Bash(dir C:UsersantonHudlScannermodelsdots.mocr-svg)",
       "Bash(docker compose:*)",
-      "mcp__plugin_claude-mem_mcp-search__smart_outline"
+      "mcp__plugin_claude-mem_mcp-search__smart_outline",
+      "Bash(npm run *)",
+      "Bash(npm audit *)",
+      "Bash(npx knip *)",
+      "Bash(npx depcheck *)",
+      "Bash(npx ts-prune *)",
+      "Bash(npx eslint *)"
     ]
   },
   "enableAllProjectMcpServers": true,

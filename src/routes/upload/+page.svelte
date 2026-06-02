@@ -51,7 +51,11 @@
 
 	type UploadState = 'empty' | 'ready' | 'processing' | 'error' | 'complete';
 
-	let selectedPosition = $state('FB');
+	// SECURITY: Define allowed positions for validation
+	const ALLOWED_POSITIONS = ['FB', 'RB', 'QB', 'OL', 'WR', 'TE'] as const;
+	type Position = typeof ALLOWED_POSITIONS[number];
+
+	let selectedPosition = $state<Position>('FB');
 	let uploadState = $state<UploadState>('empty');
 	let selectedFiles = $state<FileItem[]>([]);
 	let errorMessage = $state('');
@@ -66,6 +70,17 @@
 	// Use relative path - works on both localhost and Vercel
 	const API_BASE = '';
 
+	// Constants for image processing thresholds
+	const WHITESPACE_GAP_THRESHOLD_HORIZONTAL = 0.01;
+	const WHITESPACE_GAP_THRESHOLD_VERTICAL = 0.006;
+	const MIN_GAP_SIZE_RATIO = 0.015;
+	const MIN_BAND_SIZE_RATIO = 0.08;
+	const MIN_PANEL_DIMENSION = 100;
+	const DARK_PIXEL_DENSITY_THRESHOLD = 0.02;
+	const MIN_DARK_PIXEL_COUNT = 2200;
+	const PANEL_PADDING_RATIO = { width: 0.08, top: 0.1, bottom: 0.2 };
+	const MAX_PANELS_TO_SEGMENT = 24;
+
 	function addDebug(level: DebugLevel, message: string) {
 		const entry: DebugEntry = {
 			time: new Date().toLocaleTimeString(),
@@ -79,39 +94,66 @@
 		debugEntries = [];
 	}
 
+	/**
+	 * Detect whitespace gaps in image density to split into panels
+	 * @param densities - Array of density values (row or column)
+	 * @param length - Total length of the dimension (height or width)
+	 * @param isHorizontal - True for horizontal gaps (rows), false for vertical (columns)
+	 * @returns Array of [start, end] boundary pairs for detected bands
+	 */
 	function findWhitespaceGaps(
 		densities: number[],
 		length: number,
 		isHorizontal: boolean
 	): Array<[number, number]> {
-		const gapThreshold = isHorizontal ? 0.01 : 0.006;
-		const minGapSize = Math.max(8, Math.floor(length * 0.015));
-		const minBandSize = Math.max(60, Math.floor(length * 0.08));
+		const GAP_THRESHOLD = isHorizontal ? WHITESPACE_GAP_THRESHOLD_HORIZONTAL : WHITESPACE_GAP_THRESHOLD_VERTICAL;
+		const MIN_GAP_SIZE = Math.max(8, Math.floor(length * MIN_GAP_SIZE_RATIO));
+		const MIN_BAND_SIZE = Math.max(60, Math.floor(length * MIN_BAND_SIZE_RATIO));
 
+		// Extract: shouldCreateBoundary
+		function shouldCreateBoundary(start: number, end: number): boolean {
+			return end - start >= MIN_GAP_SIZE;
+		}
+
+		// Extract: createBoundary
+		function createBoundary(start: number, end: number): number {
+			return Math.floor((start + end) / 2);
+		}
+
+		// Find gap boundaries
 		const boundaries = [0];
 		let gapStart = -1;
 
 		for (let i = 0; i < densities.length; i++) {
-			if (densities[i] <= gapThreshold) {
-				if (gapStart === -1) gapStart = i;
-			} else if (gapStart !== -1) {
-				if (i - gapStart >= minGapSize) boundaries.push(Math.floor((gapStart + i) / 2));
+			const isGap = densities[i] <= GAP_THRESHOLD;
+
+			if (isGap && gapStart === -1) {
+				gapStart = i;
+				continue;
+			}
+
+			if (!isGap && gapStart !== -1) {
+				if (shouldCreateBoundary(gapStart, i)) {
+					boundaries.push(createBoundary(gapStart, i));
+				}
 				gapStart = -1;
 			}
 		}
 
-		if (gapStart !== -1 && densities.length - gapStart >= minGapSize) {
-			boundaries.push(Math.floor((gapStart + densities.length) / 2));
+		// Handle trailing gap
+		if (gapStart !== -1 && shouldCreateBoundary(gapStart, densities.length)) {
+			boundaries.push(createBoundary(gapStart, densities.length));
 		}
 
 		boundaries.push(length);
 		boundaries.sort((a, b) => a - b);
 
+		// Create bands from boundaries
 		const bands: Array<[number, number]> = [];
 		for (let i = 0; i < boundaries.length - 1; i++) {
 			const start = boundaries[i];
 			const end = boundaries[i + 1];
-			if (end - start >= minBandSize) {
+			if (end - start >= MIN_BAND_SIZE) {
 				bands.push([start, end]);
 			}
 		}
@@ -120,6 +162,11 @@
 		return bands;
 	}
 
+	/**
+	 * Split an image into visual panels using whitespace detection
+	 * @param dataUrl - Base64-encoded image data URL
+	 * @returns Array of image units with segmentation info
+	 */
 	async function splitImageIntoPanels(dataUrl: string): Promise<ImageUnit[]> {
 		const image = new Image();
 		image.src = dataUrl;
@@ -296,9 +343,17 @@
 	function handleFilesSelected(files: globalThis.FileList) {
 		resetDebug();
 		const fileItems: FileItem[] = [];
+		const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB limit
 
 		for (let i = 0; i < files.length; i++) {
 			const file = files[i];
+
+			// SECURITY: Validate file size before processing
+			if (file.size > MAX_FILE_SIZE) {
+				addDebug('error', `${file.name} exceeds 50MB limit (${formatFileSize(file.size)})`);
+				continue;
+			}
+
 			const extension = file.name.split('.').pop()?.toLowerCase();
 			let fileType: 'pdf' | 'image' = 'image';
 			if (extension === 'pdf') fileType = 'pdf';
@@ -312,8 +367,10 @@
 		}
 
 		selectedFiles = fileItems;
-		uploadState = 'ready';
-		addDebug('info', `Selected ${fileItems.length} file${fileItems.length === 1 ? '' : 's'} for processing.`);
+		if (fileItems.length > 0) {
+			uploadState = 'ready';
+			addDebug('info', `Selected ${fileItems.length} file${fileItems.length === 1 ? '' : 's'} for processing.`);
+		}
 	}
 
 	function formatFileSize(bytes: number): string {
@@ -328,6 +385,89 @@
 		if (selectedFiles.length === 0) {
 			uploadState = 'empty';
 		}
+	}
+
+	/**
+	 * Update progress tracking for image processing
+	 * @param processed - Number of images processed so far
+	 * @param total - Total number of images to process
+	 * @param startTime - Timestamp when processing started (ms)
+	 * @returns Object with progress percentage and remaining time string
+	 */
+	function updateProgress(
+		processed: number,
+		total: number,
+		startTime: number
+	): { progress: number; remaining: string } {
+		if (total <= 0) return { progress: 0, remaining: '' };
+
+		const progress = Math.round((processed / total) * 100);
+		const elapsedSeconds = (Date.now() - startTime) / 1000;
+		const avgTimePerImage = elapsedSeconds / processed;
+		const remainingImages = total - processed;
+		const estimatedSeconds = Math.ceil(avgTimePerImage * remainingImages);
+
+		return {
+			progress,
+			remaining: `~${estimatedSeconds} seconds remaining`
+		};
+	}
+
+	/**
+	 * Convert a file (PDF or image) into processable image units
+	 * @param fileItem - File metadata and raw File object
+	 * @returns Array of image units with segmentation info
+	 */
+	async function processFileItem(fileItem: FileItem): Promise<ImageUnit[]> {
+		if (fileItem.type === 'pdf') {
+			processingDetails = `Converting ${fileItem.name} to images...`;
+			addDebug('info', `${fileItem.name}: converting PDF pages to images.`);
+			const images = await convertPdfToImages(fileItem.file);
+			const units = images.map((img) => ({ dataUrl: img, isSegmented: false }));
+			addDebug('info', `${fileItem.name}: detected ${units.length} page image${units.length === 1 ? '' : 's'}.`);
+			return units;
+		} else {
+			// PNG/JPG can contain multiple drawings. Split into visual panels and process each panel independently.
+			processingDetails = `Preparing ${fileItem.name} panels...`;
+			addDebug('info', `${fileItem.name}: detecting drawing panels.`);
+			const base64Image = await fileToBase64(fileItem.file);
+			const units = await splitImageIntoPanels(base64Image);
+			addDebug('info', `${fileItem.name}: detected ${units.length} panel${units.length === 1 ? '' : 's'}.`);
+			return units;
+		}
+	}
+
+	/**
+	 * Extract plays from a single image unit via API
+	 * @param unit - Image unit with data URL and segmentation info
+	 * @param fileItem - Parent file metadata for naming
+	 * @param unitIndex - Index of this unit within the file
+	 * @param totalUnits - Total number of units in the file
+	 * @returns Object with extracted plays and skip status
+	 */
+	async function processImageUnit(
+		unit: ImageUnit,
+		fileItem: FileItem,
+		unitIndex: number,
+		totalUnits: number
+	): Promise<{ plays: Play[]; skipped: boolean }> {
+		const pageNum = fileItem.type === 'pdf' ? ` (page ${unitIndex + 1}/${totalUnits})` : '';
+		processingDetails = `Processing ${fileItem.name}${pageNum} (${unitIndex + 1}/${totalUnits})...`;
+		const imageName =
+			fileItem.type === 'pdf'
+				? `${fileItem.name}#page-${unitIndex + 1}`
+				: `${fileItem.name}#segment-${unit.segmentIndex || unitIndex + 1}`;
+		addDebug('info', `Scanning ${imageName} (${unitIndex + 1}/${totalUnits}).`);
+
+		const result = await extractPlaysFromImage(unit.dataUrl, imageName, unitIndex + 1, totalUnits, unit);
+
+		if (result.skipped) {
+			addDebug('info', `${imageName}: skipped (${result.warning || 'no rows detected'}).`);
+		} else {
+			addDebug('success', `${imageName}: extracted ${result.plays.length} row${result.plays.length === 1 ? '' : 's'}.`);
+		}
+
+		return { plays: result.plays || [], skipped: !!result.skipped };
 	}
 
 	async function handleExtract() {
@@ -359,88 +499,50 @@
 			}
 		}
 
-		for (let i = 0; i < selectedFiles.length; i++) {
-			const fileItem = selectedFiles[i];
+		try {
+			for (let i = 0; i < selectedFiles.length; i++) {
+				const fileItem = selectedFiles[i];
 
-			try {
-				let units: ImageUnit[] = [];
-
+				const units = await processFileItem(fileItem);
 				if (fileItem.type === 'pdf') {
-					processingDetails = `Converting ${fileItem.name} to images...`;
-					addDebug('info', `${fileItem.name}: converting PDF pages to images.`);
-					const images = await convertPdfToImages(fileItem.file);
-					units = images.map((img) => ({ dataUrl: img, isSegmented: false }));
 					totalImages += units.length;
-					addDebug('info', `${fileItem.name}: detected ${units.length} page image${units.length === 1 ? '' : 's'}.`);
 				} else {
-					// PNG/JPG can contain multiple drawings. Split into visual panels and process each panel independently.
-					processingDetails = `Preparing ${fileItem.name} panels...`;
-					addDebug('info', `${fileItem.name}: detecting drawing panels.`);
-					const base64Image = await fileToBase64(fileItem.file);
-					units = await splitImageIntoPanels(base64Image);
 					totalImages += Math.max(units.length - 1, 0);
-					addDebug('info', `${fileItem.name}: detected ${units.length} panel${units.length === 1 ? '' : 's'}.`);
 				}
 
-				// Process each image
+				// Process each image unit
 				for (let j = 0; j < units.length; j++) {
 					const unit = units[j];
 					processedImages++;
 
-					// Update progress
-					if (totalImages > 0) {
-						uploadProgress = Math.round((processedImages / totalImages) * 100);
+					const progressUpdate = updateProgress(processedImages, totalImages, startTime);
+					uploadProgress = progressUpdate.progress;
+					estimatedTimeRemaining = progressUpdate.remaining;
 
-						// Estimate remaining time
-						const elapsedSeconds = (Date.now() - startTime) / 1000;
-						const avgTimePerImage = elapsedSeconds / processedImages;
-						const remainingImages = totalImages - processedImages;
-						const estimatedSeconds = Math.ceil(avgTimePerImage * remainingImages);
-						estimatedTimeRemaining = `~${estimatedSeconds} seconds remaining`;
+					const { plays, skipped } = await processImageUnit(unit, fileItem, j, units.length);
+
+					if (!skipped) {
+						extractedPlays = [...extractedPlays, ...plays];
 					}
-
-					const pageNum = fileItem.type === 'pdf' ? ` (page ${j + 1}/${units.length})` : '';
-					processingDetails = `Processing ${fileItem.name}${pageNum} (${processedImages}/${totalImages})...`;
-					const imageName =
-						fileItem.type === 'pdf'
-							? `${fileItem.name}#page-${j + 1}`
-							: `${fileItem.name}#segment-${unit.segmentIndex || j + 1}`;
-					addDebug('info', `Scanning ${imageName} (${processedImages}/${totalImages}).`);
-
-					const result = await extractPlaysFromImage(
-						unit.dataUrl,
-						imageName,
-						processedImages,
-						totalImages,
-						unit
-					);
-					if (result.skipped) {
-						addDebug('info', `${imageName}: skipped (${result.warning || 'no rows detected'}).`);
-						continue;
-					}
-
-					extractedPlays = [...extractedPlays, ...result.plays];
-					addDebug('success', `${imageName}: extracted ${result.plays.length} row${result.plays.length === 1 ? '' : 's'}.`);
 				}
-			} catch (e) {
-				isProcessing = false;
-				const error = e instanceof Error ? e : new Error(String(e));
-				errorMessage = `Failed to process ${fileItem.name}: ${error.message}`;
-				addDebug('error', `${fileItem.name}: ${error.message}`);
-				uploadState = 'error';
-				return;
 			}
+
+			// Store plays in sessionStorage for the editor page
+			sessionStorage.setItem('extractedPlays', JSON.stringify(extractedPlays));
+			sessionStorage.setItem('position', selectedPosition);
+
+			isProcessing = false;
+			addDebug('success', `Extraction complete. Total rows extracted: ${extractedPlays.length}.`);
+
+			// Navigate to editor
+			goto('/editor?position=' + selectedPosition);
+		} catch (e) {
+			isProcessing = false;
+			const message = e instanceof Error ? e.message : String(e);
+			errorMessage = `Failed to process files: ${message}`;
+			addDebug('error', message);
+			uploadState = 'error';
 		}
-
-		// Store plays in sessionStorage for the editor page
-		sessionStorage.setItem('extractedPlays', JSON.stringify(extractedPlays));
-		sessionStorage.setItem('position', selectedPosition);
-
-		isProcessing = false;
-		addDebug('success', `Extraction complete. Total rows extracted: ${extractedPlays.length}.`);
-
-		// Navigate to editor
-		goto('/editor?position=' + selectedPosition);
 	}
 
 	function handleChooseDifferent() {
@@ -501,7 +603,14 @@
 				</label>
 				<PositionSelector
 					selectedPosition={selectedPosition}
-					onSelect={(pos: string) => (selectedPosition = pos)}
+					onSelect={(pos: string) => {
+						// SECURITY: Validate position before accepting
+						if (ALLOWED_POSITIONS.includes(pos as Position)) {
+							selectedPosition = pos as Position;
+						} else {
+							addDebug('error', `Invalid position: ${pos}. Must be one of: ${ALLOWED_POSITIONS.join(', ')}`);
+						}
+					}}
 				/>
 			</div>
 

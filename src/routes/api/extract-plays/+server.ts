@@ -1,5 +1,18 @@
 import { buildPrompt } from '../../../prompt.js';
 import { routeTreeBase64 } from '../../../../route-tree-data.js';
+import { z } from 'zod';
+
+// SECURITY: Runtime validation schema for API requests
+const extractRequestSchema = z.object({
+	imageBase64: z.string().min(1, 'Image data is required'),
+	fileName: z.string().min(1, 'File name is required'),
+	position: z.enum(['FB', 'RB', 'QB', 'OL', 'WR', 'TE']), // Must be valid position
+	imageIndex: z.number().int().positive().optional(),
+	imageTotal: z.number().int().positive().optional(),
+	isSegmented: z.boolean().optional(),
+	segmentIndex: z.number().int().positive().optional(),
+	segmentTotal: z.number().int().positive().optional()
+});
 
 interface RawPlay {
 	col1?: unknown;
@@ -54,7 +67,10 @@ function extractBalancedJsonArray(text: string): string | null {
 }
 
 function parsePlays(textContent: string): ParseResult {
-	const cleaned = textContent.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+	const cleaned = textContent
+		.replace(/```json\n?/g, '')
+		.replace(/```\n?/g, '')
+		.trim();
 
 	try {
 		const direct = JSON.parse(cleaned);
@@ -96,22 +112,42 @@ function normalizePlays(rawPlays: RawPlay[]): RawPlay[] {
 		.filter((play) => play.col1 || play.col2 || play.col3 || play.col4);
 }
 
-export async function POST({ request }: { request: Request }) {
-	try {
-		const { imageBase64, fileName, position, imageIndex, imageTotal, isSegmented, segmentIndex, segmentTotal } = await request.json();
+export async function POST({ request }: { request: Request }): Promise<Response> {
+	// SECURITY: Validate request size to prevent DoS attacks (max 50MB)
+	const MAX_REQUEST_SIZE = 50 * 1024 * 1024; // 50MB
+	const contentLength = request.headers.get("content-length");
+	if (contentLength && parseInt(contentLength, 10) > MAX_REQUEST_SIZE) {
+		return new Response(
+			JSON.stringify({ error: "Request too large. Maximum size is 50MB." }),
+			{ status: 413, headers: { "Content-Type": "application/json" } }
+		);
+	}
 
-		if (!imageBase64 || !fileName || !position) {
-			return new Response(
-				JSON.stringify({ error: 'Missing required fields: imageBase64, fileName, position' }),
-				{ status: 400, headers: { 'Content-Type': 'application/json' } }
-			);
-		}
+	try {
+			const body = await request.json();
+
+			// SECURITY: Validate request payload with runtime schema
+			const validationResult = extractRequestSchema.safeParse(body);
+			if (!validationResult.success) {
+				return new Response(
+					JSON.stringify({
+						error: 'Invalid request',
+						details: validationResult.error.flatten()
+					}),
+					{ status: 400, headers: { 'Content-Type': 'application/json' } }
+				);
+			}
+
+			const { imageBase64, fileName, position, imageIndex, imageTotal, isSegmented, segmentIndex, segmentTotal } =
+				validationResult.data;
 
 		console.log(`Processing ${fileName} for ${position}...`);
 
 		// DIAGNOSTIC: Toggle this to false to use page mode for all requests
 		const useSegmentMode = true; // Set to false to test if segment mode prompt is the issue
-		const prompt = buildPrompt(position, { singleDiagramMode: useSegmentMode && Boolean(isSegmented) });
+		const prompt = buildPrompt(position, {
+			singleDiagramMode: useSegmentMode && Boolean(isSegmented)
+		});
 		const imageLabel = `image ${imageIndex ?? '?'} of ${imageTotal ?? '?'} for ${fileName}`;
 		const scopedInstructions = [
 			`REQUEST SCOPE: You are processing ${imageLabel}.`,
@@ -145,27 +181,29 @@ export async function POST({ request }: { request: Request }) {
 						headers: { 'Content-Type': 'application/json' },
 						body: JSON.stringify({
 							model: process.env.LOCAL_MOCR_MODEL || 'rednote-hilab/dots.mocr-svg',
-							messages: [{
-								role: 'user',
-								content: [
-									{
-										type: 'text',
-										text: `${prompt}\n\n${scopedInstructions}\n\nREFERENCE: First image is a route tree legend for understanding only. Do NOT extract it.`
-									},
-									{
-										type: 'image_url',
-										image_url: { url: `data:image/png;base64,${routeTreeBase64}` }
-									},
-									{
-										type: 'text',
-										text: `PLAYBOOK: Extract plays from this image. Attempt ${attempt}.`
-									},
-									{
-										type: 'image_url',
-										image_url: { url: `data:image/png;base64,${imageBase64}` }
-									}
-								]
-							}],
+							messages: [
+								{
+									role: 'user',
+									content: [
+										{
+											type: 'text',
+											text: `${prompt}\n\n${scopedInstructions}\n\nREFERENCE: First image is a route tree legend for understanding only. Do NOT extract it.`
+										},
+										{
+											type: 'image_url',
+											image_url: { url: `data:image/png;base64,${routeTreeBase64}` }
+										},
+										{
+											type: 'text',
+											text: `PLAYBOOK: Extract plays from this image. Attempt ${attempt}.`
+										},
+										{
+											type: 'image_url',
+											image_url: { url: `data:image/png;base64,${imageBase64}` }
+										}
+									]
+								}
+							],
 							max_tokens: 4000,
 							temperature: 0
 						})
@@ -207,24 +245,26 @@ ${scopedInstructions}
 
 REFERENCE: First image is a route tree legend for understanding only. Do NOT extract it.`,
 							cache_control: { type: 'ephemeral' },
-							messages: [{
-								role: 'user',
-								content: [
-									{
-										type: 'image',
-										source: { type: 'base64', media_type: 'image/png', data: routeTreeBase64 },
-										cache_control: { type: 'ephemeral' }
-									},
-									{
-										type: 'text',
-										text: `PLAYBOOK: Extract plays from this image. Attempt ${attempt}.`
-									},
-									{
-										type: 'image',
-										source: { type: 'base64', media_type: 'image/png', data: imageBase64 }
-									}
-								]
-							}]
+							messages: [
+								{
+									role: 'user',
+									content: [
+										{
+											type: 'image',
+											source: { type: 'base64', media_type: 'image/png', data: routeTreeBase64 },
+											cache_control: { type: 'ephemeral' }
+										},
+										{
+											type: 'text',
+											text: `PLAYBOOK: Extract plays from this image. Attempt ${attempt}.`
+										},
+										{
+											type: 'image',
+											source: { type: 'base64', media_type: 'image/png', data: imageBase64 }
+										}
+									]
+								}
+							]
 						})
 					});
 
@@ -232,7 +272,10 @@ REFERENCE: First image is a route tree legend for understanding only. Do NOT ext
 						const data = await response.json();
 						textContent = data.content?.[0]?.text || '[]';
 						success = true;
-						console.log(`Claude success for ${fileName} on attempt ${attempt} - cache usage:`, data.usage);
+						console.log(
+							`Claude success for ${fileName} on attempt ${attempt} - cache usage:`,
+							data.usage
+						);
 					} else {
 						console.error(`Claude error ${response.status}:`, await response.text());
 					}
@@ -252,22 +295,36 @@ REFERENCE: First image is a route tree legend for understanding only. Do NOT ext
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
-							'Authorization': `Bearer ${moonshotKey}`
+							Authorization: `Bearer ${moonshotKey}`
 						},
 						body: JSON.stringify({
 							model: 'kimi-k2.5',
 							max_tokens: 8000,
 							temperature: 1,
-							messages: [{
-								role: 'user',
-								content: [
-									{ type: 'text', text: 'REFERENCE IMAGE: First image is a route tree legend for understanding only. Do NOT extract it as a play.' },
-									{ type: 'image_url', image_url: { url: `data:image/png;base64,${routeTreeBase64}` } },
-									{ type: 'text', text: `PLAYBOOK IMAGE: Extract plays from this image only. Attempt ${attempt}.` },
-									{ type: 'image_url', image_url: { url: `data:image/png;base64,${imageBase64}` } },
-									{ type: 'text', text: `${prompt}\n\n${scopedInstructions}` }
-								]
-							}]
+							messages: [
+								{
+									role: 'user',
+									content: [
+										{
+											type: 'text',
+											text: 'REFERENCE IMAGE: First image is a route tree legend for understanding only. Do NOT extract it as a play.'
+										},
+										{
+											type: 'image_url',
+											image_url: { url: `data:image/png;base64,${routeTreeBase64}` }
+										},
+										{
+											type: 'text',
+											text: `PLAYBOOK IMAGE: Extract plays from this image only. Attempt ${attempt}.`
+										},
+										{
+											type: 'image_url',
+											image_url: { url: `data:image/png;base64,${imageBase64}` }
+										},
+										{ type: 'text', text: `${prompt}\n\n${scopedInstructions}` }
+									]
+								}
+							]
 						})
 					});
 
@@ -293,22 +350,36 @@ REFERENCE: First image is a route tree legend for understanding only. Do NOT ext
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
-							'Authorization': `Bearer ${deepseekKey}`
+							Authorization: `Bearer ${deepseekKey}`
 						},
 						body: JSON.stringify({
 							model: 'deepseek-chat',
 							max_tokens: 8000,
 							temperature: 1,
-							messages: [{
-								role: 'user',
-								content: [
-									{ type: 'text', text: 'REFERENCE IMAGE: First image is a route tree legend for understanding only. Do NOT extract it as a play.' },
-									{ type: 'image_url', image_url: { url: `data:image/png;base64,${routeTreeBase64}` } },
-									{ type: 'text', text: `PLAYBOOK IMAGE: Extract plays from this image only. Attempt ${attempt}.` },
-									{ type: 'image_url', image_url: { url: `data:image/png;base64,${imageBase64}` } },
-									{ type: 'text', text: `${prompt}\n\n${scopedInstructions}` }
-								]
-							}]
+							messages: [
+								{
+									role: 'user',
+									content: [
+										{
+											type: 'text',
+											text: 'REFERENCE IMAGE: First image is a route tree legend for understanding only. Do NOT extract it as a play.'
+										},
+										{
+											type: 'image_url',
+											image_url: { url: `data:image/png;base64,${routeTreeBase64}` }
+										},
+										{
+											type: 'text',
+											text: `PLAYBOOK IMAGE: Extract plays from this image only. Attempt ${attempt}.`
+										},
+										{
+											type: 'image_url',
+											image_url: { url: `data:image/png;base64,${imageBase64}` }
+										},
+										{ type: 'text', text: `${prompt}\n\n${scopedInstructions}` }
+									]
+								}
+							]
 						})
 					});
 
@@ -326,7 +397,8 @@ REFERENCE: First image is a route tree legend for understanding only. Do NOT ext
 			}
 
 			if (!success) {
-				lastError = 'All APIs failed. Configure USE_LOCAL_MOCR=true with local server, or ANTHROPIC_API_KEY, MOONSHOT_API_KEY, or DEEPSEEK_API_KEY for cloud APIs.';
+				lastError =
+					'All APIs failed. Configure USE_LOCAL_MOCR=true with local server, or ANTHROPIC_API_KEY, MOONSHOT_API_KEY, or DEEPSEEK_API_KEY for cloud APIs.';
 				continue;
 			}
 
@@ -338,12 +410,17 @@ REFERENCE: First image is a route tree legend for understanding only. Do NOT ext
 				continue;
 			}
 
-			console.log(`Parsed ${parsed.plays.length} plays from attempt ${attempt} for ${imageLabel}:`, JSON.stringify(parsed.plays, null, 2));
+			console.log(
+				`Parsed ${parsed.plays.length} plays from attempt ${attempt} for ${imageLabel}:`,
+				JSON.stringify(parsed.plays, null, 2)
+			);
 
 			const normalized = normalizePlays(parsed.plays);
 			if (normalized.length === 0) {
 				lastError = 'Model returned empty extraction.';
-				console.warn(`Empty extraction on attempt ${attempt} for ${imageLabel}. After normalization, 0 plays remained from ${parsed.plays.length} parsed.`);
+				console.warn(
+					`Empty extraction on attempt ${attempt} for ${imageLabel}. After normalization, 0 plays remained from ${parsed.plays.length} parsed.`
+				);
 				continue;
 			}
 
@@ -364,11 +441,10 @@ REFERENCE: First image is a route tree legend for understanding only. Do NOT ext
 			);
 		}
 
-		return new Response(
-			JSON.stringify({ success: true, plays }),
-			{ status: 200, headers: { 'Content-Type': 'application/json' } }
-		);
-
+		return new Response(JSON.stringify({ success: true, plays }), {
+			status: 200,
+			headers: { 'Content-Type': 'application/json' }
+		});
 	} catch (error) {
 		console.error('Server error:', error);
 		return new Response(
@@ -379,12 +455,22 @@ REFERENCE: First image is a route tree legend for understanding only. Do NOT ext
 }
 
 export async function OPTIONS() {
+	// SECURITY: Restrict CORS to allowed origins only, not wildcard
+	const allowedOrigins = process.env.ALLOWED_ORIGINS
+		? process.env.ALLOWED_ORIGINS.split(',').map((o) => o.trim())
+		: ['http://localhost:5174', 'http://localhost:5173']; // Default local dev origins
+
+	// For now, allow the first allowed origin (in production, this should check request origin)
+	// TODO: Implement proper origin checking from request headers
+	const origin = allowedOrigins[0] || 'http://localhost:5174';
+
 	return new Response(null, {
 		status: 204,
 		headers: {
-			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Origin': origin,
 			'Access-Control-Allow-Methods': 'POST, OPTIONS',
-			'Access-Control-Allow-Headers': 'Content-Type'
+			'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+			'Access-Control-Max-Age': '86400' // 24 hours
 		}
 	});
 }
