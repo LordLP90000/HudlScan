@@ -18,7 +18,12 @@
       "Bash(curl:*)",
       "Bash(taskkill //F //IM python.exe)",
       "Bash(dir C:UsersantonHudlScannermodelsdots.mocr-svg)",
-      "Bash(docker compose:*)"
+      "Bash(docker compose:*)",
+      "mcp__plugin_claude-mem_mcp-search__smart_outline"
     ]
-  }
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "svelte"
+  ]
 }
