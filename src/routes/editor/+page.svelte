@@ -126,7 +126,7 @@
 		// Create worksheet data with headers
 		const worksheetData = [
 			['Formation/Play', 'Route/Blocking'],
-			...plays.map(play => [play.formation, play.route])
+			...plays.map((play) => [play.formation, play.route])
 		];
 
 		// Create worksheet and workbook
@@ -137,7 +137,7 @@
 		// Set column widths
 		worksheet['!cols'] = [
 			{ wch: 30 }, // Formation/Play column width
-			{ wch: 25 }  // Route/Blocking column width
+			{ wch: 25 } // Route/Blocking column width
 		];
 
 		// Generate filename with position and date
@@ -157,11 +157,13 @@
 	<Nav links={false} cta={false} backButton />
 
 	<!-- Sticky Header -->
-	<div class="sticky top-0 z-10 border-b border-zinc-800 bg-zinc-900/95 backdrop-blur px-4 py-3 flex justify-between items-center gap-2 flex-wrap">
+	<div
+		class="sticky top-0 z-10 flex flex-wrap items-center justify-between gap-2 border-b border-zinc-800 bg-zinc-900/95 px-4 py-3 backdrop-blur"
+	>
 		<div class="flex items-center gap-4">
-			<a href="/" class="text-zinc-400 hover:text-white text-sm transition-colors">← Home</a>
+			<a href="/" class="text-sm text-zinc-400 transition-colors hover:text-white">← Home</a>
 			<div>
-				<div class="font-bold text-sm">Playcalling Sheet Editor</div>
+				<div class="text-sm font-bold">Playcalling Sheet Editor</div>
 				<div class="text-xs text-zinc-500">{plays.length} plays extracted - {positionName}</div>
 			</div>
 		</div>
@@ -174,7 +176,11 @@
 
 	<!-- Success Banner -->
 	{#if showSuccessBanner}
-		<Banner variant="success" message="Plays extracted! Review and edit before exporting." onDismiss={() => (showSuccessBanner = false)} />
+		<Banner
+			variant="success"
+			message="Plays extracted! Review and edit before exporting."
+			onDismiss={() => (showSuccessBanner = false)}
+		/>
 	{/if}
 
 	<!-- Plays Table -->
@@ -184,27 +190,27 @@
 
 	<!-- Add Row Form (when Add Row is clicked) -->
 	{#if showAddRow}
-		<div class="mx-4 mb-4 border border-zinc-800 rounded-xl bg-zinc-900 p-4">
-			<h4 class="font-bold text-sm mb-3">Add New Play</h4>
+		<div class="mx-4 mb-4 rounded-xl border border-zinc-800 bg-zinc-900 p-4">
+			<h4 class="mb-3 text-sm font-bold">Add New Play</h4>
 			<div class="grid gap-3">
 				<div>
-					<label for="formation" class="text-xs text-zinc-400 mb-1 block">Formation/Play</label>
+					<label for="formation" class="mb-1 block text-xs text-zinc-400">Formation/Play</label>
 					<input
 						id="formation"
 						type="text"
 						bind:value={newFormation}
 						placeholder="e.g., 2x2 Twin"
-						class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-orange-500"
+						class="w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none"
 					/>
 				</div>
 				<div>
-					<label for="route" class="text-xs text-zinc-400 mb-1 block">Route/Blocking</label>
+					<label for="route" class="mb-1 block text-xs text-zinc-400">Route/Blocking</label>
 					<input
 						id="route"
 						type="text"
 						bind:value={newRoute}
 						placeholder="e.g., Flat"
-						class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-orange-500"
+						class="w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none"
 					/>
 				</div>
 				<div class="flex gap-2">

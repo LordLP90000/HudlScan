@@ -1,65 +1,65 @@
-# Svelte library
+# HudlScanner
 
-Everything you need to build a Svelte library, powered by [`sv`](https://npmjs.com/package/sv).
+Extract American football plays from playbook images using vision-language models. Upload playbook pages (PNG/PDF), pick a position, and get a structured, editable play table you can export to Excel.
 
-Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
+## Stack
 
-## Creating a project
+- **Frontend/API:** SvelteKit (Svelte 5, TypeScript, Tailwind CSS), deployed on Vercel
+- **Extraction models:** Local dots.mocr (Docker/vLLM) with cloud fallbacks (Anthropic Claude → Moonshot Kimi → DeepSeek)
+- **ML pipeline:** Python scripts for building training data and fine-tuning position-specific models
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
+## Getting started
 
 ```sh
-# recreate this project
-npx sv@0.15.1 create --template library --types ts --add prettier eslint vitest="usages:unit,component" playwright tailwindcss="plugins:typography,forms" sveltekit-adapter="adapter:vercel" mcp="ide:claude-code,vscode+setup:local" --install npm HudlScanner
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
+npm install
+cp .env.example .env.local   # then fill in your API keys
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+The app runs at http://localhost:5173 (or 5174). At least one extraction backend must be configured in `.env.local`:
 
-## Building
+| Variable            | Purpose                                    |
+| ------------------- | ------------------------------------------ |
+| `USE_LOCAL_MOCR`    | `true` to use the local Docker model first |
+| `LOCAL_MOCR_URL`    | Local vLLM server URL (default `:8000`)    |
+| `ANTHROPIC_API_KEY` | Claude (primary cloud fallback)            |
+| `MOONSHOT_API_KEY`  | Moonshot Kimi (secondary fallback)         |
+| `DEEPSEEK_API_KEY`  | DeepSeek (tertiary fallback)               |
+| `ALLOWED_ORIGINS`   | Comma-separated CORS allowlist for the API |
 
-To build your library:
+## Commands
 
 ```sh
-npm pack
+npm run dev        # dev server
+npm run build      # production build
+npm run preview    # preview production build
+npm run check      # svelte-check (type checking)
+npm run lint       # prettier + eslint
+npm run format     # prettier --write
+npm run test:unit  # vitest unit tests
+npm run test:e2e   # playwright e2e tests (run `npx playwright install` once first)
+npm run test       # unit + e2e
 ```
 
-To create a production version of your showcase app:
+## Project layout
 
-```sh
-npm run build
-```
+| Path                                | Purpose                                                                   |
+| ----------------------------------- | ------------------------------------------------------------------------- |
+| `src/routes/`                       | Pages (`/`, `/upload`, `/editor`, marketing pages)                        |
+| `src/routes/api/extract-plays/`     | Extraction API endpoint                                                   |
+| `src/lib/components/`               | UI components                                                             |
+| `src/lib/prompt.js`                 | Vision prompt builder + playbook vocabulary                               |
+| `src/lib/server/extraction/`        | Provider chain, response parsing, request schema                          |
+| `src/lib/server/route-tree-data.js` | Base64 route tree legend (regenerate: `python scripts/gen_route_tree.py`) |
+| `scripts/`                          | Python ML pipeline (training data, fine-tuning, annotation)               |
+| `training/`                         | Training images and JSONL datasets                                        |
+| `docker/`                           | Local dots.mocr inference server (vLLM)                                   |
+| `hf-space/`                         | Hugging Face Spaces inference server                                      |
+| `docs/`                             | Setup guides, design docs, mockups                                        |
 
-You can preview the production build with `npm run preview`.
+## Docs
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
-
-## Publishing
-
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```sh
-npm publish
-```
+- [docs/QUICK_START.md](docs/QUICK_START.md) — quick start guide
+- [docs/BACKEND_SETUP_GUIDE.md](docs/BACKEND_SETUP_GUIDE.md) — backend setup
+- [docs/LOCAL_AI_SETUP.md](docs/LOCAL_AI_SETUP.md) — local model via Docker
+- [CLAUDE.md](CLAUDE.md) — full project reference (training pipeline, concept rules, hardware)

@@ -3,12 +3,15 @@
 ## Problems Identified
 
 ### 1. Model Loading Failure
+
 **Error:** `No module named 'flash_attn'`
+
 - The model config hardcoded `"attn_implementation": "flash_attention_2"` in the vision encoder
 - Flash-attn is a compiled CUDA package that takes 5-10 minutes to build from source
 - Initial mock patches failed because they weren't intercepting the import chain early enough
 
 ### 2. Port & Network - Actually Working
+
 - Port binding was correct (8001:8000 externally to internally)
 - The `/health` endpoint returned 200 but showed `"status": "error"` because model was None
 - The localhost issue wasn't connectivity—it was that the model never loaded, so `/v1/chat/completions` returned 500
@@ -16,7 +19,9 @@
 ## Solutions Implemented
 
 ### 1. In-Memory Config Patching (simple_server.py)
+
 Wrapped Python's built-in `open()` function to intercept `config.json` reads:
+
 ```python
 def patched_open(*args, **kwargs):
     result = _original_open(*args, **kwargs)
@@ -34,11 +39,13 @@ def patched_open(*args, **kwargs):
                     pass
                 return content
 ```
+
 - Patches before transformers parses the config
 - Works even with read-only mounted volumes
 - Replaces `flash_attention_2` with `eager` (slower but doesn't require CUDA-compiled packages)
 
 ### 2. Explicit Attention Implementation Parameter
+
 ```python
 model = AutoModelForCausalLM.from_pretrained(
     MODEL_PATH,
@@ -50,13 +57,16 @@ model = AutoModelForCausalLM.from_pretrained(
 ```
 
 ### 3. Environment Variables
+
 ```dockerfile
 ENV TRANSFORMERS_USE_FLASH_ATTENTION=false
 ```
+
 - Tells transformers to skip flash-attn optimization (though config patching is the real solution)
 
 ### 4. Entrypoint Fix
-- Changed from `echo` commands (which failed with "python: not found") to `printf` 
+
+- Changed from `echo` commands (which failed with "python: not found") to `printf`
 - Ensures Python 3 path is correct: `python3` instead of `python`
 
 ## Current Status
@@ -69,48 +79,52 @@ ENV TRANSFORMERS_USE_FLASH_ATTENTION=false
 ## How to Call the Model for ML Inference
 
 ### Endpoint
+
 ```
 POST http://localhost:8001/v1/chat/completions
 ```
 
 ### Request Format
+
 ```json
 {
-  "messages": [
-    {
-      "role": "user",
-      "content": [
-        {
-          "type": "text",
-          "text": "What is in this image?"
-        },
-        {
-          "type": "image_url",
-          "image_url": {
-            "url": "data:image/png;base64,<BASE64_PNG_DATA>"
-          }
-        }
-      ]
-    }
-  ]
+	"messages": [
+		{
+			"role": "user",
+			"content": [
+				{
+					"type": "text",
+					"text": "What is in this image?"
+				},
+				{
+					"type": "image_url",
+					"image_url": {
+						"url": "data:image/png;base64,<BASE64_PNG_DATA>"
+					}
+				}
+			]
+		}
+	]
 }
 ```
 
 ### Response Format
+
 ```json
 {
-  "choices": [
-    {
-      "message": {
-        "content": "<OCR_RESULT_TEXT>",
-        "role": "assistant"
-      }
-    }
-  ]
+	"choices": [
+		{
+			"message": {
+				"content": "<OCR_RESULT_TEXT>",
+				"role": "assistant"
+			}
+		}
+	]
 }
 ```
 
 ### Python Example
+
 ```python
 import requests
 import base64
@@ -146,6 +160,7 @@ print(text)
 ```
 
 ### cURL Example
+
 ```bash
 # Encode image to base64 first
 BASE64_IMG=$(base64 < image.png | tr -d '\n')
@@ -176,6 +191,7 @@ curl -X POST http://localhost:8001/v1/chat/completions \
 ## What's Next for Production
 
 1. **Replace Flask with Gunicorn** — Current dev server not suitable for production
+
    ```dockerfile
    RUN pip install gunicorn
    CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:8000", "simple_server:app"]

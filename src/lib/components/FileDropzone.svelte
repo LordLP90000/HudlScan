@@ -37,7 +37,7 @@
 </script>
 
 <div
-	class="border-2 border-dashed rounded-xl text-center text-zinc-400 py-6 text-sm cursor-pointer transition-all {isDragging
+	class="cursor-pointer rounded-xl border-2 border-dashed py-6 text-center text-sm text-zinc-400 transition-all {isDragging
 		? 'border-orange-500 bg-orange-500/10'
 		: 'border-zinc-800 hover:border-zinc-700'}"
 	ondrop={handleDrop}
@@ -46,7 +46,14 @@
 	role="button"
 	tabindex="0"
 >
-	<input type="file" accept=".png,.jpg,.jpeg,.pdf,.webp" {multiple} onchange={handleFileInput} class="hidden" id="file-input" />
+	<input
+		type="file"
+		accept=".png,.jpg,.jpeg,.pdf,.webp"
+		{multiple}
+		onchange={handleFileInput}
+		class="hidden"
+		id="file-input"
+	/>
 	<label for="file-input" class="cursor-pointer">
 		Click to upload your playbook<br />
 		<span class="text-xs text-zinc-600">Supports PNG, JPG, PDF, WEBP - Multiple files allowed</span>

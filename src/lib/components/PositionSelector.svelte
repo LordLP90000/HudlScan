@@ -10,13 +10,14 @@
 </script>
 
 <div class="mb-3">
-	<div class="text-sm font-bold mb-2">Select Your Position</div>
+	<div class="mb-2 text-sm font-bold">Select Your Position</div>
 	<div class="grid grid-cols-8 gap-1.5">
-		{#each positions as position}
+		{#each positions as position (position)}
 			<button
-				class="text-center rounded-lg border py-2 text-xs transition-all {selectedPosition === position
-					? 'bg-orange-500 border-orange-500 text-white font-bold'
-					: 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'}"
+				class="rounded-lg border py-2 text-center text-xs transition-all {selectedPosition ===
+				position
+					? 'border-orange-500 bg-orange-500 font-bold text-white'
+					: 'border-zinc-800 bg-zinc-900 text-zinc-400 hover:border-zinc-700'}"
 				onclick={() => onSelect(position)}
 			>
 				{position}

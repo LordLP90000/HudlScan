@@ -5,6 +5,7 @@
 ## Changes Made to `extract-plays.js`
 
 Updated the AI prompt to better handle football playbook pages with:
+
 - Concept-based plays (STICK, CROSS, GLANCE, SPACING, SMASH, etc.)
 - Receiver numbering system (#1, #2, #3, 2-back/RB)
 - Formation labels (2x2, 3x1, stacked, etc.)
@@ -20,22 +21,23 @@ Updated the AI prompt to better handle football playbook pages with:
 ## Expected Output Format:
 
 ```json
-[
-  {"col1": "Formation", "col2": "Route or ''", "col3": "Concept", "col4": "Blocking or ''"}
-]
+[{ "col1": "Formation", "col2": "Route or ''", "col3": "Concept", "col4": "Blocking or ''" }]
 ```
 
 ## Notes:
+
 - col1: Formation name (exclude year like "2026")
 - col2: Route name if running a route, empty string if blocking
 - col3: Concept from page header
 - col4: Blocking description if blocking, empty string if running a route
 
 ## Testing:
+
 - Vite dev server runs on localhost:3001
 - Netlify functions need Netlify CLI or deployment to test
 - Nodist issue prevents running `netlify dev` locally - use deployment or fix nodist
 
 ## API Key:
+
 - MOONSHOT_API_KEY is in .env file
 - Ensure environment variable is set in Netlify deployment

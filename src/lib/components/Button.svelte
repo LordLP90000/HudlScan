@@ -12,14 +12,25 @@
 		size?: 'md' | 'lg';
 	}
 
-	let { variant = 'primary', type = 'button', onclick, href, children, class: className = '', fullWidth = false, size = 'md' }: Props = $props();
+	let {
+		variant = 'primary',
+		type = 'button',
+		onclick,
+		href,
+		children,
+		class: className = '',
+		fullWidth = false,
+		size = 'md'
+	}: Props = $props();
 
 	const sizeClasses = {
 		md: 'px-3.5 py-2.5 text-sm',
 		lg: 'px-6 py-3 text-base'
 	};
 
-	const baseClasses = `inline-block rounded-xl font-bold transition-all ${sizeClasses[size]}`;
+	const baseClasses = $derived(
+		`inline-block rounded-xl font-bold transition-all ${sizeClasses[size]}`
+	);
 
 	const variantClasses = {
 		primary: 'bg-orange-500 text-white hover:bg-orange-600',
@@ -41,14 +52,18 @@
 {#if href}
 	<a
 		{href}
-		class="{baseClasses} {variantClasses[variant]} {fullWidth ? 'w-full text-center' : ''} {className}"
+		class="{baseClasses} {variantClasses[variant]} {fullWidth
+			? 'w-full text-center'
+			: ''} {className}"
 	>
 		{@render children()}
 	</a>
 {:else}
 	<button
 		{type}
-		class="{baseClasses} {variantClasses[variant]} {fullWidth ? 'w-full text-center' : ''} {className}"
+		class="{baseClasses} {variantClasses[variant]} {fullWidth
+			? 'w-full text-center'
+			: ''} {className}"
 		onclick={handleClick}
 	>
 		{@render children()}

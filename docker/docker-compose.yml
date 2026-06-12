@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: hudlmcr-inference
     ports:
-      - "8001:8000"
+      - '8001:8000'
     environment:
       - MODEL_PATH=/models/dots.mocr-svg
       - PORT=8000

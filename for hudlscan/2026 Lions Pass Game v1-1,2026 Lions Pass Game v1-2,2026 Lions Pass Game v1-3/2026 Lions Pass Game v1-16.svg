@@ -1,0 +1,502 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" width="596" height="842" viewBox="0 0 596 842">
+<defs>
+<clipPath id="clip_1">
+<path d="M0 0H595.5V842.25H0Z" clip-rule="evenodd"/>
+</clipPath>
+</defs>
+<path transform="matrix(.75,0,0,.75,0,0)" d="M0 0H794V1123H0Z" fill="#ffffff"/>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 72)" font-size="34.666669" font-family="Arial"><tspan y="32.516927" x="147.75708 172.78472 197.81235 224.76909 247.88454 271 294.11546 319.14308">DROPBACK</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 72)" font-size="34.666669" font-family="Arial"><tspan y="32.516927" x="342.2585"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 72)" font-size="34.666669" font-family="Arial"><tspan y="32.516927" x="351.88716 378.84388 401.95933 430.82826">GAME</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 72)" font-size="34.666669" font-family="Arial"><tspan y="32.516927" x="453.9437"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 110.381839)" font-size="22.666666" font-family="Arial" font-weight="bold"><tspan y="39.927736" x="0 17.622757 31.462098 47.823717 64.18533 80.54695">GLANCE</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 110.381839)" font-size="22.666666" font-family="Arial" font-weight="bold"><tspan y="39.927736" x="95.65849"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 110.381839)" font-size="22.666666" font-family="Arial" font-weight="bold"><tspan y="39.927736" x="101.953128"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="24.423829" x="0 10.584274 19.536896 23.608872 31.75998 39.911088">Rules:</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial"><tspan y="24.423829" x="44.791734"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="24.423829" x="48.86371 57.014818 65.165927">2x2</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="24.423829" x="73.31703"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial"><tspan y="24.423829" x="77.38901 87.97328 96.12439 104.2755 111.60362 119.75473 127.90584">Concept</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial"><tspan y="24.423829" x="131.97782"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial"><tspan y="24.423829" x="136.04979 144.2009">on</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial"><tspan y="24.423829" x="152.352"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial"><tspan y="24.423829" x="156.42398 166.19959 177.59969 188.18396 198.76824 209.35251 219.12812 229.44742">BOUNDARY</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial"><tspan y="24.423829" x="239.22303">,</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial"><tspan y="24.423829" x="243.295"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="24.423829" x="247.36698 255.51808 263.6692">3x1</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="24.423829" x="271.8203"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial"><tspan y="24.423829" x="275.89228 286.47657 294.62767 302.77876 310.10688 318.258 326.40913">Concept</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial"><tspan y="24.423829" x="330.48109"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial"><tspan y="24.423829" x="334.55305 342.70417">on</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial"><tspan y="24.423829" x="350.8553"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial"><tspan y="24.423829" x="354.92726 363.07838 367.95899 378.54328 388.31889 398.90315 408.67878 412.75074 422.52635 432.30195">3-RECEIVER</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial"><tspan y="24.423829" x="442.88624"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial"><tspan y="24.423829" x="446.9582 454.28633 457.54249 465.69358 473.84468">side.</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 150.86328)" font-size="14.666667" font-family="Arial"><tspan y="24.423829" x="477.91667"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 185.4082)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="0 8.151108 16.302216">2x2</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 185.4082)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="24.453324"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 185.4082)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="28.5253 37.47792 46.430543 52.13417 65.165927 73.31703 78.19768 82.26965 91.222278 100.1749">Formation:</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 185.4082)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="105.05554"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 211.95508)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="24">&#x25cf;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 211.95508)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="32.852434"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 211.95508)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="48 58.584276 67.536899 76.48952 85.44214 94.39476 102.54587 108.2495">Boundary</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 211.95508)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="116.400608"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 211.95508)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="120.47258 125.353229 135.9375 144.89012 153.84275 161.99385 170.14496 179.09758">(Concept</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 211.95508)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="183.97823"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 211.95508)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="188.0502 197.8258 201.89778 210.8504 219.00151 223.88216">Side):</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 211.95508)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="228.7628"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="72">&#x25cb;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="80.85243"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="96 104.15111 112.302219">#1:</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="116.37419"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="120.44617 131.84627 139.99738 149.77298 160.35726 170.94153">GLANCE</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="180.71714"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="184.78911 189.66976 197.82086 205.97197 210.04395">route</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="218.19506"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="222.26703">&#x2014;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="236.92328"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="240.99526 249.14636 257.2975 262.17814 270.32923">10-12</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="278.48036"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="282.5523 289.88044 298.03157 302.9122 311.0633 318.39143">yards,</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="322.46339"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="326.53538 333.8635 342.0146 346.89527 350.96723 354.2234 361.5515 369.7026">vertical</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="372.95875"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="377.03074 381.91139 390.0625 393.31864 401.46974 409.62086 416.94898 425.1001">release,</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="429.17207"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="433.24403 443.8283 447.08445">win</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="455.23558"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="459.30757 462.56373 470.7148 478.04295 481.29908 489.4502">inside</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="497.6013"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="501.67329 504.92945 513.08059 520.4087 528.5598 533.4405 541.59158 549.7427">leverage</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="557.89376"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="561.9657 569.2938">vs</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="576.62197"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="96 106.584278 116.35988">CB,</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="120.431858"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="124.50383 131.83196 135.90393 144.05504">stay</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="151.38317"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="155.45514 163.60625 171.75736 175.82933 186.4136 194.56472 202.71582">between</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="210.86693"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="214.9389 222.26703 230.41814 234.49011 242.64122 246.7132 249.96935 258.12046">safeties</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="265.44859"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="269.52058 277.6717 285.8228">and</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="293.97389"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="298.04585 301.302 304.55818 312.7093 320.8604 329.01155 337.16267 344.49079 351.8189 359.97 364.85066 372.17878">linebackers,</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="376.25068"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="380.32267 384.39466 387.6508 395.80189">find</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="403.953"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="408.02497 412.09693 420.24806">the</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="428.39918"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="432.47114 443.05543 446.31156 454.46266 462.61378 470.7649">window</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 226.50196)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="481.34919"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="72">&#x25cb;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="80.85243"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="96 104.15111 112.302219">#2:</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="116.37419"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="120.44617 134.27944 144.86371 154.63932 164.41492">WHEEL</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="172.56603"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="176.638 181.51865 189.66976 197.82086 201.89284">route</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="210.04395"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="214.11592">&#x2014;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="228.77217"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="232.84415 246.67742 249.93357">Win</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="258.08467"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="262.15666 266.22865 274.37977">the</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="282.53083"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="286.6028 294.7539 302.90504 306.977 314.3051 317.56129 325.7124 333.86354">outside,</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="337.9355"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="342.00746 350.15858 358.30967 365.6378">push</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="373.78889"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="377.86088 385.189 393.3401 398.22077 402.29273 405.5489 412.877 421.0281">vertical</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="424.28425"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="428.35624 436.50733">up</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="444.65846"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="448.7304 456.05854 459.3147 467.4658 475.61689 478.87306 482.1292 490.2803">sideline</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 255.59473)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="498.43144"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="72">&#x25cb;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="80.85243"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="96 106.584278 116.35988">RB:</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="120.431858"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="124.50383 133.45645 141.60756 150.29462">FLAT</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="159.24724"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="163.31922 167.39119">to</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="175.5423"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="179.61428 187.76538 195.91649 204.0676 212.2187 220.36981 228.52092 233.40157">boundary</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="240.72969"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="244.80167">&#x2014;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="259.45793"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="263.5299 271.68104 276.56169">2-3</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="284.71278"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="288.78474 296.11286 304.26399 309.14463">yard</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="317.29573"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="321.36769 329.5188 337.66993 345.821 349.893 358.0441">depth,</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="362.1161"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="366.18806 374.33918 382.49028 387.3709 390.62709 397.9552 406.1063 414.2574 418.32939 426.48048">horizontal</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="429.73664"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="433.8086 441.13673 445.20869 450.08937 458.24046 462.31245 469.64057">stretch</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 270.14064)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="477.7917"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 284.68653)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="24">&#x25cf;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 284.68653)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="32.852434"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 284.68653)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="48 56.95262 61.024599 69.175708 73.24768">Field</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 284.68653)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="82.2003"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 284.68653)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="86.27228 91.15292 101.7372 109.888309 118.03941 126.19052 134.34163 138.4136 147.36623 155.51734 160.39798">(Backside):</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 284.68653)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="165.27863"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="72">&#x25cb;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="80.85243"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="96 104.15111 112.302219">#1:</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="116.37419"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="120.44617 131.03044 135.10242 144.05504 154.63932">HITCH</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="165.22359"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="169.29557 174.17621 182.32732 190.47843 194.5504">route</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="202.7015"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="206.77349">&#x2014;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="221.42974"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="225.50171">5</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="233.65282"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="237.7248 245.05292 253.20403 258.08467 266.23579 273.5639">yards,</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="277.63587"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="281.70787 289.03599 292.2921">sit</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="296.3641"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="300.4361 303.69227">in</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="311.84333"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="315.9153 324.0664 328.94709 337.09819 344.4263">grass</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 299.23243)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="351.75444"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="72">&#x25cb;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="80.85243"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="96 104.15111 112.302219">#2:</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="116.37419"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="120.44617 130.22177 138.37288 149.77298">SLOT</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="158.7256"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="162.79758 170.94095 180.71656 191.30083">FADE</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="201.07643"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="205.1484">&#x2014;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="219.80466"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="223.87664 237.7099 240.96605">Win</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="249.11716"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="253.18914 261.34025 269.49134 273.5633 280.89143 284.14759 292.2987 300.44984">outside,</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="304.5218"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="308.59376 316.74488 320.81684 324.8888 333.0399 340.368">attack</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="347.69618"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="351.76817 359.91926 367.24739 375.3985">over</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="380.27915"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="384.35115 394.93544 404.711">CB,</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="408.78297"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="412.85496 421.00605 429.15718 436.4853">push</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="444.6364"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="448.70838 456.0365 464.18763 469.06825 473.14024 476.39637 483.7245 491.8756">vertical</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 313.77833)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="495.13179"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 340.32618)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="0 8.151108 16.302216">3x1</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 340.32618)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="24.453324"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 340.32618)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="28.5253 37.47792 46.430543 52.13417 65.165927 73.31703 78.19768 82.26965 91.222278 100.1749">Formation:</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 340.32618)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="105.05554"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 366.8711)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="24">&#x25cf;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 366.8711)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="32.852434"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 366.8711)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="48 56.95262 61.024599 69.175708 73.24768">Field</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 366.8711)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="82.2003"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 366.8711)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="86.27228 91.15292 101.7372 110.68982 119.64244 127.79355 135.94466 144.89728">(Concept</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 366.8711)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="149.77793"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 366.8711)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="153.8499 163.6255 167.69748 176.6501">Side</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 366.8711)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="184.80121"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 366.8711)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="188.87319">-</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 366.8711)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="193.75383"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 366.8711)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="197.8258 205.96918 211.6728 215.74478 224.6974 232.84851 237.72916">Trips):</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 366.8711)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="242.6098"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="72">&#x25cb;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="80.85243"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="96 104.15111 112.302219">#1:</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="116.37419"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="120.44617 131.84627 139.99738 149.77298 160.35726 170.94153">GLANCE</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="180.71714"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="184.78911 189.66976 197.82086 205.97197 210.04395">route</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="218.19506"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="222.26703">&#x2014;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="236.92328"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="240.99526 249.14636 257.2975 262.17814 270.32923">10-12</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="278.48036"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="282.5523 289.88044 298.03157 302.9122 311.0633 318.39143">yards,</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="322.46339"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="326.53538 333.8635 342.0146 346.89527 350.96723 354.2234 361.5515 369.7026">vertical</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="372.95875"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="377.03074 381.91139 390.0625 393.31864 401.46974 409.62086 416.94898 425.1001">release,</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="429.17207"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="433.24403 443.8283 447.08445">win</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="455.23558"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="459.30757 462.56373 470.7148 478.04295 481.29908 489.4502">inside</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="497.6013"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="501.67329 504.92945 513.08059 520.4087 528.5598 533.4405 541.59158 549.7427">leverage</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="557.89376"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="561.9657 569.2938">vs</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="576.62197"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="33.152997" x="96 106.584278 116.35988">CB,</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="33.152997" x="120.431858"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="33.152997" x="124.50383 128.5758 131.83196 139.98307">find</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="33.152997" x="148.13417"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="33.152997" x="152.20615 162.79042 166.04657 174.19768 182.34879 190.4999">window</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="33.152997" x="201.08417"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="33.152997" x="205.15615 213.30725 221.45836 225.53034 236.11461 244.26572 252.41683">between</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="33.152997" x="260.56794"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="33.152997" x="264.6399 271.96803 280.11915 284.1911 292.34223 296.41419 299.67036 307.82148">safeties</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="33.152997" x="315.1496"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="33.152997" x="319.22157 327.37269 335.5238">and</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="33.152997" x="343.67488"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="33.152997" x="347.74687 351.003 354.25917 362.41029 370.56138 378.71247 386.8636 394.1917 401.51985 409.67097 414.55158">linebackers</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 381.41798)" font-size="14.666667" font-family="Arial"><tspan y="33.152997" x="421.8797"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="72">&#x25cb;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="80.85243"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="96 104.15111 112.302219">#2:</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="116.37419"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="120.44617 134.27944 144.86371 154.63932 164.41492">WHEEL</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="172.56603"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="176.638 181.51865 189.66976 197.82086 201.89284">route</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="210.04395"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="214.11592">&#x2014;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="228.77217"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="232.84415 246.67742 249.93357">Win</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="258.08467"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="262.15666 266.22865 274.37977">the</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="282.53083"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="286.6028 294.7539 302.90504 306.977 314.3051 317.56129 325.7124 333.86354">outside,</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="337.9355"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="342.00746 350.15858 358.30967 365.6378">push</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="373.78889"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="377.86088 385.189 393.3401 398.22077 402.29273 405.5489 412.877 421.0281">vertical</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="424.28425"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="428.35624 436.50733">up</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="444.65846"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="448.7304 456.05854 459.3147 467.4658 475.61689 478.87306 482.1292 490.2803">sideline</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 410.51075)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="498.43144"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="72">&#x25cb;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="80.85243"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="96 104.15111 112.302219">#3:</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="116.37419"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="120.44617 129.39879 137.5499 146.23696">FLAT</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="155.18958"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="159.26155 164.1422 172.2933 180.44441 184.51639">route</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="192.6675"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="196.73947">&#x2014;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="211.39572"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="215.4677 223.6188 228.49945">2-3</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="236.65056"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="240.72254 248.05066 256.20179 261.08244">yard</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="269.23353"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="273.30549 281.4566 289.60774 297.75886 301.8308 309.98194">depth,</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="314.0539"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="318.12586 326.27699 334.4281 339.30876 342.5649 349.89305 358.04414 366.19523 370.2672 378.4183">horizontal</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="381.67445"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="385.7464 393.07453 397.14649 402.02717 410.17826 414.25025 421.57838">stretch</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 425.05665)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="429.7295"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 439.60255)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="24">&#x25cf;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 439.60255)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="32.852434"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 439.60255)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="48 58.584276 67.536899 76.48952 85.44214 94.39476 102.54587 108.2495">Boundary</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 439.60255)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="116.400608"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 439.60255)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="120.47258 125.353229 135.9375 144.08861 152.23972 160.39083 168.54193 172.6139 181.56653">(Backside</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 439.60255)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="189.71764"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 439.60255)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="193.78961">-</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 439.60255)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="198.67026"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 439.60255)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="202.74224 212.51784 216.58982 225.54244 234.49506 238.56703 246.71814 251.59879">Single):</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 439.60255)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="256.47944"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="72">&#x25cb;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="80.85243"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="96 104.15111 112.302219">#1:</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="116.37419"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="120.44617 131.03044 135.10242 144.05504 154.63932">HITCH</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="165.22359"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="169.29557 174.17621 182.32732 190.47843 194.5504">route</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="202.7015"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="206.77349">&#x2014;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="221.42974"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="225.50171">5</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="233.65282"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="237.7248 245.05292 253.20403 258.08467 266.23579 273.5639">yards,</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="277.63587"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="281.70787 289.03599 292.2921">sit</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="296.3641"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="300.4361 303.69227">in</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="311.84333"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="315.9153 324.0664 328.94709 337.09819 344.4263">grass</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 454.14845)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="351.75444"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 468.6953)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="72">&#x25cb;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 468.6953)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="80.85243"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 468.6953)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="96 104.15111 109.03175 117.18286 125.33397 132.6621 139.99022">2-back:</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 468.6953)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="144.0622"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 468.6953)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="148.13417 157.90978 166.06089 173.389">Pass</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 468.6953)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="180.71714"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 468.6953)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="184.78911 194.56472 199.44536">Pro</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 468.6953)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="207.59647"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="0 11.400101">QB</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="21.984375"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="26.05635 35.831956 41.535585 50.488206 59.440828 65.144458 73.29556 81.44667 89.59778 93.669757 102.622379 111.575">Progression:</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="116.45564"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="120.52762">1</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="128.67873"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="132.7507 137.63135 149.03145 152.2876 160.4387 168.58982 175.91794 184.06905">(Glance)</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="188.94969"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="193.02167">&#x2192;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="207.67792"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="211.7499">2</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="219.901"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="223.97298 228.85363 242.68689 250.838 258.9891 267.1402 270.39637">(Wheel)</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="275.277"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="279.349">&#x2192;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="294.00526"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="298.0772">3</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="306.22834"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="310.3003 315.18095 324.13356 327.3897 335.54084 339.6128">(Flat)</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="344.49345"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="348.56544">&#x2192;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="363.22169"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="367.29365 377.87794 386.02903">Can</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="394.1801"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="398.2521 408.83638 416.9875 421.86814">work</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="429.19627"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="433.26826 441.41938 449.57048 456.8986 464.2267 471.55485 474.81098 482.9621">backside</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="491.1132"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="495.18519 502.5133">vs</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="509.84144"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="0 12.208771 20.359879 28.510987 32.582963 44.791734 52.94284 57.014818 64.34294 72.49405 80.64516">man/matchup</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 495.2422)" font-size="14.666667" font-family="Arial"><tspan y="33.150388" x="88.796268"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 536.33499)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="0 7.8640749 16.015183">Tag</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 536.33499)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="24.967804"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 536.33499)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="29.03978 40.43988 49.3925 54.273149 58.345125 67.297748 76.25037 84.401477">Options:</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 536.33499)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="89.28212"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 536.33499)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="93.354099"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="0 11.400101 19.551209 29.326813 39.911088 50.49536">GLANCE</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="60.270967"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="64.34294 74.118549 84.70282 95.287097 106.687198 120.25549">ARROW:</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="124.32747"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="128.39945 137.35207 140.60822 148.75933">Flat</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="152.8313"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="156.90328 161.78392 169.93503 178.08614 182.15811">route</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="190.30922"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="194.3812 204.96547 208.22162 211.47777">will</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="214.73392"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="218.8059 226.13402 234.28513 246.4939">come</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="254.645"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="258.71699 262.78895 267.66963 275.8207">from</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="288.02949"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="292.10145 296.1734 304.32453">the</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="312.47566"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="316.5476 324.69874 328.7707 336.9218 345.0729">other</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="349.95356"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="354.02555 361.35368 364.6098 372.76094">side</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="380.91206"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="384.984 393.13514">of</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="397.2071"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="401.27906 405.351 413.50215">the</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="421.65327"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="425.72523 429.79719 433.05335 441.20448 444.4606 452.6117">field.</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="456.68373"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="460.75569 468.9068 477.0579 485.20899 492.5371">2back</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="499.86524"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="503.93724 512.0883 520.23947 527.56759">pass</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="534.8957"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="33.15169" x="0 8.151108 13.031754 21.182862 25.254837 33.405946 40.73407 44.806047 48.062196 56.213304 64.36441">protection.</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 562.88088)" font-size="14.666667" font-family="Arial"><tspan y="33.15169" x="68.436389"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 603.97268)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="0 10.584274 18.735383">Key</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 603.97268)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="26.88649"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 603.97268)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="30.958466 41.54274 50.49536 58.64647 66.79758 75.7502 79.822177 88.774799">Coaching</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 603.97268)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="97.72742"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 603.97268)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="101.79939 111.575 120.52762 124.599597 133.55222 138.43286 146.58397">Points:</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 603.97268)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="151.46462"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="24">&#x25cf;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="32.852434"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="48 59.4001 62.65625 70.80736 78.958469 86.28659">Glance</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="94.4377"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="98.509677 103.39032 111.54143 119.692539 123.76451">route</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="131.91562"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="135.9876 148.19637 156.34748 163.6756">must</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="167.74758"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="171.81955 182.40383 185.65998">win</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="193.81108"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="197.88306 201.1392 209.29032 216.61844 219.87459 228.0257">inside</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="236.1768"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="240.24878 243.50493 251.65604 258.98417 267.13526 272.0159 280.167 288.31809">leverage</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="296.46925"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="300.5412 308.69233 316.8434 324.9945 328.25068 336.4018 343.72993">against</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="347.80189"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="351.87388 362.45814">CB</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="372.23377"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="376.30574 384.45686">on</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="392.60795"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="396.67994 401.56059 409.71168 412.96784 421.11897 429.27006 436.59819">release</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="444.74928"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="448.82124">-</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="453.7019"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="457.77388 461.84584 469.99696 473.2531">this</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="480.58125"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="484.6532 487.90937">is</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="495.2375"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="499.30946 506.63758 511.51823 514.77438 518.8463 522.1024 529.43057 537.58169">critical</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 630.51858)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="540.8379"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="24">&#x25cf;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="32.852434"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="48 56.95262 60.20877 68.35988">Find</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="76.51099"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="80.58296 84.65494 92.806049">the</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="100.95715"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="105.02913 115.6134 118.86955 127.02066 135.17177 143.32288">window</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="153.90715"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="157.97913 166.13024">at</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="170.20221"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="174.27419 182.4253 190.5764 195.45705 203.60816">10-12</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="211.75926"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="215.83124 223.15937 231.31047 236.19112 244.34223">yards</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="251.67035"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="255.74233 263.89344 272.04457 276.11653 286.7008 294.8519 303.003">between</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="311.1541"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="315.22608 318.48225 326.63334 333.96147 342.11256 345.3687">levels</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="352.69685"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="356.76884">-</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="361.64949"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="365.72145 373.04957 381.20069 385.27265 389.3446 392.60078">settle</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="400.7519"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="404.82386 408.08003">in</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="416.23115"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="420.3031 428.45423 433.33485 441.48597 448.8141">grass</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 645.0664)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="456.1422"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 659.6113)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="24">&#x25cf;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 659.6113)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="32.852434"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 659.6113)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="48 61.5683 69.719409 74.60005">Work</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 659.6113)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="81.92818"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 659.6113)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="86.00015 94.15126 97.40741 105.55852">high</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 659.6113)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="113.709629"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 659.6113)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="117.7816 121.85358">to</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 659.6113)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="130.00469"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 659.6113)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="134.07666 137.33281 145.48392">low</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 659.6113)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="156.06819"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 659.6113)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="160.14017 168.29128">on</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 659.6113)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="176.44239"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 659.6113)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="180.51436 187.84249 195.99359 204.1447 211.47283 219.62393 227.77504">concept</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 659.6113)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="231.84702"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 659.6113)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="235.91899 243.24712 246.50327 254.65438">side</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 659.6113)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="262.80549"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="24">&#x25cf;</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="32.852434"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="48 57.775606 65.92671 73.25484 80.58296 87.91109 91.16724 99.318347">Backside</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="107.46945"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="111.54143 116.42207 124.57318 132.72429 136.79627 144.94738">routes</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="152.2755"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="156.34748 164.49858 169.37923">are</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="177.53034"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="181.60231 184.85846 188.11461 195.44274">live</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="203.59384"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="207.66582 214.99394">vs</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="222.32207"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="226.39405 238.60282 246.75392">man</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="254.90503"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="258.977 266.3051 274.45625 281.78437 289.9355 294.8161 302.96723 311.11836">coverage</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="319.26945"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="323.34144 331.49256">or</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="336.37318"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="340.44514 344.5171 352.6682 359.99635 368.14747 373.02809 381.1792 389.33033 392.58647">favorable</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="400.73759"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="404.80958 417.01835 425.16944 429.24143 436.56956 444.72065 452.87178 461.0229">matchups</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 674.1582)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="468.35099"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 700.7051)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="0"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 727.251)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="0"> </tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 753.7969)" font-size="14.666667" font-family="Arial"><tspan y="13.757161" x="0"> </tspan></text>
+<g clip-path="url(#clip_1)">
+<path transform="matrix(.75,0,0,.75,72,150.86328)" stroke-width="1.3333334" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M156 26.183106H238.66667"/>
+<path transform="matrix(.75,0,0,.75,72,150.86328)" stroke-width="1.3333334" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M354.66667 26.183106H442.66667"/>
+</g>
+</svg>

@@ -2,7 +2,7 @@
 	import './layout.css';
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 
-injectSpeedInsights();
+	injectSpeedInsights();
 
 	const { children } = $props();
 </script>
@@ -10,8 +10,8 @@ injectSpeedInsights();
 <svelte:head>
 	<style>
 		:global(body) {
-			color: #FFFFFF;
-			background-color: #09090B;
+			color: #ffffff;
+			background-color: #09090b;
 		}
 	</style>
 </svelte:head>

@@ -13,13 +13,13 @@
 </script>
 
 <nav
-	class="border-b border-zinc-800 bg-zinc-900/80 backdrop-blur-sm h-16 flex items-center justify-between px-4 md:px-6 text-white sticky top-0 z-50"
+	class="sticky top-0 z-50 flex h-16 items-center justify-between border-b border-zinc-800 bg-zinc-900/80 px-4 text-white backdrop-blur-sm md:px-6"
 >
 	<div class="flex items-center gap-2.5">
 		{#if backButton}
 			<button
 				onclick={goBack}
-				class="text-zinc-400 hover:text-white mr-1 transition-colors p-1 rounded-lg hover:bg-zinc-800"
+				class="mr-1 rounded-lg p-1 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-white"
 				aria-label="Go back"
 			>
 				<svg
@@ -36,9 +36,14 @@
 				</svg>
 			</button>
 		{/if}
-		<a href="/" class="flex items-center gap-2.5 font-bold text-base hover:text-orange-500 transition-colors">
-			<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
-				<span class="text-white text-sm font-bold">H</span>
+		<a
+			href="/"
+			class="flex items-center gap-2.5 text-base font-bold transition-colors hover:text-orange-500"
+		>
+			<div
+				class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-orange-500 to-orange-600"
+			>
+				<span class="text-sm font-bold text-white">H</span>
 			</div>
 			<span class="hidden sm:inline">Hudl Playbook AI</span>
 		</a>
@@ -46,20 +51,20 @@
 
 	{#if links}
 		<!-- Desktop Nav -->
-		<div class="hidden md:flex gap-6 text-sm">
+		<div class="hidden gap-6 text-sm md:flex">
 			<a
 				href="/how-it-works"
-				class="text-zinc-400 hover:text-white transition-colors relative group"
+				class="group relative text-zinc-400 transition-colors hover:text-white"
 			>
 				How It Works
 				<span
-					class="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all"
+					class="absolute -bottom-1 left-0 h-0.5 w-0 bg-orange-500 transition-all group-hover:w-full"
 				></span>
 			</a>
-			<a href="/pricing" class="text-zinc-400 hover:text-white transition-colors relative group">
+			<a href="/pricing" class="group relative text-zinc-400 transition-colors hover:text-white">
 				Pricing
 				<span
-					class="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all"
+					class="absolute -bottom-1 left-0 h-0.5 w-0 bg-orange-500 transition-all group-hover:w-full"
 				></span>
 			</a>
 		</div>
@@ -67,13 +72,13 @@
 
 	<div class="flex items-center gap-3">
 		{#if backButton}
-			<div class="md:hidden w-10"></div>
+			<div class="w-10 md:hidden"></div>
 		{/if}
 
 		{#if cta}
 			<a
 				href="/upload"
-				class="bg-orange-500 text-white rounded-lg px-4 py-2 text-sm font-bold hover:bg-orange-600 transition-all hover:shadow-lg hover:shadow-orange-500/20"
+				class="rounded-lg bg-orange-500 px-4 py-2 text-sm font-bold text-white transition-all hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-500/20"
 			>
 				<span class="hidden sm:inline">Upload Playbook</span>
 				<span class="sm:hidden">Upload</span>
@@ -85,13 +90,18 @@
 <!-- Mobile Bottom Navigation - thumb-friendly, always visible on mobile -->
 {#if links}
 	<div
-		class="md:hidden fixed bottom-0 left-0 right-0 bg-zinc-900 border-t border-zinc-800 px-4 py-2 flex justify-around z-50 safe-area-inset-bottom transition-transform"
+		class="safe-area-inset-bottom fixed right-0 bottom-0 left-0 z-50 flex justify-around border-t border-zinc-800 bg-zinc-900 px-4 py-2 transition-transform md:hidden"
 	>
 		<a
 			href="/"
-			class="flex flex-col items-center gap-1 text-zinc-400 hover:text-white transition-colors"
+			class="flex flex-col items-center gap-1 text-zinc-400 transition-colors hover:text-white"
 		>
-			<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-5 w-5"
+				viewBox="0 0 20 20"
+				fill="currentColor"
+			>
 				<path
 					d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
 				/>
@@ -100,9 +110,14 @@
 		</a>
 		<a
 			href="/how-it-works"
-			class="flex flex-col items-center gap-1 text-zinc-400 hover:text-white transition-colors"
+			class="flex flex-col items-center gap-1 text-zinc-400 transition-colors hover:text-white"
 		>
-			<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-5 w-5"
+				viewBox="0 0 20 20"
+				fill="currentColor"
+			>
 				<path
 					fill-rule="evenodd"
 					d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
@@ -113,9 +128,14 @@
 		</a>
 		<a
 			href="/pricing"
-			class="flex flex-col items-center gap-1 text-zinc-400 hover:text-white transition-colors"
+			class="flex flex-col items-center gap-1 text-zinc-400 transition-colors hover:text-white"
 		>
-			<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-5 w-5"
+				viewBox="0 0 20 20"
+				fill="currentColor"
+			>
 				<path
 					d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"
 				/>
@@ -129,9 +149,14 @@
 		</a>
 		<a
 			href="/upload"
-			class="flex flex-col items-center gap-1 text-orange-500 hover:text-orange-400 transition-colors"
+			class="flex flex-col items-center gap-1 text-orange-500 transition-colors hover:text-orange-400"
 		>
-			<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-5 w-5"
+				viewBox="0 0 20 20"
+				fill="currentColor"
+			>
 				<path
 					fill-rule="evenodd"
 					d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z"

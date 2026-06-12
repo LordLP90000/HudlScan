@@ -15,12 +15,12 @@
 </script>
 
 {#if plays.length === 0}
-	<div class="border border-zinc-800 rounded-xl bg-zinc-900 p-4 text-center text-zinc-500 text-sm">
+	<div class="rounded-xl border border-zinc-800 bg-zinc-900 p-4 text-center text-sm text-zinc-500">
 		No plays yet. Add rows manually or upload a new playbook.
 	</div>
 {:else}
 	<div class="overflow-x-auto">
-		<table class="w-full border-collapse border border-zinc-800 rounded-xl overflow-hidden text-xs">
+		<table class="w-full border-collapse overflow-hidden rounded-xl border border-zinc-800 text-xs">
 			<thead>
 				<tr class="bg-zinc-900">
 					<th class="border border-zinc-800 px-2.5 py-2 text-left">#</th>
@@ -30,8 +30,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each plays as play, index}
-					<tr class="hover:bg-zinc-900/50 transition-colors">
+				{#each plays as play, index (index)}
+					<tr class="transition-colors hover:bg-zinc-900/50">
 						<td class="border border-zinc-800 px-2.5 py-2">{index + 1}</td>
 						<td class="border border-zinc-800 px-2.5 py-2">{play.formation}</td>
 						<td class="border border-zinc-800 px-2.5 py-2">{play.route}</td>
@@ -40,7 +40,7 @@
 								{#if onDuplicate}
 									<button
 										onclick={() => onDuplicate(index)}
-										class="text-zinc-400 hover:text-white transition-colors"
+										class="text-zinc-400 transition-colors hover:text-white"
 										title="Duplicate"
 									>
 										+
@@ -49,7 +49,7 @@
 								{#if onDelete}
 									<button
 										onclick={() => onDelete(index)}
-										class="text-zinc-400 hover:text-red-500 transition-colors"
+										class="text-zinc-400 transition-colors hover:text-red-500"
 										title="Delete"
 									>
 										Del

@@ -7,3 +7,18 @@ bun.lockb
 
 # Miscellaneous
 /static/
+
+# Data, models and ML artifacts (not source code)
+/models/
+/training/
+/for hudlscan/
+/docs/
+/memory/
+*.jsonl
+*.db
+
+# Generated
+/src/lib/server/route-tree-data.js
+/graphify-out/
+/dist/
+/build/

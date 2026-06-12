@@ -19,14 +19,16 @@
 {#if onclick}
 	<button
 		type="button"
-		class="inline-block px-2.5 py-2 rounded-xl border text-xs font-bold cursor-pointer hover:opacity-90 transition-opacity {variantClasses[variant]}"
-		onclick={onclick}
+		class="inline-block cursor-pointer rounded-xl border px-2.5 py-2 text-xs font-bold transition-opacity hover:opacity-90 {variantClasses[
+			variant
+		]}"
+		{onclick}
 	>
 		{@render children()}
 	</button>
 {:else}
 	<span
-		class="inline-block px-2.5 py-2 rounded-xl border text-xs font-bold {variantClasses[variant]}"
+		class="inline-block rounded-xl border px-2.5 py-2 text-xs font-bold {variantClasses[variant]}"
 	>
 		{@render children()}
 	</span>

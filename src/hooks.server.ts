@@ -1,4 +1,3 @@
-import { sequence } from '@sveltejs/kit/hooks';
 import type { Handle } from '@sveltejs/kit';
 
 // Load environment variables from .env.local for server-side
@@ -32,9 +31,6 @@ if (process.env.NODE_ENV === 'development') {
 	}
 }
 
-const handle: Handle = async ({ event, resolve }) => {
+export const handle: Handle = async ({ event, resolve }) => {
 	return resolve(event);
 };
-
-export const ssr = false; // No SSR needed for this app
-export const handleSeq = sequence(handle);

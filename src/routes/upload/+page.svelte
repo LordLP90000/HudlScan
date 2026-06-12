@@ -53,7 +53,7 @@
 
 	// SECURITY: Define allowed positions for validation
 	const ALLOWED_POSITIONS = ['FB', 'RB', 'QB', 'OL', 'WR', 'TE'] as const;
-	type Position = typeof ALLOWED_POSITIONS[number];
+	type Position = (typeof ALLOWED_POSITIONS)[number];
 
 	let selectedPosition = $state<Position>('FB');
 	let uploadState = $state<UploadState>('empty');
@@ -75,11 +75,6 @@
 	const WHITESPACE_GAP_THRESHOLD_VERTICAL = 0.006;
 	const MIN_GAP_SIZE_RATIO = 0.015;
 	const MIN_BAND_SIZE_RATIO = 0.08;
-	const MIN_PANEL_DIMENSION = 100;
-	const DARK_PIXEL_DENSITY_THRESHOLD = 0.02;
-	const MIN_DARK_PIXEL_COUNT = 2200;
-	const PANEL_PADDING_RATIO = { width: 0.08, top: 0.1, bottom: 0.2 };
-	const MAX_PANELS_TO_SEGMENT = 24;
 
 	function addDebug(level: DebugLevel, message: string) {
 		const entry: DebugEntry = {
@@ -106,7 +101,9 @@
 		length: number,
 		isHorizontal: boolean
 	): Array<[number, number]> {
-		const GAP_THRESHOLD = isHorizontal ? WHITESPACE_GAP_THRESHOLD_HORIZONTAL : WHITESPACE_GAP_THRESHOLD_VERTICAL;
+		const GAP_THRESHOLD = isHorizontal
+			? WHITESPACE_GAP_THRESHOLD_HORIZONTAL
+			: WHITESPACE_GAP_THRESHOLD_VERTICAL;
 		const MIN_GAP_SIZE = Math.max(8, Math.floor(length * MIN_GAP_SIZE_RATIO));
 		const MIN_BAND_SIZE = Math.max(60, Math.floor(length * MIN_BAND_SIZE_RATIO));
 
@@ -369,7 +366,10 @@
 		selectedFiles = fileItems;
 		if (fileItems.length > 0) {
 			uploadState = 'ready';
-			addDebug('info', `Selected ${fileItems.length} file${fileItems.length === 1 ? '' : 's'} for processing.`);
+			addDebug(
+				'info',
+				`Selected ${fileItems.length} file${fileItems.length === 1 ? '' : 's'} for processing.`
+			);
 		}
 	}
 
@@ -424,7 +424,10 @@
 			addDebug('info', `${fileItem.name}: converting PDF pages to images.`);
 			const images = await convertPdfToImages(fileItem.file);
 			const units = images.map((img) => ({ dataUrl: img, isSegmented: false }));
-			addDebug('info', `${fileItem.name}: detected ${units.length} page image${units.length === 1 ? '' : 's'}.`);
+			addDebug(
+				'info',
+				`${fileItem.name}: detected ${units.length} page image${units.length === 1 ? '' : 's'}.`
+			);
 			return units;
 		} else {
 			// PNG/JPG can contain multiple drawings. Split into visual panels and process each panel independently.
@@ -432,7 +435,10 @@
 			addDebug('info', `${fileItem.name}: detecting drawing panels.`);
 			const base64Image = await fileToBase64(fileItem.file);
 			const units = await splitImageIntoPanels(base64Image);
-			addDebug('info', `${fileItem.name}: detected ${units.length} panel${units.length === 1 ? '' : 's'}.`);
+			addDebug(
+				'info',
+				`${fileItem.name}: detected ${units.length} panel${units.length === 1 ? '' : 's'}.`
+			);
 			return units;
 		}
 	}
@@ -459,12 +465,21 @@
 				: `${fileItem.name}#segment-${unit.segmentIndex || unitIndex + 1}`;
 		addDebug('info', `Scanning ${imageName} (${unitIndex + 1}/${totalUnits}).`);
 
-		const result = await extractPlaysFromImage(unit.dataUrl, imageName, unitIndex + 1, totalUnits, unit);
+		const result = await extractPlaysFromImage(
+			unit.dataUrl,
+			imageName,
+			unitIndex + 1,
+			totalUnits,
+			unit
+		);
 
 		if (result.skipped) {
 			addDebug('info', `${imageName}: skipped (${result.warning || 'no rows detected'}).`);
 		} else {
-			addDebug('success', `${imageName}: extracted ${result.plays.length} row${result.plays.length === 1 ? '' : 's'}.`);
+			addDebug(
+				'success',
+				`${imageName}: extracted ${result.plays.length} row${result.plays.length === 1 ? '' : 's'}.`
+			);
 		}
 
 		return { plays: result.plays || [], skipped: !!result.skipped };
@@ -483,7 +498,10 @@
 		uploadProgress = 0;
 		estimatedTimeRemaining = '';
 		const startTime = Date.now();
-		addDebug('info', `Starting extraction for ${selectedFiles.length} file${selectedFiles.length === 1 ? '' : 's'}.`);
+		addDebug(
+			'info',
+			`Starting extraction for ${selectedFiles.length} file${selectedFiles.length === 1 ? '' : 's'}.`
+		);
 
 		let totalImages = 0;
 		let processedImages = 0;
@@ -566,25 +584,25 @@
 	/>
 </svelte:head>
 
-<div class="min-h-screen bg-zinc-950 text-white pb-20 md:pb-0">
+<div class="min-h-screen bg-zinc-950 pb-20 text-white md:pb-0">
 	<Nav links={false} cta={false} backButton />
 
-	<main class="max-w-150 mx-auto px-5 py-8">
+	<main class="mx-auto max-w-150 px-5 py-8">
 		<!-- Page Title -->
-		<div class="text-center mb-8">
-			<h1 class="text-3xl md:text-4xl font-bold mb-3">
+		<div class="mb-8 text-center">
+			<h1 class="mb-3 text-3xl font-bold md:text-4xl">
 				Upload Your <span class="text-orange-500">Playbook</span>
 			</h1>
-			<p class="text-zinc-400 text-base max-w-md mx-auto leading-relaxed">
-				Select your position, upload playbook images or PDFs, and get every play extracted to
-				Excel in seconds.
+			<p class="mx-auto max-w-md text-base leading-relaxed text-zinc-400">
+				Select your position, upload playbook images or PDFs, and get every play extracted to Excel
+				in seconds.
 			</p>
 		</div>
 
 		<!-- What You Get -->
-		<div class="bg-zinc-900/50 border border-zinc-800 rounded-xl p-4 mb-6">
-			<p class="text-sm text-zinc-300 text-center">
-				<span class="text-orange-400 font-semibold">You'll get:</span>
+		<div class="mb-6 rounded-xl border border-zinc-800 bg-zinc-900/50 p-4">
+			<p class="text-center text-sm text-zinc-300">
+				<span class="font-semibold text-orange-400">You'll get:</span>
 				Formation, Concept, Position Routes, and Tags in a formatted Excel sheet
 			</p>
 		</div>
@@ -595,20 +613,23 @@
 		{/if}
 
 		<!-- Main Panel -->
-		<div class="border border-zinc-800 rounded-2xl bg-zinc-900 p-6">
+		<div class="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
 			<!-- Position Selector with clearer label -->
 			<div class="mb-6">
-				<label class="block text-sm font-semibold mb-3 text-zinc-300">
+				<span class="mb-3 block text-sm font-semibold text-zinc-300">
 					Which position are you extracting for?
-				</label>
+				</span>
 				<PositionSelector
-					selectedPosition={selectedPosition}
+					{selectedPosition}
 					onSelect={(pos: string) => {
 						// SECURITY: Validate position before accepting
 						if (ALLOWED_POSITIONS.includes(pos as Position)) {
 							selectedPosition = pos as Position;
 						} else {
-							addDebug('error', `Invalid position: ${pos}. Must be one of: ${ALLOWED_POSITIONS.join(', ')}`);
+							addDebug(
+								'error',
+								`Invalid position: ${pos}. Must be one of: ${ALLOWED_POSITIONS.join(', ')}`
+							);
 						}
 					}}
 				/>
@@ -617,13 +638,12 @@
 			{#if uploadState === 'empty'}
 				<div>
 					<FileDropzone onFilesSelected={handleFilesSelected} />
-					<p class="text-xs text-zinc-500 mt-3 text-center">
+					<p class="mt-3 text-center text-xs text-zinc-500">
 						Supports PDF, PNG, and JPG files up to 50MB
 					</p>
 				</div>
-
 			{:else if uploadState === 'ready'}
-				<div class="text-sm font-semibold mb-3 text-zinc-300">
+				<div class="mb-3 text-sm font-semibold text-zinc-300">
 					Ready to process ({selectedFiles.length} file{selectedFiles.length === 1 ? '' : 's'})
 				</div>
 
@@ -637,7 +657,6 @@
 						>Choose different files</Button
 					>
 				</div>
-
 			{:else if uploadState === 'processing'}
 				<ProcessingSpinner
 					message="Extracting plays with AI..."
@@ -653,22 +672,22 @@
 			<button
 				type="button"
 				onclick={() => (showDebugPanel = !showDebugPanel)}
-				class="w-full mt-4 text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
+				class="mt-4 w-full text-xs text-zinc-600 transition-colors hover:text-zinc-400"
 			>
 				{showDebugPanel ? 'Hide' : 'Show'} debug panel
 			</button>
 		{/if}
 
 		{#if showDebugPanel && uploadState !== 'processing'}
-			<div class="mt-3 border border-zinc-800 rounded-xl bg-zinc-900/80 overflow-hidden">
-				<div class="px-4 py-2 border-b border-zinc-800">
+			<div class="mt-3 overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/80">
+				<div class="border-b border-zinc-800 px-4 py-2">
 					<h3 class="text-xs font-semibold tracking-wide text-zinc-300">Debug panel</h3>
 				</div>
-				<div class="max-h-48 overflow-y-auto px-4 py-3 space-y-1.5 text-[11px] font-mono">
+				<div class="max-h-48 space-y-1.5 overflow-y-auto px-4 py-3 font-mono text-[11px]">
 					{#if debugEntries.length === 0}
 						<p class="text-zinc-500">No debug events yet.</p>
 					{:else}
-						{#each debugEntries as entry}
+						{#each debugEntries as entry, entryIndex (entryIndex)}
 							<p
 								class={entry.level === 'error'
 									? 'text-red-400'
@@ -686,7 +705,7 @@
 
 		<!-- Processing Hint -->
 		{#if uploadState === 'processing'}
-			<p class="text-zinc-500 text-sm text-center mt-4">
+			<p class="mt-4 text-center text-sm text-zinc-500">
 				Analyzing play diagrams with vision AI... This typically takes 30-60 seconds per page.
 			</p>
 		{/if}
@@ -694,16 +713,16 @@
 		<!-- Trust Indicators -->
 		{#if uploadState === 'empty'}
 			<div class="mt-6 grid grid-cols-3 gap-3 text-center text-xs">
-				<div class="bg-zinc-900/50 rounded-lg p-3">
-					<div class="text-orange-400 font-bold text-lg">PDF</div>
+				<div class="rounded-lg bg-zinc-900/50 p-3">
+					<div class="text-lg font-bold text-orange-400">PDF</div>
 					<div class="text-zinc-500">Multi-page</div>
 				</div>
-				<div class="bg-zinc-900/50 rounded-lg p-3">
-					<div class="text-orange-400 font-bold text-lg">All</div>
+				<div class="rounded-lg bg-zinc-900/50 p-3">
+					<div class="text-lg font-bold text-orange-400">All</div>
 					<div class="text-zinc-500">Positions</div>
 				</div>
-				<div class="bg-zinc-900/50 rounded-lg p-3">
-					<div class="text-orange-400 font-bold text-lg">99%</div>
+				<div class="rounded-lg bg-zinc-900/50 p-3">
+					<div class="text-lg font-bold text-orange-400">99%</div>
 					<div class="text-zinc-500">Accuracy</div>
 				</div>
 			</div>

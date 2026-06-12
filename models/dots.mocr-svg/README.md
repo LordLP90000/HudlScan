@@ -3,18 +3,18 @@ license: mit
 library_name: dots_mocr
 pipeline_tag: image-text-to-text
 tags:
-- image-to-text
-- ocr
-- document-parse
-- layout
-- table
-- formula
-- transformers
-- custom_code
+  - image-to-text
+  - ocr
+  - document-parse
+  - layout
+  - table
+  - formula
+  - transformers
+  - custom_code
 language:
-- en
-- zh
-- multilingual
+  - en
+  - zh
+  - multilingual
 ---
 
 <div align="center">
@@ -27,7 +27,6 @@ dots.mocr
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/rednote-hilab/dots.mocr)
 [![arXiv](https://img.shields.io/badge/arXiv-Paper-b31b1b.svg?logo=arxiv)](https://arxiv.org/abs/2603.13032v1)
 
-
 <div align="center">
   <a href="https://dotsocr.xiaohongshu.com" target="_blank" rel="noopener noreferrer"><strong>🖥️ Live Demo</strong></a> | 
   <a href="https://raw.githubusercontent.com/rednote-hilab/dots.ocr/master/assets/wechat.jpg" target="_blank" rel="noopener noreferrer"><strong>💬 WeChat</strong></a> | 
@@ -37,15 +36,13 @@ dots.mocr
 
 </div>
 
-
 ## Introduction
 
 We present [dots.mocr](https://huggingface.co/rednote-hilab/dots.mocr). Beyond achieving state-of-the-art (SOTA) performance in standard multilingual document parsing among models of comparable size, **dots.mocr** excels at converting structured graphics (e.g., charts, UI layouts, scientific figures and etc.) directly into SVG code. Its core capabilities encompass grounding, recognition, semantic understanding, and interactive dialogue.
 
-Simultaneously, we are releasing [dots.mocr-svg](https://huggingface.co/rednote-hilab/dots.mocr-svg), a variant specifically optimized for robust image-to-SVG parsing tasks. 
+Simultaneously, we are releasing [dots.mocr-svg](https://huggingface.co/rednote-hilab/dots.mocr-svg), a variant specifically optimized for robust image-to-SVG parsing tasks.
 
 More information can be found [in the paper](https://arxiv.org/abs/2603.13032v1).
-
 
 ## Evaluation
 
@@ -117,13 +114,13 @@ More information can be found [in the paper](https://arxiv.org/abs/2603.13032v1)
   </tbody>
 </table>
 
-
-> **Notes:** 
+> **Notes:**
+>
 > - Results for Gemini 3 Pro, PaddleOCR-VL-1.5, and GLM-OCR were obtained via APIs, while HuanyuanOCR results were generated using local inference.
 > - The Elo score evaluation was conducted using Gemini 3 Flash. The prompt can be found at: [Elo Score Prompt](https://github.com/rednote-hilab/dots.mocr/blob/master/tools/elo_score_prompt.py). These results are consistent with the findings on [ocrarena](https://www.ocrarena.ai/battle).
 
-
 #### 1.2 olmOCR-bench
+
 <table>
     <thead>
         <tr>
@@ -275,11 +272,10 @@ More information can be found [in the paper](https://arxiv.org/abs/2603.13032v1)
     </tbody>
 </table>
 
-
 > **Note:**
+>
 > - The metrics are from [olmocr](https://github.com/allenai/olmocr), and our own internal evaluations.
 > - We delete the Page-header and Page-footer cells in the result markdown.
-
 
 #### 1.3 Other Benchmarks
 
@@ -408,11 +404,12 @@ More information can be found [in the paper](https://arxiv.org/abs/2603.13032v1)
 </table>
 
 > **Note:**
+>
 > - Metrics are sourced from [OmniDocBench](https://github.com/opendatalab/OmniDocBench) and other model publications. [pdf-parse-bench](https://github.com/phorn1/pdf-parse-bench) results are reproduced by Qwen3-VL-235B-A22B-Instruct.
 > - Formula and Table metrics for OmniDocBench1.5 are omitted due to their high sensitivity to detection and matching protocols.
 
-
 ### 2. Structured Graphics Parsing
+
 Visual languages (e.g., charts, graphics, chemical formulas, logos) encapsulate dense human knowledge. **dots.mocr** unifies the interpretation of these elements by parsing them directly into **SVG code**.
 
 <table>
@@ -480,12 +477,11 @@ Visual languages (e.g., charts, graphics, chemical formulas, logos) encapsulate 
   </tbody>
 </table>
 
-
 > **Note:**
-> - We use the ISVGEN metric from [UniSVG](https://ryanlijinke.github.io/) to evaluate the parsing result. For benchmarks that do not natively support image parsing, we use the original images as input, and calculate the ISVGEN score between the rendered output and the original image. 
+>
+> - We use the ISVGEN metric from [UniSVG](https://ryanlijinke.github.io/) to evaluate the parsing result. For benchmarks that do not natively support image parsing, we use the original images as input, and calculate the ISVGEN score between the rendered output and the original image.
 > - [OCRVerse](https://github.com/DocTron-hub/OCRVerse) results are derived from various code formats (e.g., SVG, Python), whereas results for Gemini 3 Pro and dots.mocr are based specifically on SVG code.
 > - Due to the capacity constraints of a 3B-parameter VLM, dots.mocr may not excel in all tasks yet like svg. To complement this, we are simultaneously releasing dots.mocr-svg. We plan to further address these limitations in future updates.
-
 
 ### 3. General Vision Tasks
 
@@ -548,11 +544,12 @@ Visual languages (e.g., charts, graphics, chemical formulas, logos) encapsulate 
     </tbody>
 </table>
 
-
-
 # Quick Start
+
 ## 1. Installation
+
 ### Install dots.mocr
+
 ```shell
 conda create -n dots_mocr python=3.12
 conda activate dots_mocr
@@ -568,9 +565,10 @@ pip install -e .
 
 If you have trouble with the installation, we recommend to use vLLM inference. Try official vLLM [Docker Image](https://hub.docker.com/layers/vllm/vllm-openai/v0.17.1-cu130/images/sha256-ec9b626d16b2af377662d9d31c1784aac5174b571450a1e25ffd90ddb639f2d2) for an easier setup, and follow these steps:
 
-
 ### Download Model Weights
+
 > 💡**Note:** Please use a directory name without periods (e.g., `DotsMOCR` instead of `dots.mocr`) for the model save path. This is a temporary workaround pending our integration with Transformers.
+
 ```shell
 python3 tools/download_model.py
 
@@ -578,9 +576,10 @@ python3 tools/download_model.py
 python3 tools/download_model.py --type modelscope
 ```
 
-
 ## 2. Deployment
+
 ### vLLM inference
+
 We highly recommend using vLLM for deployment and inference. **Since vLLM version 0.11.0, Dots OCR has been officially integrated into vLLM with verified performance** and you can use vLLM docker image directly (e.g, `vllm/vllm-openai:v0.17.1`) to deploy the model server.
 
 ```shell
@@ -592,21 +591,22 @@ CUDA_VISIBLE_DEVICES=0 vllm serve rednote-hilab/dots.mocr --tensor-parallel-size
 CUDA_VISIBLE_DEVICES=0 vllm serve rednote-hilab/dots.mocr-svg --tensor-parallel-size 1 --gpu-memory-utilization 0.9 --chat-template-content-format string --trust-remote-code
 
 # vLLM API Demo
-# See dots_mocr/model/inference.py and dots_mocr/utils/prompts.py for details on parameter and prompt settings 
+# See dots_mocr/model/inference.py and dots_mocr/utils/prompts.py for details on parameter and prompt settings
 # that help achieve the best output quality.
 ## document parsing
-python3 ./demo/demo_vllm.py --prompt_mode prompt_layout_all_en 
-## web parsing 
+python3 ./demo/demo_vllm.py --prompt_mode prompt_layout_all_en
+## web parsing
 python3 ./demo/demo_vllm.py --prompt_mode prompt_web_parsing --image_path ./assets/showcase/origin/webpage_1.png
 ## scene spoting
 python3 ./demo/demo_vllm.py --prompt_mode prompt_scene_spotting --image_path ./assets/showcase/origin/scene_1.jpg
 ## image parsing with svg code
-python3 ./demo/demo_vllm_svg.py --prompt_mode prompt_image_to_svg 
+python3 ./demo/demo_vllm_svg.py --prompt_mode prompt_image_to_svg
 ## general qa
 python3 ./demo/demo_vllm_general.py
 ```
 
 ### Hugginface inference
+
 ```shell
 python3 demo/demo_hf.py
 ```
@@ -665,8 +665,8 @@ messages = [
 
 # Preparation for inference
 text = processor.apply_chat_template(
-    messages, 
-    tokenize=False, 
+    messages,
+    tokenize=False,
     add_generation_prompt=True
 )
 image_inputs, video_inputs = process_vision_info(messages)
@@ -695,11 +695,13 @@ print(output_text)
 </details>
 
 ### Hugginface inference with CPU
+
 Please refer to [CPU inference](https://github.com/rednote-hilab/dots.ocr/issues/1#issuecomment-3148962536)
 
-
 ## 3. Document Parse
+
 **Based on vLLM server**, you can parse an image or a pdf file using the following commands:
+
 ```bash
 
 # Parse all layout info, both detection and recognition
@@ -716,26 +718,27 @@ python3 dots_mocr/parser.py demo/demo_image1.jpg --prompt prompt_ocr
 
 
 ```
-**Based on Transformers**, you can parse an image or a pdf file using the same commands above, just add `--use_hf true`. 
 
-> Notice: transformers is slower than vllm, if you want to use demo/* with transformers，just add `use_hf=True` in `DotsMOCRParser(..,use_hf=True)`
+**Based on Transformers**, you can parse an image or a pdf file using the same commands above, just add `--use_hf true`.
+
+> Notice: transformers is slower than vllm, if you want to use demo/\* with transformers，just add `use_hf=True` in `DotsMOCRParser(..,use_hf=True)`
 
 <details>
 <summary><b>Output Results</b></summary>
 
 1.  **Structured Layout Data** (`demo_image1.json`): A JSON file containing the detected layout elements, including their bounding boxes, categories, and extracted text.
 2.  **Processed Markdown File** (`demo_image1.md`): A Markdown file generated from the concatenated text of all detected cells.
-    *   An additional version, `demo_image1_nohf.md`, is also provided, which excludes page headers and footers for compatibility with benchmarks like Omnidocbench and olmOCR-bench.
+    - An additional version, `demo_image1_nohf.md`, is also provided, which excludes page headers and footers for compatibility with benchmarks like Omnidocbench and olmOCR-bench.
 3.  **Layout Visualization** (`demo_image1.jpg`): The original image with the detected layout bounding boxes drawn on it.
 
 </details>
 
-
 ## 4. Demo
+
 Have fun with the [live demo](https://dotsocr.xiaohongshu.com/).
 
-
 ### Examples for document parsing
+
 <img src="https://raw.githubusercontent.com/rednote-hilab/dots.mocr/master/assets/showcase/result/formula1.png" alt="formula1.png" border="0" />
 <img src="https://raw.githubusercontent.com/rednote-hilab/dots.mocr/master/assets/showcase/result/table3.png" alt="table3.png" border="0" />
 <img src="https://raw.githubusercontent.com/rednote-hilab/dots.mocr/master/assets/showcase/result/Tibetan.png" alt="Tibetan.png" border="0" />
@@ -744,8 +747,8 @@ Have fun with the [live demo](https://dotsocr.xiaohongshu.com/).
 <img src="https://raw.githubusercontent.com/rednote-hilab/dots.mocr/master/assets/showcase/result/kannada.png" alt="kannada.png" border="0" />
 <img src="https://raw.githubusercontent.com/rednote-hilab/dots.mocr/master/assets/showcase/result/russian.png" alt="russian.png" border="0" />
 
-
 ### Examples for image parsing
+
 <img src="https://raw.githubusercontent.com/rednote-hilab/dots.mocr/master/assets/showcase/result/svg_1.png" alt="svg_1.png" border="0" />
 <img src="https://raw.githubusercontent.com/rednote-hilab/dots.mocr/master/assets/showcase/result/svg_2.png" alt="svg_2.png" border="0" />
 <img src="https://raw.githubusercontent.com/rednote-hilab/dots.mocr/master/assets/showcase/result/svg_4.png" alt="svg_4.png" border="0" />
@@ -753,16 +756,18 @@ Have fun with the [live demo](https://dotsocr.xiaohongshu.com/).
 <img src="https://raw.githubusercontent.com/rednote-hilab/dots.mocr/master/assets/showcase/result/svg_6.png" alt="svg_6.png" border="0" />
 
 > **Note:**
+>
 > - Inferenced by dots.mocr-svg
 
 ### Example for web parsing
+
 <img src="https://raw.githubusercontent.com/rednote-hilab/dots.mocr/master/assets/showcase/result/webpage_1.png" alt="webpage_1.png" border="0" />
 <img src="https://raw.githubusercontent.com/rednote-hilab/dots.mocr/master/assets/showcase/result/webpage_2.png" alt="webpage_2.png" border="0" />
 
 ### Examples for scene spotting
+
 <img src="https://raw.githubusercontent.com/rednote-hilab/dots.mocr/master/assets/showcase/result/scene_1.png" alt="scene_1.png" border="0" />
 <img src="https://raw.githubusercontent.com/rednote-hilab/dots.mocr/master/assets/showcase/result/scene_2.png" alt="scene_2.png" border="0" />
-
 
 # Limitation & Future Work
 
@@ -770,19 +775,18 @@ Have fun with the [live demo](https://dotsocr.xiaohongshu.com/).
   - **Table&Formula**: The extraction of complex tables and mathematical formulas persists as a difficult task given the model's compact architecture.
   - **Picture**: We have adopted an SVG code representation for parsing structured graphics; however, the performance has yet to achieve the desired level of robustness.
 
-- **Parsing Failures:** While we have reduced the rate of parsing failures compared to the previous version, these issues may still occur occasionally. We remain committed to further resolving these edge cases in future updates. 
-
+- **Parsing Failures:** While we have reduced the rate of parsing failures compared to the previous version, these issues may still occur occasionally. We remain committed to further resolving these edge cases in future updates.
 
 # Citation
 
 ```BibTeX
 @misc{zheng2026multimodalocrparsedocuments,
-      title={Multimodal OCR: Parse Anything from Documents}, 
+      title={Multimodal OCR: Parse Anything from Documents},
       author={Handong Zheng and Yumeng Li and Kaile Zhang and Liang Xin and Guangwei Zhao and Hao Liu and Jiayu Chen and Jie Lou and Jiyu Qiu and Qi Fu and Rui Yang and Shuo Jiang and Weijian Luo and Weijie Su and Weijun Zhang and Xingyu Zhu and Yabin Li and Yiwei ma and Yu Chen and Zhaohui Yu and Guang Yang and Colin Zhang and Lei Zhang and Yuliang Liu and Xiang Bai},
       year={2026},
       eprint={2603.13032},
       archivePrefix={arXiv},
       primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2603.13032}, 
+      url={https://arxiv.org/abs/2603.13032},
 }
 ```
