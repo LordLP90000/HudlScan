@@ -7,6 +7,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import ProcessingSpinner from '$lib/components/ProcessingSpinner.svelte';
 	import Banner from '$lib/components/Banner.svelte';
+	import { ALLOWED_FORMATS_LABEL, MAX_FILE_SIZE_BYTES, MAX_FILE_SIZE_MB } from '$lib/config';
 	import * as pdfjsLib from 'pdfjs-dist';
 	import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 
@@ -340,14 +341,16 @@
 	function handleFilesSelected(files: globalThis.FileList) {
 		resetDebug();
 		const fileItems: FileItem[] = [];
-		const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB limit
 
 		for (let i = 0; i < files.length; i++) {
 			const file = files[i];
 
 			// SECURITY: Validate file size before processing
-			if (file.size > MAX_FILE_SIZE) {
-				addDebug('error', `${file.name} exceeds 50MB limit (${formatFileSize(file.size)})`);
+			if (file.size > MAX_FILE_SIZE_BYTES) {
+				addDebug(
+					'error',
+					`${file.name} exceeds ${MAX_FILE_SIZE_MB}MB limit (${formatFileSize(file.size)})`
+				);
 				continue;
 			}
 
@@ -637,7 +640,7 @@
 
 			{#if uploadState === 'empty'}
 				<div>
-					<FileDropzone onFilesSelected={handleFilesSelected} />
+					<FileDropz{ALLOWED_FORMATS_LABEL} files up to {MAX_FILE_SIZE_MB}Selected} />
 					<p class="mt-3 text-center text-xs text-zinc-500">
 						Supports PDF, PNG, and JPG files up to 50MB
 					</p>

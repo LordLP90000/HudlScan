@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Nav from '$lib/components/Nav.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import { ALLOWED_FORMATS } from '$lib/config';
 </script>
 
 <svelte:head>
@@ -42,9 +43,9 @@
 						<div class="rounded-xl bg-zinc-900 p-4">
 							<div class="mb-2 text-xs font-semibold text-zinc-500">SUPPORTED FILES</div>
 							<div class="flex flex-wrap gap-2">
-								<span class="rounded bg-zinc-800 px-2 py-1 text-sm text-zinc-300">PDF</span>
-								<span class="rounded bg-zinc-800 px-2 py-1 text-sm text-zinc-300">PNG</span>
-								<span class="rounded bg-zinc-800 px-2 py-1 text-sm text-zinc-300">JPG</span>
+								{#each ALLOWED_FORMATS as format (format)}
+									<span class="rounded bg-zinc-800 px-2 py-1 text-sm text-zinc-300">{format}</span>
+								{/each}
 							</div>
 						</div>
 					</div>

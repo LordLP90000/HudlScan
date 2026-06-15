@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Nav from '$lib/components/Nav.svelte';
+	import { MAX_FILE_SIZE_MB } from '$lib/config';
 
 	let uploadsCount = $state(0);
 	let accuracyValue = $state(0);
@@ -25,7 +26,7 @@
 </script>
 
 <svelte:head>
-	<title>HudlScanner - Extract Football Plays to Excel</title>
+	<title>Hudl Playbook AI - Extract Football Plays to Excel</title>
 	<meta
 		name="description"
 		content="Transform American football playbooks into Excel spreadsheets with AI-powered OCR. Extract formations, concepts, routes, and tags in seconds."
@@ -266,7 +267,8 @@
 					</div>
 					<h3 class="mb-2 text-xl font-bold">Upload Playbook</h3>
 					<p class="text-zinc-400">
-						Drag & drop playbook pages as PDF or images. Up to 10MB per file, bulk upload supported.
+						Drag & drop playbook pages as PDF or images. Up to {MAX_FILE_SIZE_MB}MB per file, bulk
+						upload supported.
 					</p>
 				</div>
 
@@ -336,7 +338,7 @@
 						>
 							<span class="font-bold text-white">H</span>
 						</div>
-						<span>HudlScanner</span>
+					<span>Hudl Playbook AI</span>
 					</div>
 					<p class="text-zinc-500">
 						Extract football plays to Excel automatically. Save hours of manual data entry.
@@ -372,7 +374,7 @@
 			</div>
 
 			<div class="mt-12 border-t border-zinc-900 pt-8 text-sm text-zinc-600">
-				© {new Date().getFullYear()} HudlScanner. All rights reserved.
+				© {new Date().getFullYear()} Hudl Playbook AI. All rights reserved.
 			</div>
 		</div>
 	</footer>

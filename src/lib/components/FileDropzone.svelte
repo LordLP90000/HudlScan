@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { ALLOWED_EXTENSIONS, ALLOWED_FORMATS_LABEL, MAX_FILE_SIZE_MB } from '$lib/config';
+
 	interface Props {
 		onFilesSelected: (files: FileList) => void;
 		multiple?: boolean;
@@ -48,7 +50,7 @@
 >
 	<input
 		type="file"
-		accept=".png,.jpg,.jpeg,.pdf,.webp"
+		accept={ALLOWED_EXTENSIONS}
 		{multiple}
 		onchange={handleFileInput}
 		class="hidden"
@@ -56,6 +58,8 @@
 	/>
 	<label for="file-input" class="cursor-pointer">
 		Click to upload your playbook<br />
-		<span class="text-xs text-zinc-600">Supports PNG, JPG, PDF, WEBP - Multiple files allowed</span>
+		<span class="text-xs text-zinc-600"
+			>Supports {ALLOWED_FORMATS_LABEL} up to {MAX_FILE_SIZE_MB}MB · Multiple files allowed</span
+		>
 	</label>
 </div>
