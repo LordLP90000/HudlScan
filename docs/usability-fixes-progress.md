@@ -21,9 +21,9 @@ is completed and committed.
 
 | # | Measure | Status | Files |
 | - | ------- | ------ | ----- |
-| M1 | Credible homepage metrics + single accuracy claim | ⏳ Pending | `+page.svelte`, `how-it-works/+page.svelte`, `upload/+page.svelte` |
-| M5a | Debug panel only in DEV | ⏳ Pending | `upload/+page.svelte` |
-| M5b | Privacy notice + replace "coming soon" legal links | ⏳ Pending | `+page.svelte`, new `privacy/+page.svelte` |
+| M1 | Credible homepage metrics + single accuracy claim | ✅ Done | `+page.svelte`, `how-it-works/+page.svelte`, `upload/+page.svelte` |
+| M5a | Debug panel only in DEV | ✅ Done | `upload/+page.svelte` |
+| M5b | Privacy notice + replace "coming soon" legal links | ✅ Done | `+page.svelte`, new `privacy/+page.svelte`, `upload/+page.svelte` |
 
 ## Batch 3 — Clarity & flow (from user test)
 
@@ -50,3 +50,11 @@ _(updated after each batch)_
   accuracy claim. Wired `FileDropzone`, the upload page, the homepage step text and the
   how-it-works "supported files" chips to it (removes the 10 MB vs 50 MB and format-list
   contradictions). Unified the homepage `<title>` and footer brand to `Hudl Playbook AI`.
+- **Batch 2 — Credibility & trust:** Replaced the broken-looking animated "0K+ / 0%"
+  homepage stats with honest, config-driven figures (accuracy, ~2 min per playbook,
+  0 manual entry) and routed every accuracy mention through `ACCURACY_CLAIM` so the
+  homepage, how-it-works and upload pages can no longer contradict each other. Gated the
+  upload debug panel behind SvelteKit's `dev` flag so it is hidden in production. Added a
+  real `privacy/+page.svelte` (plain-language data-handling notice), replaced the footer
+  "coming soon" legal placeholders with a working Privacy link (+ Terms marked "planned"),
+  and added a short data-handling hint with a privacy link beneath the upload dropzone.

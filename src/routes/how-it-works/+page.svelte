@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Nav from '$lib/components/Nav.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import { ALLOWED_FORMATS } from '$lib/config';
+	import { ACCURACY_CLAIM, ALLOWED_FORMATS } from '$lib/config';
 </script>
 
 <svelte:head>
@@ -114,7 +114,7 @@
 					<p class="text-zinc-400">vs 2-3 hours typing manually</p>
 				</div>
 				<div class="text-center">
-					<div class="mb-2 text-4xl font-bold text-orange-400 md:text-5xl">99%</div>
+					<div class="mb-2 text-4xl font-bold text-orange-400 md:text-5xl">{ACCURACY_CLAIM}</div>
 					<p class="text-zinc-400">extraction accuracy rate</p>
 				</div>
 				<div class="text-center">

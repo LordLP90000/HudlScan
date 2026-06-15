@@ -1,5 +1,28 @@
 {
 	"files.associations": {
 		"*.css": "tailwindcss"
+	},
+	"files.exclude": {
+		"**/node_modules": true,
+		"**/.git": true,
+		"**/.DS_Store": true,
+		"**/.vite": true,
+		"**/.vite-temp": true,
+		"**/dist": true,
+		"**/.svelte-kit": true,
+		"**/build": true
+	},
+	"search.exclude": {
+		"**/node_modules": true,
+		"**/.vite": true,
+		"**/.vite-temp": true,
+		"**/dist": true,
+		"**/.svelte-kit": true
+	},
+	"github.copilot.enable": {
+		"*": true,
+		"yaml": false,
+		"plaintext": false,
+		"markdown": false
 	}
 }

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { dev } from '$app/environment';
 	import Nav from '$lib/components/Nav.svelte';
 	import PositionSelector from '$lib/components/PositionSelector.svelte';
 	import FileDropzone from '$lib/components/FileDropzone.svelte';
@@ -7,7 +8,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import ProcessingSpinner from '$lib/components/ProcessingSpinner.svelte';
 	import Banner from '$lib/components/Banner.svelte';
-	import { ALLOWED_FORMATS_LABEL, MAX_FILE_SIZE_BYTES, MAX_FILE_SIZE_MB } from '$lib/config';
+	import { ACCURACY_CLAIM, ALLOWED_FORMATS_LABEL, MAX_FILE_SIZE_BYTES, MAX_FILE_SIZE_MB } from '$lib/config';
 	import * as pdfjsLib from 'pdfjs-dist';
 	import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 
@@ -640,9 +641,15 @@
 
 			{#if uploadState === 'empty'}
 				<div>
-					<FileDropz{ALLOWED_FORMATS_LABEL} files up to {MAX_FILE_SIZE_MB}Selected} />
+					<FileDropzone onFilesSelected={handleFilesSelected} />
 					<p class="mt-3 text-center text-xs text-zinc-500">
-						Supports PDF, PNG, and JPG files up to 50MB
+						Supports {ALLOWED_FORMATS_LABEL} files up to {MAX_FILE_SIZE_MB}MB
+					</p>
+					<p class="mt-1 text-center text-xs text-zinc-500">
+						Files are used only to extract plays and are processed by a third-party AI service.
+						<a href="/privacy" class="text-orange-400 underline-offset-2 hover:underline"
+							>How we handle your data</a
+						>
 					</p>
 				</div>
 			{:else if uploadState === 'ready'}
@@ -670,8 +677,8 @@
 			{/if}
 		</div>
 
-		<!-- Debug Panel - Hidden by default for better UX -->
-		{#if uploadState !== 'empty' && uploadState !== 'processing'}
+		<!-- Debug Panel - DEV only, hidden in production for better UX -->
+		{#if dev && uploadState !== 'empty' && uploadState !== 'processing'}
 			<button
 				type="button"
 				onclick={() => (showDebugPanel = !showDebugPanel)}
@@ -681,7 +688,7 @@
 			</button>
 		{/if}
 
-		{#if showDebugPanel && uploadState !== 'processing'}
+		{#if dev && showDebugPanel && uploadState !== 'processing'}
 			<div class="mt-3 overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/80">
 				<div class="border-b border-zinc-800 px-4 py-2">
 					<h3 class="text-xs font-semibold tracking-wide text-zinc-300">Debug panel</h3>
@@ -725,7 +732,7 @@
 					<div class="text-zinc-500">Positions</div>
 				</div>
 				<div class="rounded-lg bg-zinc-900/50 p-3">
-					<div class="text-lg font-bold text-orange-400">99%</div>
+					<div class="text-lg font-bold text-orange-400">{ACCURACY_CLAIM}</div>
 					<div class="text-zinc-500">Accuracy</div>
 				</div>
 			</div>

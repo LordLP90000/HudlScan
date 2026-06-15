@@ -1,28 +1,6 @@
 <script lang="ts">
 	import Nav from '$lib/components/Nav.svelte';
-	import { MAX_FILE_SIZE_MB } from '$lib/config';
-
-	let uploadsCount = $state(0);
-	let accuracyValue = $state(0);
-
-	$effect(() => {
-		const animate = (target: number, setter: (v: number) => void) => {
-			let current = 0;
-			const step = target / 40;
-			const timer = setInterval(() => {
-				current += step;
-				if (current >= target) {
-					setter(target);
-					clearInterval(timer);
-				} else {
-					setter(Math.floor(current));
-				}
-			}, 30);
-		};
-
-		animate(1247, (v) => (uploadsCount = v));
-		animate(99, (v) => (accuracyValue = v));
-	});
+	import { ACCURACY_CLAIM, MAX_FILE_SIZE_MB } from '$lib/config';
 </script>
 
 <svelte:head>
@@ -165,20 +143,16 @@
 		<section class="border-y border-zinc-800 py-20">
 			<div class="grid grid-cols-1 gap-8 text-center md:grid-cols-3">
 				<div>
-					<div class="mb-2 text-5xl font-bold text-orange-400 tabular-nums md:text-6xl">
-						<span>{uploadsCount}</span>K+
-					</div>
-					<div class="text-zinc-400">Plays Extracted</div>
+					<div class="mb-2 text-5xl font-bold text-orange-400 md:text-6xl">{ACCURACY_CLAIM}</div>
+					<div class="text-zinc-400">Extraction accuracy</div>
 				</div>
 				<div>
-					<div class="mb-2 text-5xl font-bold text-orange-400 tabular-nums md:text-6xl">
-						<span>{accuracyValue}</span>%
-					</div>
-					<div class="text-zinc-400">Accuracy Rate</div>
+					<div class="mb-2 text-5xl font-bold text-orange-400 md:text-6xl">~2 min</div>
+					<div class="text-zinc-400">Per playbook vs. hours of typing</div>
 				</div>
 				<div>
 					<div class="mb-2 text-5xl font-bold text-orange-400 md:text-6xl">0</div>
-					<div class="text-zinc-400">Manual Entry</div>
+					<div class="text-zinc-400">Manual data entry</div>
 				</div>
 			</div>
 		</section>
@@ -367,8 +341,10 @@
 				<div>
 					<h4 class="mb-4 font-bold">Legal</h4>
 					<ul class="space-y-3 text-zinc-400">
-						<li class="text-zinc-600">Privacy Policy (coming soon)</li>
-						<li class="text-zinc-600">Terms of Service (coming soon)</li>
+						<li>
+							<a href="/privacy" class="transition-colors hover:text-white">Privacy &amp; Data Handling</a>
+						</li>
+						<li class="text-zinc-600">Terms of Service (planned)</li>
 					</ul>
 				</div>
 			</div>
