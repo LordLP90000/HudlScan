@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ALLOWED_EXTENSIONS, ALLOWED_FORMATS_LABEL, MAX_FILE_SIZE_MB } from '$lib/config';
+	import { ALLOWED_EXTENSIONS, ALLOWED_FORMATS_LABEL, MAX_FILE_SIZE_MB } from '$lib/config.js';
 
 	interface Props {
 		onFilesSelected: (files: FileList) => void;

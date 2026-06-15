@@ -37,7 +37,9 @@ is completed and committed.
 
 | # | Task | Status |
 | - | ---- | ------ |
-| V | `npm run dev` starts clean + `npm run build` passes | ⏳ Pending (run after Batch 3) |
+| V | `npm run check` (svelte-check) | ✅ 0 errors, 0 warnings |
+| V | `npm run build` | ✅ Builds clean (adapter-vercel) |
+| V | `npm run dev` + browser smoke test | ✅ Home / Upload / Editor / Privacy all render |
 
 ---
 
@@ -65,6 +67,14 @@ _(updated after each batch)_
   "Step 2") and removed the now-duplicate label inside `PositionSelector`. Added a clearly
   labelled "Upload another" action in the editor toolbar (and renamed the old "New" to
   "Clear" for clarity).
+- **Batch 4 — Verification:** `npm run check` reported 0 errors/0 warnings; `npm run build`
+  completed cleanly; `npm run dev` smoke-tested in the browser (home, upload, editor,
+  privacy all render correctly).
 
-> **Remaining:** Batch 4 verification (`npm run dev` / `npm run build`) not yet run — paused
-> here at user request.
+  - **Pre-existing fix required to run:** `/upload` was throwing a 500 in dev SSR because
+    `pdfjs-dist` references the browser-only `DOMMatrix` at import time (this top-level
+    import predates these changes — see commit `60c95da`). Added `src/routes/upload/+page.ts`
+    with `export const ssr = false;` so the fully client-side upload tool renders on the
+    client only. No behaviour change to the Upload → Extraction → Editor → Excel flow.
+
+> All measures from the usability report are implemented and verified.

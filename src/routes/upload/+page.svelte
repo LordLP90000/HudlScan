@@ -8,7 +8,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import ProcessingSpinner from '$lib/components/ProcessingSpinner.svelte';
 	import Banner from '$lib/components/Banner.svelte';
-	import { ACCURACY_CLAIM, ALLOWED_FORMATS_LABEL, MAX_FILE_SIZE_BYTES, MAX_FILE_SIZE_MB } from '$lib/config';
+	import { ACCURACY_CLAIM, ALLOWED_FORMATS_LABEL, MAX_FILE_SIZE_BYTES, MAX_FILE_SIZE_MB } from '$lib/config.js';
 	import * as pdfjsLib from 'pdfjs-dist';
 	import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 

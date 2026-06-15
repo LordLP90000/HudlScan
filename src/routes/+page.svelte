@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Nav from '$lib/components/Nav.svelte';
-	import { ACCURACY_CLAIM, MAX_FILE_SIZE_MB } from '$lib/config';
+	import { ACCURACY_CLAIM, MAX_FILE_SIZE_MB } from '$lib/config.js';
 </script>
 
 <svelte:head>

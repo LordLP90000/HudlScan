@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Nav from '$lib/components/Nav.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import { ACCURACY_CLAIM, ALLOWED_FORMATS } from '$lib/config';
+	import { ACCURACY_CLAIM, ALLOWED_FORMATS } from '$lib/config.js';
 </script>
 
 <svelte:head>
