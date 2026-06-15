@@ -8,6 +8,7 @@
 	import PlaysTable from '$lib/components/PlaysTable.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import type { Play } from '$lib/components/PlaysTable.svelte';
+	import { POSITION_NAMES } from '$lib/config.js';
 	import * as XLSX from 'xlsx';
 
 	// Get position from URL query param
@@ -27,18 +28,8 @@
 	let newFormation = $state('');
 	let newRoute = $state('');
 
-	const positionNames: Record<string, string> = {
-		QB: 'Quarterback',
-		RB: 'Running Back',
-		FB: 'Fullback / A-Back',
-		X: 'X Receiver',
-		Y: 'Y Receiver',
-		Z: 'Z Receiver',
-		H: 'H-Back / Slot',
-		TE: 'Tight End'
-	};
-
-	const positionName = positionNames[positionParam] || positionParam;
+	const positionName =
+		POSITION_NAMES[positionParam as keyof typeof POSITION_NAMES] || positionParam;
 
 	onMount(() => {
 		// Try to load extracted plays from sessionStorage
@@ -228,9 +219,9 @@
 							<div><span class="font-medium text-zinc-200">QB</span> — Quarterback</div>
 							<div><span class="font-medium text-zinc-200">RB</span> — Running Back</div>
 							<div><span class="font-medium text-zinc-200">FB / A-Back</span> — Fullback</div>
+							<div><span class="font-medium text-zinc-200">X</span> — X Receiver</div>
+							<div><span class="font-medium text-zinc-200">Z</span> — Z Receiver</div>
 							<div><span class="font-medium text-zinc-200">TE</span> — Tight End</div>
-							<div><span class="font-medium text-zinc-200">H</span> — H-Back / Slot</div>
-							<div><span class="font-medium text-zinc-200">X / Y / Z</span> — Receivers</div>
 						</div>
 						<p class="mt-2 text-xs text-zinc-500">
 							“A-Back” is the fullback-type back lined up next to the tackle; its exact spot

@@ -25,3 +25,19 @@ export const ALLOWED_EXTENSIONS = '.png,.jpg,.jpeg,.pdf,.webp';
  * homepage and "How It Works" can never contradict each other.
  */
 export const ACCURACY_CLAIM = '99%';
+
+/** Skill positions that can be extracted, in display order. */
+export const POSITIONS = ['QB', 'RB', 'FB', 'X', 'Z', 'TE'] as const;
+
+/** A single extractable position code. */
+export type Position = (typeof POSITIONS)[number];
+
+/** Human-readable names for each position (used in the editor and legend). */
+export const POSITION_NAMES: Record<Position, string> = {
+	QB: 'Quarterback',
+	RB: 'Running Back',
+	FB: 'Fullback / A-Back',
+	X: 'X Receiver',
+	Z: 'Z Receiver',
+	TE: 'Tight End'
+};

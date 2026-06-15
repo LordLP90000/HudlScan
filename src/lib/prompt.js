@@ -4,7 +4,6 @@ const positionLabels = {
 	RB: ['2', 'RB', 'Running Back', '2-back'],
 	FB: ['A', 'FB', 'Fullback', 'A-back'],
 	X: ['X', '#1', '1', 'Wide', 'Split End', 'SE', 'WR'],
-	Y: ['Y', '#2', '2', 'Slot', 'Inside Slot'],
 	Z: ['Z', '#1', 'Flanker', 'Boundary'],
 	TE: ['T', 'TE', 'Tight End']
 };

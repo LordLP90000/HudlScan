@@ -8,7 +8,14 @@
 	import Button from '$lib/components/Button.svelte';
 	import ProcessingSpinner from '$lib/components/ProcessingSpinner.svelte';
 	import Banner from '$lib/components/Banner.svelte';
-	import { ACCURACY_CLAIM, ALLOWED_FORMATS_LABEL, MAX_FILE_SIZE_BYTES, MAX_FILE_SIZE_MB } from '$lib/config.js';
+	import {
+		ACCURACY_CLAIM,
+		ALLOWED_FORMATS_LABEL,
+		MAX_FILE_SIZE_BYTES,
+		MAX_FILE_SIZE_MB,
+		POSITIONS,
+		type Position
+	} from '$lib/config.js';
 	import * as pdfjsLib from 'pdfjs-dist';
 	import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 
@@ -53,10 +60,7 @@
 
 	type UploadState = 'empty' | 'ready' | 'processing' | 'error' | 'complete';
 
-	// SECURITY: Define allowed positions for validation
-	const ALLOWED_POSITIONS = ['FB', 'RB', 'QB', 'OL', 'WR', 'TE'] as const;
-	type Position = (typeof ALLOWED_POSITIONS)[number];
-
+	// SECURITY: Allowed positions come from the shared config (single source of truth)
 	let selectedPosition = $state<Position>('FB');
 	let uploadState = $state<UploadState>('empty');
 	let selectedFiles = $state<FileItem[]>([]);
@@ -633,12 +637,12 @@
 					{selectedPosition}
 					onSelect={(pos: string) => {
 						// SECURITY: Validate position before accepting
-						if (ALLOWED_POSITIONS.includes(pos as Position)) {
+						if (POSITIONS.includes(pos as Position)) {
 							selectedPosition = pos as Position;
 						} else {
 							addDebug(
 								'error',
-								`Invalid position: ${pos}. Must be one of: ${ALLOWED_POSITIONS.join(', ')}`
+								`Invalid position: ${pos}. Must be one of: ${POSITIONS.join(', ')}`
 							);
 						}
 					}}

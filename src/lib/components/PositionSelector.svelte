@@ -1,17 +1,17 @@
 <script lang="ts">
+	import { POSITIONS } from '$lib/config.js';
+
 	interface Props {
 		selectedPosition: string;
 		onSelect: (position: string) => void;
 	}
 
 	let { selectedPosition, onSelect }: Props = $props();
-
-	const positions = ['QB', 'RB', 'FB', 'X', 'Y', 'Z', 'H', 'TE'];
 </script>
 
 <div class="mb-3">
-	<div class="grid grid-cols-8 gap-1.5">
-		{#each positions as position (position)}
+	<div class="grid grid-cols-6 gap-1.5">
+		{#each POSITIONS as position (position)}
 			<button
 				class="rounded-lg border py-2 text-center text-xs transition-all {selectedPosition ===
 				position
