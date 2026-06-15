@@ -24,8 +24,18 @@
 			<thead>
 				<tr class="bg-zinc-900">
 					<th class="border border-zinc-800 px-2.5 py-2 text-left">#</th>
-					<th class="border border-zinc-800 px-2.5 py-2 text-left">Formation/Play</th>
-					<th class="border border-zinc-800 px-2.5 py-2 text-left">Route/Blocking</th>
+					<th
+						class="border border-zinc-800 px-2.5 py-2 text-left"
+						title="The formation and/or play name as drawn in the playbook (e.g. 'Luzern A-Near Power')."
+					>
+						Formation/Play
+					</th>
+					<th
+						class="border border-zinc-800 px-2.5 py-2 text-left"
+						title="What the selected position does on this play — a pass route or a blocking assignment (e.g. '5 Out' or 'Lead Block RB')."
+					>
+						Route/Blocking
+					</th>
 					<th class="border border-zinc-800 px-2.5 py-2 text-left">Actions</th>
 				</tr>
 			</thead>

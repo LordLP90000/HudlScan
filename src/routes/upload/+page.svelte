@@ -618,11 +618,17 @@
 
 		<!-- Main Panel -->
 		<div class="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
-			<!-- Position Selector with clearer label -->
-			<div class="mb-6">
-				<span class="mb-3 block text-sm font-semibold text-zinc-300">
-					Which position are you extracting for?
-				</span>
+			<!-- Step 1: Position Selector - prominent so it isn't missed -->
+			<div class="mb-6 rounded-xl border border-orange-500/40 bg-orange-500/5 p-4">
+				<div class="mb-3 flex items-center gap-2.5">
+					<span
+						class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-500 text-xs font-bold text-white"
+						>1</span
+					>
+					<span class="text-sm font-semibold text-zinc-100">
+						Which position are you extracting for?
+					</span>
+				</div>
 				<PositionSelector
 					{selectedPosition}
 					onSelect={(pos: string) => {
@@ -637,6 +643,15 @@
 						}
 					}}
 				/>
+			</div>
+
+			<!-- Step 2: Upload -->
+			<div class="mb-3 flex items-center gap-2.5">
+				<span
+					class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-zinc-700 text-xs font-bold text-white"
+					>2</span
+				>
+				<span class="text-sm font-semibold text-zinc-100">Upload your playbook</span>
 			</div>
 
 			{#if uploadState === 'empty'}

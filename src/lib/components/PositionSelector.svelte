@@ -10,7 +10,6 @@
 </script>
 
 <div class="mb-3">
-	<div class="mb-2 text-sm font-bold">Select Your Position</div>
 	<div class="grid grid-cols-8 gap-1.5">
 		{#each positions as position (position)}
 			<button

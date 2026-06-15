@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import Nav from '$lib/components/Nav.svelte';
 	import Chip from '$lib/components/Chip.svelte';
@@ -22,6 +23,7 @@
 	let plays = $state<Play[]>([]);
 	let showSuccessBanner = $state(true);
 	let showAddRow = $state(false);
+	let showLegend = $state(false);
 	let newFormation = $state('');
 	let newRoute = $state('');
 
@@ -103,6 +105,10 @@
 		showSuccessBanner = false;
 	}
 
+	function handleUploadAnother() {
+		goto('/upload');
+	}
+
 	function handleDuplicate(index: number) {
 		const original = plays[index];
 		const duplicate: Play = {
@@ -169,7 +175,8 @@
 		</div>
 		<div class="flex gap-1.5">
 			<Chip variant="success" onclick={handleAddRow}>Add Row</Chip>
-			<Chip onclick={handleNew}>New</Chip>
+			<Chip onclick={handleUploadAnother}>Upload another</Chip>
+			<Chip onclick={handleNew}>Clear</Chip>
 			<Chip variant="primary" onclick={handleExportExcel}>Export Excel</Chip>
 		</div>
 	</div>
@@ -182,6 +189,58 @@
 			onDismiss={() => (showSuccessBanner = false)}
 		/>
 	{/if}
+
+	<!-- Column & abbreviation legend (collapsible) -->
+	<div class="px-4 pt-4">
+		<div class="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/50">
+			<button
+				type="button"
+				onclick={() => (showLegend = !showLegend)}
+				class="flex w-full items-center justify-between px-4 py-2.5 text-left text-sm font-semibold text-zinc-300 transition-colors hover:text-white"
+				aria-expanded={showLegend}
+			>
+				<span>What do these columns and codes mean?</span>
+				<span class="text-xs text-zinc-500">{showLegend ? 'Hide' : 'Show'}</span>
+			</button>
+			{#if showLegend}
+				<div class="space-y-4 border-t border-zinc-800 px-4 py-4 text-sm">
+					<div>
+						<div class="mb-1.5 text-xs font-semibold tracking-wide text-orange-400 uppercase">
+							Columns
+						</div>
+						<ul class="space-y-1.5 text-zinc-400">
+							<li>
+								<span class="font-medium text-zinc-200">Formation/Play</span> — the formation
+								and play name as drawn in the playbook (e.g. “Luzern A-Near Power”).
+							</li>
+							<li>
+								<span class="font-medium text-zinc-200">Route/Blocking</span> — what the
+								selected position does on the play: a pass route or a blocking assignment
+								(e.g. “5 Out” or “Lead Block RB”).
+							</li>
+						</ul>
+					</div>
+					<div>
+						<div class="mb-1.5 text-xs font-semibold tracking-wide text-orange-400 uppercase">
+							Position codes
+						</div>
+						<div class="grid grid-cols-2 gap-x-6 gap-y-1.5 text-zinc-400 sm:grid-cols-3">
+							<div><span class="font-medium text-zinc-200">QB</span> — Quarterback</div>
+							<div><span class="font-medium text-zinc-200">RB</span> — Running Back</div>
+							<div><span class="font-medium text-zinc-200">FB / A-Back</span> — Fullback</div>
+							<div><span class="font-medium text-zinc-200">TE</span> — Tight End</div>
+							<div><span class="font-medium text-zinc-200">H</span> — H-Back / Slot</div>
+							<div><span class="font-medium text-zinc-200">X / Y / Z</span> — Receivers</div>
+						</div>
+						<p class="mt-2 text-xs text-zinc-500">
+							“A-Back” is the fullback-type back lined up next to the tackle; its exact spot
+							changes with the formation tag (e.g. A-Near, A-Bump).
+						</p>
+					</div>
+				</div>
+			{/if}
+		</div>
+	</div>
 
 	<!-- Plays Table -->
 	<div class="px-4 pb-4">

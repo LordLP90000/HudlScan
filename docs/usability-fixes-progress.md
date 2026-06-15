@@ -29,15 +29,15 @@ is completed and committed.
 
 | # | Measure | Status | Files |
 | - | ------- | ------ | ----- |
-| M3 | Explain abbreviations (legend/tooltips) | ⏳ Pending | `editor/+page.svelte`, `PlaysTable.svelte` |
-| + | Make "Select position" step more prominent | ⏳ Pending | `upload/+page.svelte`, `PositionSelector.svelte` |
-| + | Clear "Upload another" action on results | ⏳ Pending | `editor/+page.svelte` |
+| M3 | Explain abbreviations (legend/tooltips) | ✅ Done | `editor/+page.svelte`, `PlaysTable.svelte` |
+| + | Make "Select position" step more prominent | ✅ Done | `upload/+page.svelte`, `PositionSelector.svelte` |
+| + | Clear "Upload another" action on results | ✅ Done | `editor/+page.svelte` |
 
 ## Batch 4 — Verification
 
 | # | Task | Status |
 | - | ---- | ------ |
-| V | `npm run dev` starts clean + `npm run build` passes | ⏳ Pending |
+| V | `npm run dev` starts clean + `npm run build` passes | ⏳ Pending (run after Batch 3) |
 
 ---
 
@@ -58,3 +58,13 @@ _(updated after each batch)_
   real `privacy/+page.svelte` (plain-language data-handling notice), replaced the footer
   "coming soon" legal placeholders with a working Privacy link (+ Terms marked "planned"),
   and added a short data-handling hint with a privacy link beneath the upload dropzone.
+- **Batch 3 — Clarity & flow:** Added a collapsible "What do these columns and codes mean?"
+  legend on the editor (explains Formation/Play, Route/Blocking and the QB/RB/FB/A-Back/TE
+  /H/X/Y/Z position codes) plus `title` tooltips on the table headers. Made the position
+  step prominent on the upload page (numbered "Step 1" in a highlighted box, upload becomes
+  "Step 2") and removed the now-duplicate label inside `PositionSelector`. Added a clearly
+  labelled "Upload another" action in the editor toolbar (and renamed the old "New" to
+  "Clear" for clarity).
+
+> **Remaining:** Batch 4 verification (`npm run dev` / `npm run build`) not yet run — paused
+> here at user request.
